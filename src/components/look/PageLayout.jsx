@@ -1,13 +1,7 @@
 import React from "react";
 import { TabBar } from "antd-mobile";
-import styled from "styled-components";
+import styles from  '../../styles/layout.css'
 
-const LayoutWrapper = styled.div`
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  bottom: 0;
-`;
 
 class PageLayout extends React.Component {
   constructor(props) {
@@ -35,7 +29,7 @@ class PageLayout extends React.Component {
 
   render() {
     return (
-      <LayoutWrapper>
+      <div className={styles.pageLayoutContainer}>
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
@@ -164,7 +158,7 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBar.Item>
         </TabBar>
-      </LayoutWrapper>
+      </div>
     );
   }
 }

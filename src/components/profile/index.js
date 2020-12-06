@@ -6,7 +6,7 @@ class Profile extends Component {
     return (
       <div>
         <PageLayout>
-          {/* <h1 style={{}}>Profile</h1> */}
+          <h1>Profile</h1>
         </PageLayout>
       </div>
     );
