@@ -1,4 +1,5 @@
 const { injectBabelPlugin, getLoader } = require('react-app-rewired');
+const theme = require('./package.json').theme;
 
 const fileLoaderMatcher = function (rule) {
   return rule.loader && rule.loader.indexOf(`file-loader`) != -1;
@@ -6,11 +7,11 @@ const fileLoaderMatcher = function (rule) {
 
 module.exports = function override(config, env) {
   // babel-plugin-import
-  config = injectBabelPlugin(['import', {
-    libraryName: 'antd-mobile',
-    //style: 'css',
-    style: true, // use less for customized theme
-  }], config);
+  // config = injectBabelPlugin(['import', {
+  //   libraryName: 'antd-mobile',
+  //   //style: 'css',
+  //   style: true, // use less for customized theme
+  // }], config);
 
   // customize theme
   config.module.rules[1].oneOf.unshift(
@@ -24,6 +25,7 @@ module.exports = function override(config, env) {
           options: {
             // Necessary for external CSS imports to work
             // https://github.com/facebookincubator/create-react-app/issues/2677
+            
             ident: 'postcss',
             plugins: () => [
               require('postcss-flexbugs-fixes'),
@@ -44,6 +46,7 @@ module.exports = function override(config, env) {
           options: {
             // theme vars, also can use theme.js instead of this.
             // modifyVars: { "@brand-primary": "#1DA57A" },
+            // modifyVars: theme,
           },
         },
       ]

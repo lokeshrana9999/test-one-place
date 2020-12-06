@@ -1,7 +1,29 @@
-import React from "react";
-import { TabBar } from "antd-mobile";
-import styles from  '../../styles/layout.css'
+import React, {useState, Component} from "react";
+import { TabBar, Switch } from "antd-mobile";
+import {
+  IoMailOutline,
+  IoMailSharp,
+  IoBarChartOutline,
+  IoBarChartSharp,
+  IoNotificationsOutline,
+  IoNotificationsSharp,
+} from "react-icons/io5";
+// import  "../../styles/layout.less";
+// import  "../../styles/theme-dark.less";
 
+const ThemeSwitch = (props) => {
+  const [on, setOn] = useState(false);
+
+
+  return (
+    <Switch
+      checked={on}
+      onChange={() => {
+        setOn(!on);
+      }}
+    />
+  );
+};
 
 class PageLayout extends React.Component {
   constructor(props) {
@@ -15,50 +37,32 @@ class PageLayout extends React.Component {
 
   renderContent(componentChildren) {
     return (
-      <div
-        style={{
-          backgroundColor: "white",
-          height: "100%",
-          textAlign: "center",
-        }}
-      >
-        {componentChildren}
+      <div className={'pageLayout'}>
+        <div className={'pageLayoutContent'}>
+          <div style={{ position: "absolute", top: "10px", zIndex:'10' }}>
+            <ThemeSwitch />
+          </div>
+          {componentChildren}
+        </div>
       </div>
     );
   }
 
   render() {
     return (
-      <div className={styles.pageLayoutContainer}>
+      <div className={'pageLayoutContainer'}>
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
           barTintColor="white"
+          style={{ height: "30px" }}
           hidden={this.state.hidden}
         >
           <TabBar.Item
-            title="Life"
-            key="Life"
-            icon={
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  background:
-                    "url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat",
-                }}
-              />
-            }
-            selectedIcon={
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  background:
-                    "url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat",
-                }}
-              />
-            }
+            title="Stats"
+            key="Stats"
+            icon={<IoBarChartOutline size={35} />}
+            selectedIcon={<IoBarChartSharp size={35} />}
             selected={this.state.selectedTab === "blueTab"}
             badge={1}
             onPress={() => {
@@ -91,8 +95,8 @@ class PageLayout extends React.Component {
                 }}
               />
             }
-            title="Koubei"
-            key="Koubei"
+            title="OnePlace"
+            key="OnePlace"
             badge={"new"}
             selected={this.state.selectedTab === "redTab"}
             onPress={() => {
@@ -105,28 +109,10 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBar.Item>
           <TabBar.Item
-            icon={
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  background:
-                    "url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat",
-                }}
-              />
-            }
-            selectedIcon={
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  background:
-                    "url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat",
-                }}
-              />
-            }
-            title="Friend"
-            key="Friend"
+            icon={<IoMailOutline size={35} />}
+            selectedIcon={<IoMailSharp size={35} />}
+            title="Messages"
+            key="Messages"
             dot
             selected={this.state.selectedTab === "greenTab"}
             onPress={() => {
@@ -138,14 +124,8 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBar.Item>
           <TabBar.Item
-            icon={{
-              uri:
-                "https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg",
-            }}
-            selectedIcon={{
-              uri:
-                "https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg",
-            }}
+            icon={<IoNotificationsOutline size={35} />}
+            selectedIcon={<IoNotificationsSharp size={35} />}
             title="My"
             key="my"
             selected={this.state.selectedTab === "yellowTab"}

@@ -3,7 +3,7 @@ import Loadable from "react-loadable";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { Route, Switch, NavLink } from "react-router-dom";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import { setMessage } from "./store/appReducer";
 
@@ -11,9 +11,9 @@ import { setMessage } from "./store/appReducer";
 // import Profile from './components/profile';
 // import "./App.css";
 
-
 const AsyncProfile = Loadable({
-  loader: () => import(/* webpackChunkName: "profileDefault" */ "./components/profile"),
+  loader: () =>
+    import(/* webpackChunkName: "profileDefault" */ "./components/profile"),
   loading: () => <div>loading page...</div>,
   modules: ["profileDefault"],
 });
@@ -25,15 +25,11 @@ const AsyncProfile = Loadable({
 // });
 
 class App extends Component {
-  componentDidMount() {
-    if (!this.props.message) {
-      this.props.updateMessage("Hi, I'm from client!");
-    }
-  }
+
 
   render() {
     return (
-      <div >
+      <div>
         <div>
           <Switch>
             <Route path="/" exact component={AsyncProfile} />
@@ -45,13 +41,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(
-  connect(
-    ({ app }) => ({
-      message: app.message,
-    }),
-    (dispatch) => ({
-      updateMessage: (messageText) => dispatch(setMessage(messageText)),
-    })
-  )(App)
-);
+export default withRouter(App);
