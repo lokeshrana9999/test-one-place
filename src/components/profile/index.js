@@ -9,7 +9,6 @@ import {
 } from "react-icons/ai";
 
 import PageLayout from "../look/PageLayout";
-import styles from "../../styles/profile.css";
 // console.log(FacebookOutlined);
 class Profile extends Component {
   render() {
@@ -29,8 +28,8 @@ class Profile extends Component {
               src="https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c"
             />
           </div>
-          <h1 className={styles.profileName}>Hugo</h1>
-          <p className={styles.profileAbout}>
+          <h1 className='profileName'>Hugo</h1>
+          <p className='profileAbout'>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the 1500s

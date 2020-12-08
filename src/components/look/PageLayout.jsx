@@ -11,19 +11,7 @@ import {
 // import  "../../styles/layout.less";
 // import  "../../styles/theme-dark.less";
 
-const ThemeSwitch = (props) => {
-  const [on, setOn] = useState(false);
 
-
-  return (
-    <Switch
-      checked={on}
-      onChange={() => {
-        setOn(!on);
-      }}
-    />
-  );
-};
 
 class PageLayout extends React.Component {
   constructor(props) {
@@ -39,9 +27,7 @@ class PageLayout extends React.Component {
     return (
       <div className={'pageLayout'}>
         <div className={'pageLayoutContent'}>
-          <div style={{ position: "absolute", top: "10px", zIndex:'10' }}>
-            <ThemeSwitch />
-          </div>
+
           {componentChildren}
         </div>
       </div>

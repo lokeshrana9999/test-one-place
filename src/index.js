@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import { Provider as ReduxProvider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
 
-import './index.less';
+import './styles/index.less';
 import App from './App';
 import configureStore from './store/configureStore';
 // import registerServiceWorker from './registerServiceWorker';
