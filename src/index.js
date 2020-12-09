@@ -8,13 +8,12 @@ import './styles/index.less';
 import App from './App';
 import configureStore from './store/configureStore';
 // import registerServiceWorker from './registerServiceWorker';
-import AppWithConnect from './AppWIthConnect';
 const store = configureStore( window.__REDUX_STATE__ || {} );
 
 const AppBundle = (
     <ReduxProvider store={store}>
         <BrowserRouter>
-            <AppWithConnect />
+            <App />
         </BrowserRouter>
     </ReduxProvider>
 );

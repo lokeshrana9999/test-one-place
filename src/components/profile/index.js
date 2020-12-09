@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import Avatar from "react-avatar";
-import { Flex, Button } from "antd-mobile";
+import { Flex} from "antd-mobile";
+import { withTheme } from "styled-components";
+
 import {
   AiFillFacebook,
   AiFillInstagram,
   AiFillLinkedin,
   AiOutlineWhatsApp,
 } from "react-icons/ai";
+import {Button, PageLayout} from '../look'; 
 
-import PageLayout from "../look/PageLayout";
-// console.log(FacebookOutlined);
 class Profile extends Component {
+
   render() {
+    console.log('profile', this.props);
     return (
       <div>
         <PageLayout>
@@ -79,4 +82,4 @@ class Profile extends Component {
     );
   }
 }
-export default Profile;
+export default withTheme(Profile);

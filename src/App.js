@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import Loadable from "react-loadable";
-import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { Route, Switch, NavLink } from "react-router-dom";
-import { Helmet } from "react-helmet";
-
-import { setMessage } from "./store/appReducer";
-
-// import logo from './logo.svg';
-// import Profile from './components/profile';
-// import "./App.css";
+import { Route, Switch } from "react-router-dom";
+import { ThemeProvider } from 'styled-components';
+import ThemeChanger from "./components/look/ThemeChanger";
+import { themes } from "./styles/themes";
 
 const AsyncProfile = Loadable({
   loader: () =>
@@ -18,25 +13,31 @@ const AsyncProfile = Loadable({
   modules: ["profileDefault"],
 });
 
-// const AsyncPageAnother = Loadable({
-//   loader: () => import(/* webpackChunkName: "pageAnother" */ "./PageAnother"),
-//   loading: () => <div>loading another page...</div>,
-//   modules: ["pageAnother"],
-// });
-
 class App extends Component {
+  state = {
+    theme: themes.normal,
+  };
 
+  handleThemeChange = (themeName) => {
+    this.setState({ theme: themes[themeName] });
+  };
 
   render() {
     return (
-      <div>
+      <ThemeProvider theme={this.state.theme}>
         <div>
-          <Switch>
-            <Route path="/" exact component={AsyncProfile} />
-            {/* <Route path="/another" component={AsyncPageAnother} /> */}
-          </Switch>
+        <ThemeChanger
+            onChangeTheme={this.handleThemeChange}
+            themes={Object.keys(themes)}
+          />
+          <div>
+            <Switch>
+              <Route path="/" exact component={AsyncProfile} />
+              {/* <Route path="/another" component={AsyncPageAnother} /> */}
+            </Switch>
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     );
   }
 }
