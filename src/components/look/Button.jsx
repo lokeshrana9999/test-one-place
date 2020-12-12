@@ -2,22 +2,26 @@ import React, { Component } from "react";
 import { Button as ADButton } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
 
-const StyledADButton = styled(ADButton)`
-  color: ${(props) => props.theme.brandSecondary} !important;
-  background: ${(props) => props.theme.brandPrimary};
-  border: 1px solid ${(props) => props.theme.brandPrimary} !important;
+const StyledADButtonWrapper = styled.div`
+  .am-button.am-button-primary {
+    color: ${(props) => props.theme.brandSecondary};
+    background: ${(props) => props.theme.brandPrimary};
+    border: 1px solid ${(props) => props.theme.brandPrimary};
 
-  ::before {
-    border: 1px solid ${(props) => props.theme.brandPrimary} !important;
+    ::before {
+      border: 1px solid ${(props) => props.theme.brandPrimary};
+    }
   }
 `;
 
 const Button = ({ children, theme, ...props }) => {
   console.log("theme", theme);
   return (
-    <StyledADButton {...props} theme={theme}>
-      {children}
-    </StyledADButton>
+    <StyledADButtonWrapper theme={theme}>
+      <ADButton {...props}>
+        {children}
+      </ADButton>
+    </StyledADButtonWrapper>
   );
 };
 

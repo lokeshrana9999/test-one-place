@@ -10,8 +10,27 @@ import {
 import styled, { withTheme } from "styled-components";
 import TabBar from "./TabBar";
 import TabBarItem from "./TabBarItem";
-// import  "../../styles/layout.less";
-// import  "../../styles/theme-dark.less";
+
+const PageLayoutContainer = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  bottom: 0;
+`;
+
+const PageLayoutDiv = styled.div`
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const PageLayoutContent = styled.div`
+  height: 100%;
+  width: 100%;
+  background: ${(props) => props.theme.brandSecondary} !important;
+  padding: 15px;
+`;
 
 class PageLayout extends React.Component {
   constructor(props) {
@@ -25,21 +44,21 @@ class PageLayout extends React.Component {
 
   renderContent(componentChildren) {
     return (
-      <div className={"pageLayout"}>
-        <div className={"pageLayoutContent"}>{componentChildren}</div>
-      </div>
+      <PageLayoutDiv>
+        <PageLayoutContent>{componentChildren}</PageLayoutContent>
+      </PageLayoutDiv>
     );
   }
 
   render() {
     return (
-      <div className={"pageLayoutContainer"}>
+      <PageLayoutContainer>
         <TabBar style={{ height: "30px" }} hidden={this.state.hidden}>
           <TabBarItem
             title="Stats"
             key="Stats"
-            icon={<IoBarChartOutline size={30} />}
-            selectedIcon={<IoBarChartSharp size={30} />}
+            icon={<IoBarChartOutline size={25} />}
+            selectedIcon={<IoBarChartSharp size={25} />}
             selected={this.state.selectedTab === "blueTab"}
             badge={1}
             onPress={() => {
@@ -86,8 +105,8 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
           <TabBarItem
-            icon={<IoMailOutline size={30} />}
-            selectedIcon={<IoMailSharp size={30} />}
+            icon={<IoMailOutline size={25} />}
+            selectedIcon={<IoMailSharp size={25} />}
             title="Messages"
             key="Messages"
             dot
@@ -101,8 +120,8 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
           <TabBarItem
-            icon={<IoNotificationsOutline size={30} />}
-            selectedIcon={<IoNotificationsSharp size={30} />}
+            icon={<IoNotificationsOutline size={25} />}
+            selectedIcon={<IoNotificationsSharp size={25} />}
             title="My"
             key="my"
             selected={this.state.selectedTab === "yellowTab"}
@@ -115,9 +134,9 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
         </TabBar>
-      </div>
+      </PageLayoutContainer>
     );
   }
 }
 
-export default PageLayout;
+export default withTheme(PageLayout);
