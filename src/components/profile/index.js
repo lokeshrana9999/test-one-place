@@ -10,6 +10,7 @@ import {
   AiOutlineWhatsApp,
 } from "react-icons/ai";
 import { Button, PageLayout } from "../look";
+// import ProfileVideoPlayer, {BigPlayButton} from "./ProfileVideoPlayer";
 
 const ProfileName = styled.h1`
   color: ${(props) => props.theme.textColor};
@@ -20,7 +21,16 @@ const ProfileSmallText = styled.p`
   text-align: center;
   font-size: 15px;
   color: ${(props) => props.theme.textColor};
-  opacity: 0.9;
+  opacity: 0.7;
+  margin-bottom: 0px;
+`;
+
+const ProfileStats = styled.p`
+  text-align: center;
+  font-size: 20px;
+  color: ${(props) => props.theme.textColor};
+  opacity: 1;
+  margin-top: 5px;
 `;
 
 class Profile extends Component {
@@ -50,43 +60,68 @@ class Profile extends Component {
             ever since the 1500s
           </ProfileSmallText>
           <br />
-          <Flex justify="between" style={{ width: "100%" }}>
-            <Flex.Item>
-              <div align="center">
-                <AiFillFacebook style={{ color: theme.textColor }} size="40" />
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div align="center">
-                <AiFillInstagram style={{ color: theme.textColor }} size="40" />
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div align="center">
-                <AiFillLinkedin style={{ color: theme.textColor }} size="40" />
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div align="center">
-                <AiOutlineWhatsApp
-                  style={{ color: theme.textColor }}
-                  size="40"
-                />
-              </div>
-            </Flex.Item>
-          </Flex>
+          <div align="center">
+            <Flex justify="center" style={{ width: "60%" }}>
+              <Flex.Item>
+                <div align="center">
+                  <AiFillFacebook
+                    style={{ color: theme.textColor }}
+                    size="30"
+                  />
+                </div>
+              </Flex.Item>
+              <Flex.Item>
+                <div align="center">
+                  <AiFillInstagram
+                    style={{ color: theme.textColor }}
+                    size="30"
+                  />
+                </div>
+              </Flex.Item>
+              <Flex.Item>
+                <div align="center">
+                  <AiFillLinkedin
+                    style={{ color: theme.textColor }}
+                    size="30"
+                  />
+                </div>
+              </Flex.Item>
+              <Flex.Item>
+                <div align="center">
+                  <AiOutlineWhatsApp
+                    style={{ color: theme.textColor }}
+                    size="30"
+                  />
+                </div>
+              </Flex.Item>
+            </Flex>
+          </div>
           <br />
-
           <Button type="primary">Join My Super Fam</Button>
           <br />
           <Flex justify="between" style={{ width: "100%" }}>
             <Flex.Item>
-              <ProfileSmallText align="center">{`16627 Visits`}</ProfileSmallText>
+              <ProfileSmallText align="center">{`Visits`}</ProfileSmallText>
+              <ProfileStats>{"16627"}</ProfileStats>
             </Flex.Item>
             <Flex.Item>
-              <ProfileSmallText align="center">{`1662 Super Fans`}</ProfileSmallText>
+              <ProfileSmallText align="center">{`Super Fans`}</ProfileSmallText>
+              <ProfileStats>{"1662"}</ProfileStats>
             </Flex.Item>
           </Flex>
+          <br />
+          {/* <Flex justify="center">
+            <Flex.Item>
+              <ProfileVideoPlayer src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4">
+                <BigPlayButton position="center" />
+              </ProfileVideoPlayer>
+            </Flex.Item>
+            <Flex.Item>
+              <ProfileVideoPlayer src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4">
+                <BigPlayButton position="center" />
+              </ProfileVideoPlayer>
+            </Flex.Item>
+          </Flex> */}
         </PageLayout>
       </div>
     );

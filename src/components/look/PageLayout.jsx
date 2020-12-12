@@ -30,6 +30,7 @@ const PageLayoutContent = styled.div`
   width: 100%;
   background: ${(props) => props.theme.brandSecondary} !important;
   padding: 15px;
+  overflow-y:scroll;
 `;
 
 class PageLayout extends React.Component {
