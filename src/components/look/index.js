@@ -6,5 +6,6 @@ export {default as WhiteSpace} from './WhiteSpace';
 export {default as Picker} from './Picker';
 export {default as List} from './List';
 export {default as ListItem} from './ListItem';
+export {default as Switch} from './Switch';
 
 

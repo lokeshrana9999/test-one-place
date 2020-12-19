@@ -26,10 +26,10 @@ class App extends Component {
     return (
       <ThemeProvider theme={this.state.theme}>
         <div>
-        <ThemeChanger
+        {/* <ThemeChanger
             onChangeTheme={this.handleThemeChange}
             themes={Object.keys(themes)}
-          />
+          /> */}
           <div>
             <Switch>
               <Route path="/" exact component={AsyncProfile} />
