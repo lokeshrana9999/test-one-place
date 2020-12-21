@@ -192,11 +192,6 @@ class Profile extends Component {
               </Flex.Item>
             </Flex>
           </div>
-          {!self && (
-            <Button style={{ marginTop: "20px" }} type="primary">
-              Join My Super Fam
-            </Button>
-          )}
           <br />
           <Flex justify="between" style={{ width: "100%" }}>
             <Flex.Item>
@@ -208,6 +203,11 @@ class Profile extends Component {
               <ProfileStats>{"1662"}</ProfileStats>
             </Flex.Item>
           </Flex>
+          {!self && (
+            <Button style={{ marginTop: "20px" }} type="primary">
+              Join My Super Fam
+            </Button>
+          )}
           <br />
           {self && (
             <React.Fragment>

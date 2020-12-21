@@ -32,7 +32,7 @@ class App extends Component {
           /> */}
           <div>
             <Switch>
-              <Route path="/" exact component={AsyncProfile} />
+              <Route path="/profile" exact component={AsyncProfile} />
               {/* <Route path="/another" component={AsyncPageAnother} /> */}
             </Switch>
           </div>

@@ -10,6 +10,7 @@ const ProfileCardWrapper = styled.div`
   background-color: #2c2c2c;
   height: 100px;
   margin-bottom:20px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.64);
 `;
 
 const ProfileCardText = styled.div`
