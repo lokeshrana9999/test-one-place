@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled, { withTheme } from "styled-components";
-import Button from "./Button";
-import Picker from "./Picker";
+import Button from "./mobile/Button";
+import Picker from "./mobile/Picker";
 import { themes } from "../../styles/themes";
 
 console.log(withTheme);

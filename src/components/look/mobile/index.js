@@ -1,4 +1,3 @@
-export {default as PageLayout} from './PageLayout';
 export {default as Button} from './Button';
 export {default as TabBar} from './TabBar';
 export {default as TabBarItem} from './TabBarItem';
@@ -8,5 +7,6 @@ export {default as List} from './List';
 export {default as ListItem} from './ListItem';
 export {default as Switch} from './Switch';
 export {default as InputItem} from './InputItem';
+export {default as ImagePicker} from './ImagePicker';
 
 

@@ -12,9 +12,8 @@ import styled, { withTheme } from "styled-components";
 //   AiFillEdit,
 //   AiOutlinePlusCircle,
 // } from "react-icons/ai";
-import { WhiteSpace } from "../look";
+import { WhiteSpace } from "../look/mobile";
 import LoginForm from "./LoginForm";
-// import { BigPlayButton } from "./ProfileVideoPlayer";
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
@@ -27,7 +26,7 @@ const FormWrapper = styled.div`
   
 `;
 
-class Profile extends Component {
+class LoginView extends Component {
   state = {
     self: true,
   };
@@ -40,8 +39,12 @@ class Profile extends Component {
           width: "100%",
           minHeight: "100vh",
           position: "relative",
+          display:'grid',
+          placeItems:'center',
+          background:'white'
         }}
       >
+        <div style={{maxWidth:'500px', height:'100%', width:'100%'}}>
         <PageHead>OnePlace Universe</PageHead>
         <WhiteSpace size="xl" />
         <div align="center">
@@ -57,9 +60,9 @@ class Profile extends Component {
           <div style={{position:'absolute', top:'90px', left:'30px', right:'30px'}}>
           <LoginForm />
           </div>
-        </FormWrapper>
+        </FormWrapper></div>
       </div>
     );
   }
 }
-export default withTheme(Profile);
+export default withTheme(LoginView);

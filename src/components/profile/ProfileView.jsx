@@ -12,7 +12,9 @@ import {
   AiFillEdit,
   AiOutlinePlusCircle,
 } from "react-icons/ai";
-import { Button, PageLayout, Switch } from "../look";
+import { Button,  Switch } from "../look/mobile";
+import  PageLayout  from "../look/PageLayout";
+
 import ProfileCard from "./ProfileCard";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
 

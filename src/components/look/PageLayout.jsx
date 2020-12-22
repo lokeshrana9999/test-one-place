@@ -8,8 +8,8 @@ import {
   IoNotificationsSharp,
 } from "react-icons/io5";
 import styled, { withTheme } from "styled-components";
-import TabBar from "./TabBar";
-import TabBarItem from "./TabBarItem";
+import TabBar from "./mobile/TabBar";
+import TabBarItem from "./mobile/TabBarItem";
 
 const PageLayoutContainer = styled.div`
   position: fixed;
