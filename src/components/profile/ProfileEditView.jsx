@@ -44,7 +44,7 @@ class ProfileEditView extends Component {
         }}
       >
         {" "}
-        <div style={{ maxWidth: "500px", height: "100%", width: "100%" }}>
+        <div style={{ maxWidth: "500px", height: "100%", width: "100%", overflow:'hidden' }}>
           <PageHead>OnePlace Universe</PageHead>
           <WhiteSpace size="xl" />
           <div align="center">

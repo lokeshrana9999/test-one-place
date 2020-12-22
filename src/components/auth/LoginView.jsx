@@ -57,7 +57,7 @@ class LoginView extends Component {
         <WhiteSpace size="xl" />
         <FormWrapper>
           <img width='100%' src="https://onelinkie.s3.ap-south-1.amazonaws.com/6f2b3bbc-8868-4865-a606-744335070a61-login_form_bc_cropped.png" alt=""/>
-          <div style={{position:'absolute', top:'90px', left:'30px', right:'30px'}}>
+          <div style={{position:'absolute', top:'70px', left:'30px', right:'30px'}}>
           <LoginForm />
           </div>
         </FormWrapper></div>
