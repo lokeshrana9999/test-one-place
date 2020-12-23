@@ -14,6 +14,7 @@ import styled, { withTheme } from "styled-components";
 // } from "react-icons/ai";
 import { WhiteSpace } from "../look/mobile";
 import LoginForm from "./LoginForm";
+import {ApiContext} from '../../api';
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
@@ -28,11 +29,14 @@ const FormWrapper = styled.div`
 `;
 
 class LoginView extends Component {
+  
   state = {
     self: true,
   };
+  static contextType = ApiContext;
 
   render() {
+    console.log('loginview', this.context);
     return (
       <div
         style={{
