@@ -18,6 +18,7 @@ import ProfileForm from "./ProfileForm";
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
+  font-weight:bold;
 `;
 
 const FormWrapper = styled.div`

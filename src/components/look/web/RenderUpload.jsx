@@ -70,7 +70,7 @@ export default class RenderUpload extends React.Component {
     // { input, label, meta: { touched, error }, defaultFileList }) = this.props
     // const touched = this.props.meta.touched;
     // const error = this.props.meta.error;
-    const label = this.props.label;
+    const {label, className, children} = this.props;
     // const input = this.props.input;
     // console.log(input);
     // const defaultFileList = this.props.defaultFileList;
@@ -102,13 +102,13 @@ export default class RenderUpload extends React.Component {
     const uploadButton = (
       <div>
         {/* <Icon type="plus" /> */}
-        <div className="ant-upload-text">Upload</div>
+        <div className="ant-upload-text">{label}</div>
       </div>
     );
-
+      console.log('renderupload', this.props);
     return (
-      <FormItem label={label} validateStatus={validateStatus}>
-        <div className="clearfix">
+      <FormItem validateStatus={validateStatus}>
+        <div className={`clearfix ${className}`}>
           <Upload
             action={cloudinary_url}
             data={cloudinary_data}
@@ -118,6 +118,7 @@ export default class RenderUpload extends React.Component {
             onChange={this.onChangeHandler}
           >
             {fileList.length >= 1 ? null : uploadButton}
+            {children}
           </Upload>
           <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
             <img alt="image" style={{ width: '100%' }} src={previewImage} />

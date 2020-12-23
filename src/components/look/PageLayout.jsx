@@ -1,12 +1,9 @@
 import React, { useState, Component } from "react";
-import {
-  IoMailOutline,
-  IoMailSharp,
-  IoBarChartOutline,
-  IoBarChartSharp,
-  IoNotificationsOutline,
-  IoNotificationsSharp,
-} from "react-icons/io5";
+import { IoMailOutline, IoMailSharp } from "react-icons/io5";
+import { FiBarChart } from "react-icons/fi";
+import { FaCompass } from "react-icons/fa";
+import { CgSignal } from "react-icons/cg";
+
 import styled, { withTheme } from "styled-components";
 import TabBar from "./mobile/TabBar";
 import TabBarItem from "./mobile/TabBarItem";
@@ -30,7 +27,17 @@ const PageLayoutContent = styled.div`
   width: 100%;
   background: ${(props) => props.theme.brandSecondary} !important;
   padding: 15px;
-  overflow-y:scroll;
+  overflow-y: scroll;
+`;
+
+const StyledTabBar = styled(TabBar)`
+  .am-tabs-tab-bar-wrap {
+    width: 414px;
+    height: 83px;
+    margin: 95px 0 0;
+    padding: 12px 45px 18px 49px;
+    background-color: #141414;
+  }
 `;
 
 class PageLayout extends React.Component {
@@ -54,12 +61,12 @@ class PageLayout extends React.Component {
   render() {
     return (
       <PageLayoutContainer>
-        <TabBar style={{ height: "30px" }} hidden={this.state.hidden}>
+        <StyledTabBar style={{ height: "83px" }} hidden={this.state.hidden}>
           <TabBarItem
             title="Stats"
             key="Stats"
-            icon={<IoBarChartOutline size={25} />}
-            selectedIcon={<IoBarChartSharp size={25} />}
+            icon={<CgSignal size={35} />}
+            selectedIcon={<CgSignal size={35} />}
             selected={this.state.selectedTab === "blueTab"}
             badge={1}
             onPress={() => {
@@ -72,26 +79,8 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
           <TabBarItem
-            icon={
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  background:
-                    "url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat",
-                }}
-              />
-            }
-            selectedIcon={
-              <div
-                style={{
-                  width: "22px",
-                  height: "22px",
-                  background:
-                    "url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat",
-                }}
-              />
-            }
+            icon={<FaCompass size={35} />}
+            selectedIcon={<FaCompass size={35} />}
             title="OnePlace"
             key="OnePlace"
             badge={"new"}
@@ -106,8 +95,8 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
           <TabBarItem
-            icon={<IoMailOutline size={25} />}
-            selectedIcon={<IoMailSharp size={25} />}
+            icon={<IoMailOutline size={35} />}
+            selectedIcon={<IoMailSharp size={35} />}
             title="Messages"
             key="Messages"
             dot
@@ -120,21 +109,7 @@ class PageLayout extends React.Component {
           >
             {this.renderContent(this.props.children)}
           </TabBarItem>
-          <TabBarItem
-            icon={<IoNotificationsOutline size={25} />}
-            selectedIcon={<IoNotificationsSharp size={25} />}
-            title="My"
-            key="my"
-            selected={this.state.selectedTab === "yellowTab"}
-            onPress={() => {
-              this.setState({
-                selectedTab: "yellowTab",
-              });
-            }}
-          >
-            {this.renderContent(this.props.children)}
-          </TabBarItem>
-        </TabBar>
+        </StyledTabBar>
       </PageLayoutContainer>
     );
   }

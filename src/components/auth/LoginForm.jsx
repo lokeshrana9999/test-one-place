@@ -18,12 +18,13 @@ const LoginFormContainer = styled.div`
   padding: 50px 26px 32px;
   opacity: 0.88;
   border-radius: 20px;
+  filter:blur(1px);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89);
-  background-color: #000000;
+  background-color: #fff;
 `;
 
 const Heading = styled.h1`
-  font-family: CircularStdMedium;
+  font-family: Circular Std Medium;
   font-size: 30px;
   font-weight: normal;
   font-stretch: normal;
@@ -49,7 +50,7 @@ const InputStylized = styled(Input)`
   padding: 0 20px;
   caret-color: white;
   color: white;
-  font-family: CircularStdMedium;
+  font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -62,7 +63,7 @@ const InputWithSuffixStylized = styled(Input)`
   height: 60px !important;
   padding: 0 20px;
 
-  font-family: CircularStdMedium;
+  font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

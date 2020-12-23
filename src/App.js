@@ -5,7 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 import ThemeChanger from "./components/look/ThemeChanger";
 import { themes } from "./styles/themes";
-import GlobalStyles from './styles/GlobalStyles';
+
+
 const AsyncProfile = Loadable({
   loader: () =>
     import(/* webpackChunkName: "profileDefault" */ "./components/profile/ProfileView"),
@@ -40,11 +41,7 @@ class App extends Component {
     return (
       <ThemeProvider theme={this.state.theme}>
         <div>
-          <GlobalStyles />
-        {/* <ThemeChanger
-            onChangeTheme={this.handleThemeChange}
-            themes={Object.keys(themes)}
-          /> */}
+
           <div>
             <Switch>
               <Route path="/profile" exact component={AsyncProfile} />,

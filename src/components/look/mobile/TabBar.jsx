@@ -4,15 +4,16 @@ import styled, { withTheme } from "styled-components";
 
 
 const StyledADTabBar = styled(ADTabBar)`
-  box-shadow: 2px 2px 10px ${(props) => props.theme.brandSecondary};
+
 `;
 
 const TabBar = ({ children, theme, ...props }) => {
   return (
     <StyledADTabBar
-      unselectedTintColor={theme.color1}
-      tintColor={theme.color1}
-      barTintColor={theme.brandSecondary}
+      unselectedTintColor={'#3e4249'}
+      tintColor={'#ffffff'}
+      barTintColor={'#141414'}
+      style={{height:'83px'}}
       {...props}
     >
       {children}
