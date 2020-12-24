@@ -28,42 +28,42 @@ export default class RenderUpload extends React.Component {
 
   onChangeHandler = ({ file, fileList }) => {
     console.log(file, fileList);
-    // console.log(file.status);
-    // console.log(fileList);
-    // console.log(file.response.secure_url);
-    // const arrayHelpers = this.props.arrayHelpers;
+    console.log(file.status);
+    console.log(fileList);
+    console.log(file.response && file.response.upload && file.response.upload._id);
+    const arrayHelpers = this.props.arrayHelpers;
 
-    // if (file.status === 'uploading') {
-    //   this.props.setload(true);
-    // }
+    if (file.status === 'uploading') {
+      this.props.setload(true);
+    }
 
-    // if (file.status == 'done') {
-    //   this.props.setload(false);
-    //   if (file.response) {
-    //     let url = file.response.secure_url;
-    //     if (url) {
-    //       // console.log(url);
-    //       //set value in form
-    //       this.props.input.onChange(url);
-    //     }
-    //   }
-    // } else if (file.status == 'removed') {
-    //   this.props.setload(false);
-    //   // console.log(file);
-    //   //remove value in form
-    //   this.props.input.onChange('');
-    // }
-    // this.setState({ fileList });
+    if (file.status == 'done') {
+      this.props.setload(false);
+      if (file.response) {
+        let upload_id = file.response && file.response.upload && file.response.upload._id;
+        if (upload_id) {
+          // console.log(upload_id);
+          //set value in form
+          this.props.input.onChange(upload_id);
+        }
+      }
+    } else if (file.status == 'removed') {
+      this.props.setload(false);
+      // console.log(file);
+      //remove value in form
+      this.props.input.onChange('');
+    }
+    this.setState({ fileList });
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
 
-  handlePreview = file => {
-    this.setState({
-      previewImage: file.url || file.thumbUrl,
-      previewVisible: true
-    });
-  };
+  // handlePreview = file => {
+  //   this.setState({
+  //     previewImage: file.url || file.thumbUrl,
+  //     previewVisible: true
+  //   });
+  // };
 
   handleChange = ({ fileList }) => this.setState({ fileList });
 
@@ -119,9 +119,9 @@ export default class RenderUpload extends React.Component {
             {fileList.length >= 1 ? null : uploadButton}
             {children}
           </Upload>
-          <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+          {/* <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
             <img alt="image" style={{ width: '100%' }} src={previewImage} />
-          </Modal>
+          </Modal> */}
         </div>{' '}
       </FormItem>
     );
