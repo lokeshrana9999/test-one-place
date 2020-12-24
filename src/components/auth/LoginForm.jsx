@@ -15,17 +15,28 @@ import { AiFillCheckCircle, AiOutlineEllipsis } from "react-icons/ai";
 
 const LoginFormContainer = styled.div`
   color: white;
-  padding: 50px 26px 32px;
-  opacity: 0.88;
+  padding: 30px 20px 32px;
   border-radius: 20px;
-  filter:blur(1px);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89);
-  background-color: #fff;
+  position: relative;
+  background-color: transparent;
+`;
+
+const LoginFormBackgroundFilter = styled.div`
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.5;
+  backdrop-filter: blur(50px);
+  /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89); */
+  background-color: white;
 `;
 
 const Heading = styled.h1`
   font-family: Circular Std Medium;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -36,9 +47,9 @@ const Heading = styled.h1`
 `;
 
 const LargeHeadingComponent = styled.div`
-  font-family: CircularStd;
-  font-size: 36px;
-  font-weight: 900;
+  font-family: Circular Std Medium;
+  font-size: 30px;
+  font-weight: 1200;
 `;
 
 const InputStylized = styled(Input)`
@@ -85,10 +96,10 @@ const LoginForm = (props) => {
   const { values, handleSubmit } = props;
   return (
     <LoginFormContainer>
+      <LoginFormBackgroundFilter />
       <Heading>
         “Time to set up your{" "}
-        <LargeHeadingComponent>Oneplace</LargeHeadingComponent>{" "}
-        <LargeHeadingComponent>Universe”</LargeHeadingComponent>
+        <LargeHeadingComponent>Oneplace Universe”</LargeHeadingComponent>
       </Heading>
       <WhiteSpace size="xl" />
       <Form name="login" onSubmit={handleSubmit}>

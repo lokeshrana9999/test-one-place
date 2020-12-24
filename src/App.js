@@ -6,13 +6,14 @@ import { ThemeProvider } from "styled-components";
 import ThemeChanger from "./components/look/ThemeChanger";
 import { themes } from "./styles/themes";
 import { ApiContext } from "./api";
+import { PageLoader } from "./components/look/mobile";
 
 const AsyncProfile = Loadable({
   loader: () =>
     import(
       /* webpackChunkName: "profileDefault" */ "./components/profile/ProfileView"
     ),
-  loading: () => <div>loading page...</div>,
+  loading: () => <PageLoader />,
   modules: ["profileDefault"],
 });
 
@@ -21,7 +22,7 @@ const AsyncLogin = Loadable({
     import(
       /* webpackChunkName: "loginDefault" */ "./components/auth/LoginView"
     ),
-  loading: () => <div>loading page...</div>,
+  loading: () => <PageLoader />,
   modules: ["loginDefault"],
 });
 
@@ -30,18 +31,27 @@ const AsyncProfileEdit = Loadable({
     import(
       /* webpackChunkName: "profileEditDefault" */ "./components/profile/ProfileEditView"
     ),
-  loading: () => <div>loading page...</div>,
+  loading: () => <PageLoader />,
   modules: ["profileEditDefault"],
 });
 
-// const AsyncAddCard = Loadable({
-//   loader: () =>
-//     import(
-//       /* webpackChunkName: "profileEditDefault" */ "./components/profile/AddCardView"
-//     ),
-//   loading: () => <div>loading page...</div>,
-//   modules: ["profileEditDefault"],
-// });
+const AsyncChooseBlockCategory = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileEditDefault" */ "./components/block/ChooseBlockCategory"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["chooseBlockCategoryDefault"],
+});
+
+const AsyncAddBlock = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileEditDefault" */ "./components/block/AddBlock"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["addBlockEditDefault"],
+});
 
 class App extends Component {
   state = {
@@ -53,12 +63,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(
-      "app.js",
-      process.env.NODE_ENV,
-      process.env.REACT_APP_DEV_API_URL,
-      process.env.REACT_APP_PROD_API_URL
-    );
     return (
       <ThemeProvider theme={this.state.theme}>
         <div>
@@ -78,12 +82,12 @@ class App extends Component {
                   exact
                   component={AsyncProfileEdit}
                 />
-                {/* <Route
-                  path="/profile/card/add"
+                <Route
+                  path="/block/choose-category"
                   exact
-                  component={AsyncProfileEdit}
-                /> */}
-                {/* <Route path="/another" component={AsyncPageAnother} /> */}
+                  component={AsyncChooseBlockCategory}
+                />
+                <Route path="/block/add/:blockCategoryId" exact component={AsyncAddBlock} />
               </Switch>
             </div>
           </ApiContext.Provider>

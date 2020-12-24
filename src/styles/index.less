@@ -1,6 +1,9 @@
 @import "~antd-mobile/dist/antd-mobile.less"; // Introduce the official less style entry file
 @import "~antd/dist/antd";
-@import './fonts/fonts.css';
+@import "./fonts/fonts.css";
+
+//Theme customization antd web
+@primary-color: #605ee8;
 body {
   margin: 0;
   padding: 0;
@@ -27,12 +30,27 @@ nav a + a {
   border-left: 1px solid #222;
 }
 
-
 //Page Layout
 
-.am-tabs-tab-bar-wrap{
-  .am-tab-bar-bar{
-    height:83px !important;
+.am-tabs-tab-bar-wrap {
+  .am-tab-bar-bar {
+    height: 83px !important;
     border-radius: 20px 20px 0 0 !important;
   }
+}
+
+.two-line-limiter {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.one-line-limiter {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }

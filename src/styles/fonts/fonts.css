@@ -1,4 +1,5 @@
-@import url("http://db.onlinewebfonts.com/c/9475d6a0b79c164f9f605673714e75d9?family=Circular+Std+Medium");
+@import url("https://db.onlinewebfonts.com/c/9475d6a0b79c164f9f605673714e75d9?family=Circular+Std+Medium");
+@import url("https://db.onlinewebfonts.com/c/f1a22f6f15d272c7aa56da8b2c91f5e5?family=Circular+Std+Black");
 @font-face {
   font-family: "Circular Std Medium";
   src: url("//db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.eot");
@@ -11,5 +12,20 @@
     url("//db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.ttf")
       format("truetype"),
     url("//db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.svg#Circular Std Medium")
+      format("svg");
+}
+
+@font-face {
+  font-family: "CircularStdBlack";
+  src: url("//db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.eot");
+  src: url("//db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.svg#Circular Std Black")
       format("svg");
 }

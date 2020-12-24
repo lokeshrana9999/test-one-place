@@ -27,32 +27,33 @@ export default class RenderUpload extends React.Component {
   }
 
   onChangeHandler = ({ file, fileList }) => {
+    console.log(file, fileList);
     // console.log(file.status);
     // console.log(fileList);
     // console.log(file.response.secure_url);
     // const arrayHelpers = this.props.arrayHelpers;
 
-    if (file.status === 'uploading') {
-      this.props.setload(true);
-    }
+    // if (file.status === 'uploading') {
+    //   this.props.setload(true);
+    // }
 
-    if (file.status == 'done') {
-      this.props.setload(false);
-      if (file.response) {
-        let url = file.response.secure_url;
-        if (url) {
-          // console.log(url);
-          //set value in form
-          this.props.input.onChange(url);
-        }
-      }
-    } else if (file.status == 'removed') {
-      this.props.setload(false);
-      // console.log(file);
-      //remove value in form
-      this.props.input.onChange('');
-    }
-    this.setState({ fileList });
+    // if (file.status == 'done') {
+    //   this.props.setload(false);
+    //   if (file.response) {
+    //     let url = file.response.secure_url;
+    //     if (url) {
+    //       // console.log(url);
+    //       //set value in form
+    //       this.props.input.onChange(url);
+    //     }
+    //   }
+    // } else if (file.status == 'removed') {
+    //   this.props.setload(false);
+    //   // console.log(file);
+    //   //remove value in form
+    //   this.props.input.onChange('');
+    // }
+    // this.setState({ fileList });
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -80,8 +81,7 @@ export default class RenderUpload extends React.Component {
 
     // const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
     // const cloudinary_data = { upload_preset: 'nxzf2ip6' };
-    const cloudinary_url = 'https://api.cloudinary.com/v1_1/dpvrqxttb/image/upload/';
-    const cloudinary_data = { upload_preset: 'nnldcih4' };
+    const imageApiUrl = process.env.REACT_APP_IMAGE_API_URL;
 
     let validateStatus = '';
     // if (touched && error) {
@@ -110,8 +110,7 @@ export default class RenderUpload extends React.Component {
       <FormItem validateStatus={validateStatus}>
         <div className={`clearfix ${className}`}>
           <Upload
-            action={cloudinary_url}
-            data={cloudinary_data}
+            action={imageApiUrl}
             listType="picture-card"
             fileList={fileList}
             onPreview={this.handlePreview}
