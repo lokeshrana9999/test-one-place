@@ -21,8 +21,10 @@ const FormWrapper = styled.div`
 `;
 
 const LoginView = (props) => {
-  const { history, setRefreshTokene, setAccessTokene } = props;
+  const { history, setRefreshTokene, setAccessTokene, accessToken, refreshToken } = props;
+  console.log('loginview', accessToken);
   const defaultApiUrl = useContext(ApiContext);
+  // setAccessTokene('ksdjflsdjflj')
   const { mutate: sendOtpMutation, sendOtpLoading } = useMutate({
     verb: "POST",
     path: defaultApiUrl + AuthApiUrls.sendOtp,
@@ -78,7 +80,7 @@ const LoginView = (props) => {
       if (sending.status === true) {
         message.success({
           duration: 2,
-          content: "OTP Verified",
+          content: "OTP Verified... Logged In",
         });
         setAccessTokene(sending.accessToken);
         setRefreshTokene(sending.refreshToken);
@@ -147,6 +149,7 @@ const LoginView = (props) => {
 
 const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
 const mapStateToProps = (state /*, ownProps*/) => {
+  console.log('mapstatetoprops', state);
   return {
     accessToken: state.app.accessToken,
     refreshToken: state.app.refreshToken,
