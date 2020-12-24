@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Form, Upload, Modal } from 'antd';
+import { Form, Upload, Modal } from "antd";
 
 const FormItem = Form.Item;
 
@@ -12,17 +12,17 @@ export default class RenderUpload extends React.Component {
     // To Do Fix this thing
     this.state = {
       previewVisible: false,
-      previewImage: '',
+      previewImage: "",
       fileList: props.value
         ? [
             {
-              uid: '-1',
-              name: 'image.png',
-              status: 'done',
-              url: props.value
-            }
+              uid: "-1",
+              name: "image.png",
+              status: "done",
+              url: props.value,
+            },
           ]
-        : []
+        : [],
     };
   }
 
@@ -30,28 +30,31 @@ export default class RenderUpload extends React.Component {
     console.log(file, fileList);
     console.log(file.status);
     console.log(fileList);
-    console.log(file.response && file.response.upload && file.response.upload._id);
+    console.log(
+      file.response && file.response.upload && file.response.upload._id
+    );
     const arrayHelpers = this.props.arrayHelpers;
 
-    if (file.status === 'uploading') {
+    if (file.status === "uploading") {
       this.props.setload(true);
     }
 
-    if (file.status == 'done') {
+    if (file.status == "done") {
       this.props.setload(false);
       if (file.response) {
-        let upload_id = file.response && file.response.upload && file.response.upload._id;
+        let upload_id =
+          file.response && file.response.upload && file.response.upload._id;
         if (upload_id) {
           // console.log(upload_id);
           //set value in form
           this.props.input.onChange(upload_id);
         }
       }
-    } else if (file.status == 'removed') {
+    } else if (file.status == "removed") {
       this.props.setload(false);
       // console.log(file);
       //remove value in form
-      this.props.input.onChange('');
+      this.props.input.onChange("");
     }
     this.setState({ fileList });
   };
@@ -71,7 +74,7 @@ export default class RenderUpload extends React.Component {
     // { input, label, meta: { touched, error }, defaultFileList }) = this.props
     // const touched = this.props.meta.touched;
     // const error = this.props.meta.error;
-    const {label, className, children} = this.props;
+    const { label, className, children, meta } = this.props;
     // const input = this.props.input;
     // console.log(input);
     // const defaultFileList = this.props.defaultFileList;
@@ -83,7 +86,7 @@ export default class RenderUpload extends React.Component {
     // const cloudinary_data = { upload_preset: 'nxzf2ip6' };
     const imageApiUrl = process.env.REACT_APP_IMAGE_API_URL;
 
-    let validateStatus = '';
+    let validateStatus = "";
     // if (touched && error) {
     //   validateStatus = 'error';
     // }
@@ -105,10 +108,14 @@ export default class RenderUpload extends React.Component {
         <div className="ant-upload-text">{label}</div>
       </div>
     );
-      console.log('renderupload', this.props);
+    console.log("renderupload", this.props);
     return (
-      <FormItem validateStatus={validateStatus}>
-        <div className={`clearfix ${className}`}>
+      <FormItem
+        validateStatus={validateStatus}
+        validateStatus={meta.error && "error"}
+        extra={meta.error}
+      >
+        <div className={`clearfix antd-upload-custom-wrapper ${className}`}>
           <Upload
             action={imageApiUrl}
             listType="picture-card"
@@ -122,7 +129,7 @@ export default class RenderUpload extends React.Component {
           {/* <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
             <img alt="image" style={{ width: '100%' }} src={previewImage} />
           </Modal> */}
-        </div>{' '}
+        </div>{" "}
       </FormItem>
     );
   }
@@ -131,5 +138,5 @@ RenderUpload.propTypes = {
   input: PropTypes.object,
   label: PropTypes.string,
   setload: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
 };

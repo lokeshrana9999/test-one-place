@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   FieldAdapter as Field,
   phoneNumber,
@@ -10,8 +10,15 @@ import { withFormik } from "formik";
 import { FaImages, FaPhotoVideo } from "react-icons/fa";
 import { Flex } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
-import { WhiteSpace, Button } from "../look/mobile";
-import { Input, Form, Alert, InputArea, RenderUpload } from "../look/web";
+import { WhiteSpace } from "../look/mobile";
+import {
+  Input,
+  Form,
+  Alert,
+  InputArea,
+  RenderUpload,
+  Button,
+} from "../look/web";
 
 const ProfileFormContainer = styled.div`
   /* color: white;
@@ -124,12 +131,20 @@ const profileFormSchema = {
 };
 
 const ProfileForm = (props) => {
+  const addBlockFormRef = useRef(null);
   const [load, setload] = useState(false);
   console.log("profileform", props);
-  const { values, handleSubmit } = props;
+  const { values, handleSubmit, errors } = props;
+  const finish = (valu) => {
+    console.log("finish", valu);
+  };
   return (
     <ProfileFormContainer>
-      <Form name="addBlock" onSubmit={handleSubmit}>
+      <Form
+        name="addBlock"
+        ref={addBlockFormRef}
+        onFinish={handleSubmit}
+      >
         <Field
           name="title"
           component={InputStylized}
@@ -168,7 +183,7 @@ const ProfileForm = (props) => {
               label={
                 <React.Fragment>
                   <FaImages size={30} />
-                  <br/>
+                  <br />
                   Upload Thumbnail
                 </React.Fragment>
               }
@@ -181,17 +196,19 @@ const ProfileForm = (props) => {
               component={RenderUploadStylized}
               type="text"
               setload={setload}
-              label={<React.Fragment>
-                <FaPhotoVideo size={30} />
-                <br/>
-                Upload Media
-              </React.Fragment>}
+              label={
+                <React.Fragment>
+                  <FaPhotoVideo size={30} />
+                  <br />
+                  Upload Media
+                </React.Fragment>
+              }
               value={values.media}
             />
           </Flex.Item>
         </Flex>
         <WhiteSpace size="xl" />
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" block size="large" htmlType="submit">
           Go Live
         </Button>
       </Form>
@@ -207,15 +224,19 @@ const ProfileFormWithFormik = withFormik({
       title: "",
       description: "",
       link: "",
-      price: "",
+      price: 0,
       question: "",
       media: "",
     };
   },
 
-  handleSubmit(values, { props: { onSubmit } }) {
-    console.log(values);
+  // handleSubmit: (values, { props: { onSubmit } }) => {
+  // },
+  handleSubmit: (values, { setSubmitting }) => {
+    console.log("handleSubmit", values);
+
   },
+  // validator:{() => ({})}
   validate: (values) => validate(values, profileFormSchema),
   displayName: "ProfileForm", // helps with React DevTools
 });
