@@ -122,7 +122,6 @@ const profileFormSchema = {
 
 const ProfileForm = (props) => {
   const [load, setload] = useState(false);
-  console.log("profileform", props);
   const { values, handleSubmit } = props;
   return (
     <ProfileFormContainer>
@@ -193,7 +192,7 @@ const ProfileFormWithFormik = withFormik({
   },
 
   handleSubmit(values, { props: { onSubmit } }) {
-    console.log(values);
+    // console.log(values);
   },
   validate: (values) => validate(values, profileFormSchema),
   displayName: "ProfileForm", // helps with React DevTools

@@ -8,7 +8,6 @@ const StyledADInput = styled(ADInput)`
 `;
 
 const Input = ({ children, ...props }) => {
-  console.log("input", props);
   const {
     formik: { setFieldValue },
     name,

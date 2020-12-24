@@ -133,11 +133,8 @@ const profileFormSchema = {
 const ProfileForm = (props) => {
   const addBlockFormRef = useRef(null);
   const [load, setload] = useState(false);
-  console.log("profileform", props);
   const { values, handleSubmit, errors } = props;
-  const finish = (valu) => {
-    console.log("finish", valu);
-  };
+
   return (
     <ProfileFormContainer>
       <Form
@@ -233,7 +230,6 @@ const ProfileFormWithFormik = withFormik({
   // handleSubmit: (values, { props: { onSubmit } }) => {
   // },
   handleSubmit: (values, { setSubmitting }) => {
-    console.log("handleSubmit", values);
 
   },
   // validator:{() => ({})}

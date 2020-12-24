@@ -4,7 +4,6 @@ import Button from "./mobile/Button";
 import Picker from "./mobile/Picker";
 import { themes } from "../../styles/themes";
 
-console.log(withTheme);
 
 const ThemeChanger = ({ theme, onChangeTheme }) => {
   const [selectedTheme, setSelectedTheme] = useState(theme);

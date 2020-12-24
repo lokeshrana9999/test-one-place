@@ -69,7 +69,6 @@ class FieldAdapter extends Component {
 
   render() {
     const { formik, component, name, defaultChecked, disabled } = this.props;
-    console.log('field adapter', this.props)
     let { defaultValue } = this.props;
     let { value, checked } = this.props;
     value = value || "";

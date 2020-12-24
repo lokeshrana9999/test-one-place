@@ -30,7 +30,6 @@ const StyledADSwitch = styled(ADSwitch)`
 `;
 
 const Switch = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADSwitch {...props} theme={theme}>
       {children}

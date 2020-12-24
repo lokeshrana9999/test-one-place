@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-// import Avatar from "react-avatar";
-// import { Flex } from "antd-mobile";
-// import { Link } from "react-router-dom";
+
 import styled, { withTheme } from "styled-components";
-// import Loadable from "react-loadable";
-// import {
-//   AiFillFacebook,
-//   AiFillInstagram,
-//   AiFillLinkedin,
-//   AiOutlineWhatsApp,
-//   AiFillEdit,
-//   AiOutlinePlusCircle,
-// } from "react-icons/ai";
+import { connect } from 'react-redux'
+
 import { WhiteSpace } from "../look/mobile";
 import PageLayout from "../look/PageLayout";
 import BlockForm from "./BlockForm";
+import {setAccessTokene, setRefreshTokene} from '../../store/appReducer';
+
+
+const mapDispatchToProps = { setAccessTokene, setRefreshTokene }
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    accessToken: state.app.accessToken,
+    refreshToken: state.app.refreshToken
+  }
+}
 
 const PageHead = styled.h1`
   font-family: CircularStdBlack;
@@ -39,11 +40,17 @@ class BlockAddView extends Component {
     self: true,
   };
 
+  componentDidMount(){
+    this.props.setRefreshTokene('lsdjflsdfjsdlfj');
+  }
+
   render() {
+    console.log('this.props', this.props);
     return (
       <PageLayout>
         <WhiteSpace size="xl" />
         <PageHead>Add a new card</PageHead>
+        <h2>{this.props.refreshToken}</h2>
         <WhiteSpace size="xl" />
         <WhiteSpace size="xl" />
         <BlockForm />
@@ -51,4 +58,4 @@ class BlockAddView extends Component {
     );
   }
 }
-export default withTheme(BlockAddView);
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(BlockAddView));

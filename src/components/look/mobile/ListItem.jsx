@@ -15,7 +15,6 @@ const StyledADListItem = styled(ADListItem)`
 `;
 
 const ListItem = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADListItem {...props} theme={theme}>
       {children}

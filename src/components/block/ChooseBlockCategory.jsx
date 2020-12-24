@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styled, { withTheme } from "styled-components";
 import { useGet } from "restful-react";
 import { WhiteSpace, Loader } from "../look/mobile";
-import { ApiContext, BlocApiUrls } from "../../api";
+import { ApiContext, BlockApiUrls } from "../../api";
 import BlockCard from "./BlockCard";
 
 const PageHead = styled.h1`
@@ -20,14 +20,13 @@ const PageHead = styled.h1`
 
 const ChooseBlockCategoryView = (props) => {
   const defaultApiUrl = useContext(ApiContext);
-  const apiUrl = defaultApiUrl + BlocApiUrls.getBlockCategory;
+  const apiUrl = defaultApiUrl + BlockApiUrls.getBlockCategory;
   const {
     data, 
     loading,
   } = useGet({
     path: apiUrl,
   });
-  console.log("chooseblock",data);
   const blockCategoryList = data && data.blockCategoryList;
 
   return (

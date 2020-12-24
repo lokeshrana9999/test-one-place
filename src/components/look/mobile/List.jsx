@@ -13,7 +13,6 @@ const StyledADList = styled(ADList)`
 `;
 
 const List = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADList {...props} theme={theme}>
       {children}

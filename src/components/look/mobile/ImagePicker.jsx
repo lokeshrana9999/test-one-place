@@ -27,7 +27,6 @@ class ImagePicker extends React.Component {
     multiple: false,
   }
   onChange = (files, type, index) => {
-    console.log(files, type, index);
     this.setState({
       files,
     });

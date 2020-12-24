@@ -10,7 +10,6 @@ const StyledADActivityIndicatorWrapper = styled.div`
 `;
 
 const ActivityIndicator = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADActivityIndicatorWrapper theme={theme}>
       <ADActivityIndicator {...props}>{children}</ADActivityIndicator>

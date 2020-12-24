@@ -13,7 +13,6 @@ const StyledADWhiteSpace = styled(ADWhiteSpace)`
 `;
 
 const WhiteSpace = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADWhiteSpace {...props} theme={theme}>
       {children}

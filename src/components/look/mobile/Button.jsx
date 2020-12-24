@@ -15,7 +15,6 @@ const StyledADButtonWrapper = styled.div`
 `;
 
 const Button = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADButtonWrapper theme={theme}>
       <ADButton {...props}>

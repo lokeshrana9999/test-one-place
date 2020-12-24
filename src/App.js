@@ -3,7 +3,7 @@ import Loadable from "react-loadable";
 import { withRouter } from "react-router";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import ThemeChanger from "./components/look/ThemeChanger";
+// import ThemeChanger from "./components/look/ThemeChanger";
 import { themes } from "./styles/themes";
 import { ApiContext } from "./api";
 import { PageLoader } from "./components/look/mobile";

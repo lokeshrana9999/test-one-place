@@ -113,7 +113,6 @@ class Profile extends Component {
   };
 
   render() {
-    console.log("profile", this.props);
     const { theme } = this.props;
     const { self } = this.state;
     return (

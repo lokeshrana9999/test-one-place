@@ -10,7 +10,6 @@ const StyledADTextArea = styled(ADTextArea)`
 `;
 
 const TextArea = ({ children, ...props }) => {
-  console.log("input", props);
   const {
     formik: { setFieldValue },
     name,

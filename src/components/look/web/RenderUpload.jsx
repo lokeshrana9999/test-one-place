@@ -27,12 +27,6 @@ export default class RenderUpload extends React.Component {
   }
 
   onChangeHandler = ({ file, fileList }) => {
-    console.log(file, fileList);
-    console.log(file.status);
-    console.log(fileList);
-    console.log(
-      file.response && file.response.upload && file.response.upload._id
-    );
     const arrayHelpers = this.props.arrayHelpers;
 
     if (file.status === "uploading") {
@@ -108,7 +102,6 @@ export default class RenderUpload extends React.Component {
         <div className="ant-upload-text">{label}</div>
       </div>
     );
-    console.log("renderupload", this.props);
     return (
       <FormItem
         validateStatus={validateStatus}

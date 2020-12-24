@@ -32,7 +32,6 @@ const StyledADPicker = styled(ADPicker)`
 `;
 
 const Picker = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADPicker {...props} theme={theme}>
       {children}

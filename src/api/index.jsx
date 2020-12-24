@@ -1,4 +1,5 @@
 import { ApiContext } from "./ApiContext";
-import { BlocApiUrls } from "./BlockApi";
+import { BlockApiUrls } from "./BlockApi";
+import { AuthApiUrls } from "./AuthApi";
 
-export { ApiContext, BlocApiUrls };
+export { ApiContext, BlockApiUrls, AuthApiUrls };

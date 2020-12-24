@@ -13,7 +13,6 @@ const StyledADInputItem = styled(ADInputItem)`
 `;
 
 const InputItem = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledADInputItem {...props} theme={theme}>
       {children}

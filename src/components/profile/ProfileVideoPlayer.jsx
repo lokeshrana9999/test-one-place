@@ -18,7 +18,6 @@ height: 200px;
 `;
 
 const ProfileVideoPlayer = ({ children, theme, ...props }) => {
-  console.log("theme", theme);
   return (
     <StyledPlayerWrapper theme={theme}>
       <Player {...props} fluid={false} width='100%' height='100%' preload='metadata'>
