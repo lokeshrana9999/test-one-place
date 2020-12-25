@@ -40,17 +40,12 @@ class BlockAddView extends Component {
     self: true,
   };
 
-  componentDidMount(){
-    this.props.setRefreshTokene('lsdjflsdfjsdlfj');
-  }
-
   render() {
     console.log('this.props', this.props);
     return (
       <PageLayout>
         <WhiteSpace size="xl" />
         <PageHead>Add a new card</PageHead>
-        <h2>{this.props.refreshToken}</h2>
         <WhiteSpace size="xl" />
         <WhiteSpace size="xl" />
         <BlockForm />

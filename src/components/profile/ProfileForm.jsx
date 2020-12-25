@@ -8,8 +8,8 @@ import {
 } from "../form";
 import { withFormik } from "formik";
 import { AiFillEdit } from "react-icons/ai";
+import { Flex } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
-import { WhiteSpace } from "../look/mobile";
 import {
   Input,
   Form,
@@ -18,19 +18,19 @@ import {
   RenderUpload,
   Button as WebButton,
 } from "../look/web";
-import { Button } from "../look/mobile";
+import { Button, WhiteSpace } from "../look/mobile";
 
 const ProfileFormContainer = styled.div`
   color: white;
   padding: 50px 26px 32px;
   opacity: 0.88;
   border-radius: 20px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89);
+  /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89); */
   background-color: transparent;
 `;
 
 const Heading = styled.h1`
-  font-family: CircularStdMedium;
+  font-family: Circular Std Medium;
   font-size: 30px;
   font-weight: normal;
   font-stretch: normal;
@@ -56,7 +56,23 @@ const InputStylized = styled(Input)`
   padding: 0 20px;
   caret-color: white;
   color: white;
-  font-family: CircularStdMedium;
+  font-family: Circular Std Medium;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+`;
+
+const UsernameInputStylized = styled(Input)`
+  display: inline;
+  background: transparent;
+  border-radius: 7px;
+  border: solid 2px #d8d8d8;
+  height: 40px !important;
+  font-size: 15px;
+  padding: 0 10px;
+  caret-color: white;
+  color: white;
+  font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -71,7 +87,7 @@ const InputAreaStylized = styled(InputArea)`
   padding: 20 20px;
   caret-color: white;
   color: white;
-  font-family: CircularStdMedium;
+  font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -108,7 +124,7 @@ const RenderUploadStylized = styled(RenderUpload)`
         border: 0 !important;
 
         .ant-upload-text {
-          font-family: CircularStdMedium;
+          font-family: Circular Std Medium;
           font-weight: normal;
           font-stretch: normal;
           font-style: normal;
@@ -127,13 +143,14 @@ const profileFormSchema = {
 const ProfileForm = (props) => {
   const [load, setload] = useState(false);
   const { values, handleSubmit } = props;
+  console.log(values);
   return (
     <ProfileFormContainer>
       <Form name="profile" onFinish={handleSubmit}>
         <div
           style={{
             position: "absolute",
-            top: "-80px",
+            top: "0",
             left: "50%",
             transform: "translateX(-70px)",
           }}
@@ -166,18 +183,45 @@ const ProfileForm = (props) => {
             </Button>
           </Field>
         </div>
-        <WhiteSpace size="xl" />
-        <WhiteSpace size="xl" />
+        <WhiteSpace size="md" />
+        <WhiteSpace size="md" />
+        <Flex type="wrap">
+          <Flex.Item style={{flex:1}}>
+            {" "}
+            <p style={{ color: "white", marginBottom:'20px' }}> oneplace.com/</p>
+          </Flex.Item>
+          <Flex.Item style={{flex:2}}>
+            <Field
+              name="username"
+              component={UsernameInputStylized}
+              type="text"
+              // prefix="www.oneplace.me/"
+              label={"Username"}
+              placeholder="Username"
+              value={values.username}
+            />
+          </Flex.Item>
+        </Flex>
+        
 
         <Field
-          name="name"
+          name="userProfile.firstName"
           component={InputStylized}
           type="text"
-          label={"Name"}
-          placeholder="Name"
-          value={values.name}
+          label={"First Name"}
+          placeholder="First Name"
+          value={values.userProfile.firstName}
         />
-        <WhiteSpace size="xl" />
+        
+        <Field
+          name="userProfile.lastName"
+          component={InputStylized}
+          type="text"
+          label={"Last Name"}
+          placeholder="Last Name"
+          value={values.userProfile.lastName}
+        />
+        
         <Field
           name="bio"
           component={InputAreaStylized}
@@ -186,9 +230,10 @@ const ProfileForm = (props) => {
           placeholder="Tell a few words about yourself "
           value={values.bio}
         />
-        <WhiteSpace size="xl" />
+        <WhiteSpace size="md" />
+        <WhiteSpace size="md" />
         <WebButton type="primary" htmlType="submit" size="large" block>
-          Login
+          Submit
         </WebButton>
       </Form>
     </ProfileFormContainer>
@@ -199,14 +244,15 @@ const ProfileFormWithFormik = withFormik({
   enableReinitialize: true,
   mapPropsToValues: ({ user }) => {
     return {
-      profileImage:
-        (user &&
-          user.userProfile &&
-          user.userProfile.profileImage &&
-          user.userProfile.profileImage._id) ||
-        "",
-      name: (user && user.userProfile && user.userProfile.name) || "",
-      bio: (user && user.userProfile && user.userProfile.bio) || "",
+      username: user && user.username,
+      userProfile: {
+        profileImage:
+          (user && user.userProfile && user.userProfile.profileImage) || {},
+        firstName:
+          (user && user.userProfile && user.userProfile.firstName) || "",
+        lastName: (user && user.userProfile && user.userProfile.lastName) || "",
+        bio: (user && user.userProfile && user.userProfile.bio) || "",
+      },
     };
   },
 

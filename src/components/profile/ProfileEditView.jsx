@@ -6,7 +6,6 @@ import { message } from "antd";
 
 import styled, { withTheme } from "styled-components";
 
-
 // import Loadable from "react-loadable";
 // import {
 //   AiFillFacebook,
@@ -30,6 +29,8 @@ const PageHead = styled.h2`
 const FormWrapper = styled.div`
   color: ${(props) => props.theme.textColor};
   position: relative;
+  height: fit-content;
+  background-color: #211E28;
 `;
 
 const ProfileEditView = (props) => {
@@ -41,7 +42,7 @@ const ProfileEditView = (props) => {
   } = props;
   // setAccessTokene('');
 
-  var profileMutation ;
+  var profileMutation;
 
   if (currentUser && currentUser.userProfile) {
     profileMutation = putUserProfileMutation;
@@ -87,22 +88,24 @@ const ProfileEditView = (props) => {
   return (
     <div
       style={{
-        padding: "20px 0",
+        padding: "20px 0 0 0",
         width: "100%",
         minHeight: "100vh",
         position: "relative",
         display: "grid",
         placeItems: "center",
         background: "white",
+        overflowY: "scroll",
       }}
     >
       {" "}
       <div
         style={{
           maxWidth: "500px",
-          height: "100%",
+          minHeight: "100%",
+          height: "fit-content",
           width: "100%",
-          overflow: "hidden",
+          // overflow: "hidden",
         }}
       >
         <PageHead>OnePlace Universe</PageHead>
@@ -117,16 +120,26 @@ const ProfileEditView = (props) => {
         <WhiteSpace size="xl" />
         <FormWrapper>
           <img
-            width="100%"
-            src="https://onelinkie.s3.ap-south-1.amazonaws.com/6996885c-21f7-49b0-b636-64be9d3d9655-output-onlinepngtools%20%288%29.png"
+            style={{
+              width: "100%",
+              position: "absolute",
+              top: '-6px',
+              left: 0,
+              right: 0,
+              zIndex:'10'
+            }}
+            src="https://onelinkie.s3.ap-south-1.amazonaws.com/55361b36-a8c0-4119-833a-d0eb102a0616-method-draw-image%20%286%29.png"
             alt=""
           />
           <div
             style={{
-              position: "absolute",
-              top: "90px",
-              left: "30px",
-              right: "30px",
+              // top: "0",
+              // left: "0",
+              position: "relative",
+              // right: "0",
+              background: "transparent",
+              padding: "80px 20px 0",
+              zIndex: "12",
             }}
           >
             <ProfileForm user={user} onSubmit={onSubmit} />

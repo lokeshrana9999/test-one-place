@@ -15,8 +15,7 @@ import {
 import { Button, Switch } from "../look/mobile";
 import PageLayout from "../look/PageLayout";
 import { withUser } from "../auth/Auth";
-
-import ProfileCard from "./ProfileCard";
+import ProfileBlocks from "../block/ProfileBlocks";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
 
 const profileData = {
@@ -76,6 +75,7 @@ const profileData = {
 };
 
 const ProfileName = styled.h1`
+  margin-top: 10px;
   color: ${(props) => props.theme.textColor};
   text-align: center;
 `;
@@ -93,12 +93,6 @@ const ProfileSmallText = styled.p`
   margin-bottom: 0px;
 `;
 
-const CardListHeadText = styled.h3`
-  color: ${(props) => props.theme.textColor};
-  margin-top: 0;
-  opacity: 0.7;
-  margin-bottom: 0px;
-`;
 
 const ProfileStats = styled.p`
   text-align: center;
@@ -111,8 +105,14 @@ const ProfileStats = styled.p`
 const Profile = (props) => {
   const [self, setSelf] = useState(true);
 
-  const { theme } = props;
-  console.log('profileview', props);
+  const { theme, currentUser, user } = props;
+
+  if (currentUser && !self) {
+    setSelf(true);
+  }
+
+  const userData = self ? currentUser : user;
+  console.log("profileview", props);
   return (
     <div>
       <PageLayout>
@@ -132,29 +132,37 @@ const Profile = (props) => {
           align="center"
         >
           {self && (
-            <Link to='/profile/edit'>
-            <Button
-              type="primary"
-              style={{
-                position: "absolute",
-                bottom: "-10px",
-                right: "-10px",
-                zIndex: "10",
-                width: "40px",
-                height: "40px",
-                borderRadius: "40px",
-              }}
-            >
-              <AiFillEdit size="20" />
-            </Button></Link>
+            <Link to="/profile/edit">
+              <Button
+                type="primary"
+                style={{
+                  position: "absolute",
+                  bottom: "-10px",
+                  right: "-10px",
+                  zIndex: "10",
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "40px",
+                }}
+              >
+                <AiFillEdit size="20" />
+              </Button>
+            </Link>
           )}
           <Avatar
             size="150"
             style={{ borderRadius: "20px", overflow: "hidden" }}
-            src="https://yt3.ggpht.com/yti/ANoDKi5f9agr7oQdzZxVZZUk2_twBPhEUtrC3Rom4Jj9fg=s88-c-k-c0x00ffffff-no-rj-mo"
+            src={
+              userData &&
+              userData.userProfile &&
+              userData.userProfile.profileImage &&
+              userData.userProfile.profileImage.url
+            }
           />
         </div>
-        <ProfileName>Hugo</ProfileName>
+        <ProfileName>
+          {userData && userData.userProfile && userData.userProfile.name}
+        </ProfileName>
         <ProfileSmallText></ProfileSmallText>
         <br />
         <div align="center">
@@ -184,7 +192,7 @@ const Profile = (props) => {
             </Flex.Item>
           </Flex>
         </div>
-        <br />
+        {/* <br />
         <Flex justify="between" style={{ width: "100%" }}>
           <Flex.Item>
             <ProfileSmallText align="center">{`Visits`}</ProfileSmallText>
@@ -194,56 +202,14 @@ const Profile = (props) => {
             <ProfileSmallText align="center">{`Super Fans`}</ProfileSmallText>
             <ProfileStats>{"1662"}</ProfileStats>
           </Flex.Item>
-        </Flex>
-        {!self && (
+        </Flex> */}
+        {/* {!self && (
           <Button style={{ marginTop: "20px" }} type="primary">
             Join My Super Fam
           </Button>
-        )}
+        )} */}
         <br />
-        {self && (
-          <React.Fragment>
-            <Flex justify="between" style={{ width: "100%" }}>
-              <Flex.Item>
-                <CardListHeadText>Your Cards</CardListHeadText>
-              </Flex.Item>
-
-              <Flex.Item align="right">
-                <Link>
-                  <AiOutlinePlusCircle
-                    style={{ marginBottom: "-2px", marginRight: "3px" }}
-                  />
-                  Add A Card
-                </Link>
-              </Flex.Item>
-            </Flex>
-            <CardListHeadText
-              style={{ textAlign: "center", marginTop: "15px" }}
-            >
-              Tap to edit Cards
-            </CardListHeadText>
-          </React.Fragment>
-        )}
-        <br />
-        {profileData &&
-          profileData.cardData &&
-          profileData.cardData.nodes &&
-          (profileData.cardData.nodes.length === 0 ? (
-            <CardListHeadText
-              style={{ textAlign: "center", marginTop: "15px" }}
-            >
-              No Cards
-            </CardListHeadText>
-          ) : (
-            profileData.cardData.nodes.map((node, key) => (
-              <ProfileCard
-                image={node.edge.image}
-                text={node.edge.text}
-                key={key}
-                self={self}
-              />
-            ))
-          ))}
+        <ProfileBlocks self={self} user={userData} />
       </PageLayout>
     </div>
   );
