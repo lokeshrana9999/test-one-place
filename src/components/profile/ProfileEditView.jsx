@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 // import Avatar from "react-avatar";
 // import { Flex } from "antd-mobile";
 // import { Link } from "react-router-dom";
 import { message } from "antd";
 
 import styled, { withTheme } from "styled-components";
-import { connect } from "react-redux";
-import { ApiContext, UserApiUrls, ProfileApiUrls } from "../../api";
-import { useGet, useMutate } from "restful-react";
+
 
 // import Loadable from "react-loadable";
 // import {
@@ -21,7 +19,7 @@ import { useGet, useMutate } from "restful-react";
 import { WhiteSpace } from "../look/mobile";
 import ProfileForm from "./ProfileForm";
 import { withUser } from "../auth/Auth";
-import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
+import { withAddProfile } from "./ProfileOperations";
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
@@ -35,41 +33,22 @@ const FormWrapper = styled.div`
 `;
 
 const ProfileEditView = (props) => {
-  const { accessToken, setAccessTokene, refreshToken, history } = props;
-  setAccessTokene('');
-  const defaultApiUrl = useContext(ApiContext);
-  const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
-  const { data: currentUserData, loading: currentUserLoading, error } = useGet({
-    path: apiUrl,
-  });
+  const {
+    history,
+    currentUser,
+    postUserProfileMutation,
+    putUserProfileMutation,
+  } = props;
+  // setAccessTokene('');
 
-  var profileMutation, profileMutationLoading;
+  var profileMutation ;
 
-  if(currentUserData && currentUserData.user && currentUserData.user.userProfile){
-
-    const { mutate: postUserProfileMutation, sendOtpLoading } = useMutate({
-      verb: "PUT",
-      path: defaultApiUrl + ProfileApiUrls.putUserProfile(currentUserData.user.userProfile._id),
-    });
-    profileMutation=postUserProfileMutation
-  }else{
-    const { mutate: postUserProfileMutation, sendOtpLoading } = useMutate({
-      verb: "POST",
-      path: defaultApiUrl + ProfileApiUrls.postUserProfile,
-    });
-    profileMutation=postUserProfileMutation
+  if (currentUser && currentUser.userProfile) {
+    profileMutation = putUserProfileMutation;
+  } else {
+    profileMutation = postUserProfileMutation;
   }
-
-
-
-  console.log(
-    "profileeditview",
-    accessToken,
-    currentUserData,
-    currentUserLoading,
-    error
-  );
-  const user = currentUserData && currentUserData.user;
+  const user = currentUser;
 
   const onSubmit = async (values) => {
     console.log("updateProfile", values);
@@ -103,6 +82,8 @@ const ProfileEditView = (props) => {
       });
     }
   };
+
+  console.log("currentUser", currentUser);
   return (
     <div
       style={{
@@ -156,16 +137,4 @@ const ProfileEditView = (props) => {
   );
 };
 
-const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
-const mapStateToProps = (state /*, ownProps*/) => {
-  console.log("mapstatetoprops", state);
-  return {
-    accessToken: state.app.accessToken,
-    refreshToken: state.app.refreshToken,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withTheme(ProfileEditView));
+export default withUser(withAddProfile(withTheme(ProfileEditView)));

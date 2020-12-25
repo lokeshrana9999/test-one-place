@@ -132,6 +132,7 @@ const Profile = (props) => {
           align="center"
         >
           {self && (
+            <Link to='/profile/edit'>
             <Button
               type="primary"
               style={{
@@ -145,7 +146,7 @@ const Profile = (props) => {
               }}
             >
               <AiFillEdit size="20" />
-            </Button>
+            </Button></Link>
           )}
           <Avatar
             size="150"

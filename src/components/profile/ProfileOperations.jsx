@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
-import { ApiContext, UserApiUrls, AuthApiUrls } from "../../api";
+import { ApiContext, ProfileApiUrls } from "../../api";
 import { PageLoader } from "../look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
@@ -11,24 +11,33 @@ import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import CURRENT_USER_QUERY from '../graphql/CurrentUserQuery.graphql';
 
-const withUser = (Component) => {
+const withAddProfile = (Component) => {
   const WithUserInner = ({ ...props }) => {
-    const { history, refreshToken, setAccessTokene, accessToken } = props;
+    const { accessToken, currentUser } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
-    var currentUserLoading = true;
 
-    var currentUserData;
-    const { data, loading, error } = useGet({
-      path: apiUrl,
-      requestOptions:{
-        headers:{ Authorization: `Bearer ${accessToken}` },
-      }
+    const {
+      mutate: postUserProfileMutation,
+      loading: postUserProfileLoading,
+    } = useMutate({
+      verb: "POST",
+      path: defaultApiUrl + ProfileApiUrls.postUserProfile,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
     });
-    currentUserLoading = loading;
-    currentUserData = data && data.user;
-    console.log(data, loading, error);
-
+    const {
+      mutate: putUserProfileMutation,
+      loading: putUserProfileLoading,
+    } = useMutate({
+      verb: "PUT",
+      path:
+        defaultApiUrl +
+        ProfileApiUrls.putUserProfile(currentUser.userProfile._id),
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
     // if (
     //   !currentUserLoading &&
     //   !currentUserData &&
@@ -36,13 +45,11 @@ const withUser = (Component) => {
     //   error.status === 401
     // ) {
     // }
-    return currentUserLoading || !currentUserData ? (
-      <PageLoader />
-    ) : (
+    return (
       <Component
         {...props}
-        currentUser={currentUserData}
-        currentUserLoading={currentUserLoading}
+        postUserProfileMutation={postUserProfileMutation}
+        putUserProfileMutation={putUserProfileMutation}
       />
     );
   };
@@ -143,7 +150,7 @@ const withUser = (Component) => {
 //   });
 
 export {
-  withUser,
+  withAddProfile,
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,
