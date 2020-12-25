@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-// import { withApollo, graphql } from "react-apollo";
-import { ApiContext, UserApiUrls } from "../../api";
-import { useGet } from "restful-react";
+import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
+import { ApiContext, UserApiUrls, AuthApiUrls } from "../../api";
+import { PageLoader } from "../look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import authentication from '@gqlapp/authentication-client-react';
@@ -12,22 +12,63 @@ import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 // import CURRENT_USER_QUERY from '../graphql/CurrentUserQuery.graphql';
 
 const withUser = (Component) => {
-  const defaultApiUrl = useContext(ApiContext);
-  const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
-  const { data: currentUserData, loading: currentUserLoading } = useGet({
-    path: apiUrl,
-  });
+  const WithUserInner = ({ ...props }) => {
+    const { history, refreshToken, setAccessTokene, accessToken } = props;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
+    var currentUserLoading = true;
 
-  const WithUser = ({ ...props }) => (
-    <Component
-      {...props}
-      currentUserData={currentUserData}
-      currentUserLoading={currentUserLoading}
-    />
-  );
+    var currentUserData;
+    const { data, loading, error } = useGet({
+      path: apiUrl,
+      requestOptions:{
+        headers:{ Authorization: `Bearer ${accessToken}` },
+      }
+    });
+    currentUserLoading = loading;
+    currentUserData = data && data.user;
+    console.log(data, loading, error);
 
-  return WithUser;
+    // if (
+    //   !currentUserLoading &&
+    //   !currentUserData &&
+    //   error &&
+    //   error.status === 401
+    // ) {
+    // }
+    return currentUserLoading || !currentUserData ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        currentUserData={currentUserData}
+        currentUserLoading={currentUserLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
 };
+
+// const RefreshAccessToken = ({ children,  }) => {
+//   const { mutate: refreshAccessToken, loading } = useMutate({
+//     verb: "POST",
+//     path: defaultApiUrl + AuthApiUrls.refreshAccessToken,
+//   });
+//   const refreshAccessTokenData = refreshAccessToken(refreshToken);
+//   console.log("refreshAccessToken", refreshAccessTokenData);
+//   return loading && (<PageLoader> <React.Fragment>{children}</React.Fragment></PageLoader>);
+// };
+
+// export default RefreshAccessToken;
 
 // const hasRole = (role, currentUser) => {
 //   return currentUser &&
@@ -103,9 +144,9 @@ const withUser = (Component) => {
 
 export {
   withUser,
-//   hasRole,
-//   withLoadedUser,
-//   IfLoggedIn,
-//   IfNotLoggedIn,
-//   withLogout,
+  //   hasRole,
+  //   withLoadedUser,
+  //   IfLoggedIn,
+  //   IfNotLoggedIn,
+  //   withLogout,
 };

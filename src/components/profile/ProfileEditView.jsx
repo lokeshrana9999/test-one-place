@@ -35,7 +35,8 @@ const FormWrapper = styled.div`
 `;
 
 const ProfileEditView = (props) => {
-  const { accessToken, refreshToken, history } = props;
+  const { accessToken, setAccessTokene, refreshToken, history } = props;
+  setAccessTokene('');
   const defaultApiUrl = useContext(ApiContext);
   const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
   const { data: currentUserData, loading: currentUserLoading, error } = useGet({

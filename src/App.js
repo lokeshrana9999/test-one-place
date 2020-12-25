@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Loadable from "react-loadable";
 import { withRouter } from "react-router";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { RestfulProvider } from "restful-react";
+import { RestfulProvider, useMutate } from "restful-react";
 import { connect } from "react-redux";
 
 // import ThemeChanger from "./components/look/ThemeChanger";
 import { themes } from "./styles/themes";
-import { ApiContext } from "./api";
+import { ApiContext, AuthApiUrls } from "./api";
 import { PageLoader } from "./components/look/mobile";
 import { setAccessTokene, setRefreshTokene } from "./store/appReducer";
 
@@ -57,66 +57,85 @@ const AsyncAddBlock = Loadable({
   modules: ["addBlockEditDefault"],
 });
 
-class App extends Component {
-  state = {
-    theme: themes.normal,
-  };
+const apiUrl =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_DEV_API_URL
+    : process.env.REACT_APP_PROD_API_URL;
 
-  handleThemeChange = (themeName) => {
-    this.setState({ theme: themes[themeName] });
-  };
-
-  render() {
-    const { accessToken, refreshToken } = this.props;
-    return (
-      <RestfulProvider
-        base={
-          process.env.NODE_ENV === "development"
-            ? process.env.REACT_APP_DEV_API_URL
-            : process.env.REACT_APP_PROD_API_URL
+const App = (props) => {
+  const [theme, handleThemeChange] = useState(themes.normal);
+  const { accessToken, refreshToken, setAccessTokene, history } = props;
+  const { mutate: refreshAccessToken, loading } = useMutate({
+    verb: "POST",
+    path: apiUrl + AuthApiUrls.refreshAccessToken,
+  });
+  console.log("app", props);
+  const restFulErrorHandler = async (error, retry) => {
+    console.log("restFulErrorHandler", retry);
+    if (error && (error.status > 400 || error.status < 500)) {
+      try {
+        const refreshAccessTokenData = await refreshAccessToken({
+          refreshToken,
+        });
+        await setAccessTokene(
+          refreshAccessTokenData && refreshAccessTokenData.accessToken
+        );
+        // console.log('retryRefresh', await retry());
+      } catch (e) {
+        console.log("refreshError", e);
+        if (e.status === 400) {
+          history.push(`/login?redirectBack=${history.location.pathname}`);
         }
-        resolve={(data) => data}
-        requestOptions={(url, method, requestBody) => ({
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })}
-      >
-        <ThemeProvider theme={this.state.theme}>
-          <div>
-            <ApiContext.Provider
-              value={
-                process.env.NODE_ENV === "development"
-                  ? process.env.REACT_APP_DEV_API_URL
-                  : process.env.REACT_APP_PROD_API_URL
-              }
-            >
-              <div>
-                <Switch>
-                  <Route path="/profile" exact component={AsyncProfile} />,
-                  <Route path="/login" exact component={AsyncLogin} />
-                  <Route
-                    path="/profile/edit"
-                    exact
-                    component={AsyncProfileEdit}
-                  />
-                  <Route
-                    path="/block/choose-category"
-                    exact
-                    component={AsyncChooseBlockCategory}
-                  />
-                  <Route
-                    path="/block/add/:blockCategoryId"
-                    exact
-                    component={AsyncAddBlock}
-                  />
-                </Switch>
-              </div>
-            </ApiContext.Provider>
-          </div>
-        </ThemeProvider>
-      </RestfulProvider>
-    );
-  }
-}
+      }
+    }
+  };
+
+  return (
+    <RestfulProvider
+      base={apiUrl}
+      resolve={(data) => console.log("restfulprovider", data)}
+      // requestOptions={(url, method, requestBody) => ({
+      //   headers: { Authorization: `Bearer ${accessToken}` },
+      // })}
+
+      onError={restFulErrorHandler}
+    >
+      <ThemeProvider theme={theme}>
+        <div>
+          <ApiContext.Provider
+            value={
+              process.env.NODE_ENV === "development"
+                ? process.env.REACT_APP_DEV_API_URL
+                : process.env.REACT_APP_PROD_API_URL
+            }
+          >
+            <div>
+              <Switch>
+                <Route path="/profile" exact component={AsyncProfile} />,
+                <Route path="/login" exact component={AsyncLogin} />
+                <Route
+                  path="/profile/edit"
+                  exact
+                  component={AsyncProfileEdit}
+                />
+                <Route
+                  path="/block/choose-category"
+                  exact
+                  component={AsyncChooseBlockCategory}
+                />
+                <Route
+                  path="/block/add/:blockCategoryId"
+                  exact
+                  component={AsyncAddBlock}
+                />
+              </Switch>
+            </div>
+          </ApiContext.Provider>
+        </div>
+      </ThemeProvider>
+    </RestfulProvider>
+  );
+};
 
 const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
 const mapStateToProps = (state /*, ownProps*/) => {

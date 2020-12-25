@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Avatar from "react-avatar";
 import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
@@ -12,8 +12,9 @@ import {
   AiFillEdit,
   AiOutlinePlusCircle,
 } from "react-icons/ai";
-import { Button,  Switch } from "../look/mobile";
-import  PageLayout  from "../look/PageLayout";
+import { Button, Switch } from "../look/mobile";
+import PageLayout from "../look/PageLayout";
+import { withUser } from "../auth/Auth";
 
 import ProfileCard from "./ProfileCard";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
@@ -107,167 +108,143 @@ const ProfileStats = styled.p`
   margin-top: 5px;
 `;
 
-class Profile extends Component {
-  state = {
-    self: true,
-  };
+const Profile = (props) => {
+  const [self, setSelf] = useState(true);
 
-  render() {
-    const { theme } = this.props;
-    const { self } = this.state;
-    return (
-      <div>
-        <PageLayout>
-          <Switch
-            checked={self}
-            onChange={() => {
-              this.setState({
-                self: !self,
-              });
-            }}
-          />
-          {self && <PageHead>OnePlace Universe</PageHead>}
-          <div
-            style={{
-              position: "relative",
-              width: "fit-content",
-              margin: "70px auto 0",
-            }}
-            align="center"
-          >
-            {self && (
-              <Button
-                type="primary"
-                style={{
-                  position: "absolute",
-                  bottom: "-10px",
-                  right: "-10px",
-                  zIndex: "10",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "40px",
-                }}
-              >
-                <AiFillEdit size="20" />
-              </Button>
-            )}
-            <Avatar
-              size="150"
-              style={{ borderRadius: "20px", overflow: "hidden" }}
-              src="https://yt3.ggpht.com/yti/ANoDKi5f9agr7oQdzZxVZZUk2_twBPhEUtrC3Rom4Jj9fg=s88-c-k-c0x00ffffff-no-rj-mo"
-            />
-          </div>
-          <ProfileName>Hugo</ProfileName>
-          <ProfileSmallText></ProfileSmallText>
-          <br />
-          <div align="center">
-            <Flex justify="center" style={{ width: "60%" }}>
-              <Flex.Item>
-                <div align="center">
-                  <AiFillFacebook style={{ color: "#0674E7" }} size="30" />
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div align="center">
-                  <AiFillInstagram
-                    style={{ color: theme.textColor }}
-                    size="30"
-                  />
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div align="center">
-                  <AiFillLinkedin
-                    style={{ color: theme.textColor }}
-                    size="30"
-                  />
-                </div>
-              </Flex.Item>
-              <Flex.Item>
-                <div align="center">
-                  <AiOutlineWhatsApp
-                    style={{ color: theme.textColor }}
-                    size="30"
-                  />
-                </div>
-              </Flex.Item>
-            </Flex>
-          </div>
-          <br />
-          <Flex justify="between" style={{ width: "100%" }}>
-            <Flex.Item>
-              <ProfileSmallText align="center">{`Visits`}</ProfileSmallText>
-              <ProfileStats>{"16627"}</ProfileStats>
-            </Flex.Item>
-            <Flex.Item>
-              <ProfileSmallText align="center">{`Super Fans`}</ProfileSmallText>
-              <ProfileStats>{"1662"}</ProfileStats>
-            </Flex.Item>
-          </Flex>
-          {!self && (
-            <Button style={{ marginTop: "20px" }} type="primary">
-              Join My Super Fam
+  const { theme } = props;
+  console.log('profileview', props);
+  return (
+    <div>
+      <PageLayout>
+        <Switch
+          checked={self}
+          onChange={() => {
+            setSelf(!self);
+          }}
+        />
+        {self && <PageHead>OnePlace Universe</PageHead>}
+        <div
+          style={{
+            position: "relative",
+            width: "fit-content",
+            margin: "70px auto 0",
+          }}
+          align="center"
+        >
+          {self && (
+            <Button
+              type="primary"
+              style={{
+                position: "absolute",
+                bottom: "-10px",
+                right: "-10px",
+                zIndex: "10",
+                width: "40px",
+                height: "40px",
+                borderRadius: "40px",
+              }}
+            >
+              <AiFillEdit size="20" />
             </Button>
           )}
-          <br />
-          {self && (
-            <React.Fragment>
-              <Flex justify="between" style={{ width: "100%" }}>
-                <Flex.Item>
-                  <CardListHeadText>Your Cards</CardListHeadText>
-                </Flex.Item>
-
-                <Flex.Item align="right">
-                  <Link>
-                    <AiOutlinePlusCircle
-                      style={{ marginBottom: "-2px", marginRight: "3px" }}
-                    />
-                    Add A Card
-                  </Link>
-                </Flex.Item>
-              </Flex>
-              <CardListHeadText
-                style={{ textAlign: "center", marginTop: "15px" }}
-              >
-                Tap to edit Cards
-              </CardListHeadText>
-            </React.Fragment>
-          )}
-          <br />
-          {profileData &&
-            profileData.cardData &&
-            profileData.cardData.nodes &&
-            (profileData.cardData.nodes.length === 0 ? (
-              <CardListHeadText
-                style={{ textAlign: "center", marginTop: "15px" }}
-              >
-                No Cards
-              </CardListHeadText>
-            ) : (
-              profileData.cardData.nodes.map((node, key) => (
-                <ProfileCard
-                  image={node.edge.image}
-                  text={node.edge.text}
-                  key={key}
-                  self={self}
+          <Avatar
+            size="150"
+            style={{ borderRadius: "20px", overflow: "hidden" }}
+            src="https://yt3.ggpht.com/yti/ANoDKi5f9agr7oQdzZxVZZUk2_twBPhEUtrC3Rom4Jj9fg=s88-c-k-c0x00ffffff-no-rj-mo"
+          />
+        </div>
+        <ProfileName>Hugo</ProfileName>
+        <ProfileSmallText></ProfileSmallText>
+        <br />
+        <div align="center">
+          <Flex justify="center" style={{ width: "60%" }}>
+            <Flex.Item>
+              <div align="center">
+                <AiFillFacebook style={{ color: "#0674E7" }} size="30" />
+              </div>
+            </Flex.Item>
+            <Flex.Item>
+              <div align="center">
+                <AiFillInstagram style={{ color: theme.textColor }} size="30" />
+              </div>
+            </Flex.Item>
+            <Flex.Item>
+              <div align="center">
+                <AiFillLinkedin style={{ color: theme.textColor }} size="30" />
+              </div>
+            </Flex.Item>
+            <Flex.Item>
+              <div align="center">
+                <AiOutlineWhatsApp
+                  style={{ color: theme.textColor }}
+                  size="30"
                 />
-              ))
-            ))}
-          {/* <Flex justify="center">
-            <Flex.Item>
-              <AsyncProfileVideoPlayer src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4">
-                <BigPlayButton position="center" />
-              </AsyncProfileVideoPlayer>
+              </div>
             </Flex.Item>
-            <Flex.Item>
-              <AsyncProfileVideoPlayer src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4">
-                <BigPlayButton position="center" />
-              </AsyncProfileVideoPlayer>
-            </Flex.Item>
-          </Flex> */}
-        </PageLayout>
-      </div>
-    );
-  }
-}
-export default withTheme(Profile);
+          </Flex>
+        </div>
+        <br />
+        <Flex justify="between" style={{ width: "100%" }}>
+          <Flex.Item>
+            <ProfileSmallText align="center">{`Visits`}</ProfileSmallText>
+            <ProfileStats>{"16627"}</ProfileStats>
+          </Flex.Item>
+          <Flex.Item>
+            <ProfileSmallText align="center">{`Super Fans`}</ProfileSmallText>
+            <ProfileStats>{"1662"}</ProfileStats>
+          </Flex.Item>
+        </Flex>
+        {!self && (
+          <Button style={{ marginTop: "20px" }} type="primary">
+            Join My Super Fam
+          </Button>
+        )}
+        <br />
+        {self && (
+          <React.Fragment>
+            <Flex justify="between" style={{ width: "100%" }}>
+              <Flex.Item>
+                <CardListHeadText>Your Cards</CardListHeadText>
+              </Flex.Item>
+
+              <Flex.Item align="right">
+                <Link>
+                  <AiOutlinePlusCircle
+                    style={{ marginBottom: "-2px", marginRight: "3px" }}
+                  />
+                  Add A Card
+                </Link>
+              </Flex.Item>
+            </Flex>
+            <CardListHeadText
+              style={{ textAlign: "center", marginTop: "15px" }}
+            >
+              Tap to edit Cards
+            </CardListHeadText>
+          </React.Fragment>
+        )}
+        <br />
+        {profileData &&
+          profileData.cardData &&
+          profileData.cardData.nodes &&
+          (profileData.cardData.nodes.length === 0 ? (
+            <CardListHeadText
+              style={{ textAlign: "center", marginTop: "15px" }}
+            >
+              No Cards
+            </CardListHeadText>
+          ) : (
+            profileData.cardData.nodes.map((node, key) => (
+              <ProfileCard
+                image={node.edge.image}
+                text={node.edge.text}
+                key={key}
+                self={self}
+              />
+            ))
+          ))}
+      </PageLayout>
+    </div>
+  );
+};
+export default withUser(withTheme(Profile));

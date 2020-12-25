@@ -3,6 +3,7 @@ import styled, { withTheme } from "styled-components";
 import { message } from "antd";
 import { useMutate } from "restful-react";
 import { connect } from "react-redux";
+import queryString from "query-string";
 
 import { WhiteSpace } from "../look/mobile";
 import LoginForm from "./LoginForm";
@@ -21,8 +22,14 @@ const FormWrapper = styled.div`
 `;
 
 const LoginView = (props) => {
-  const { history, setRefreshTokene, setAccessTokene, accessToken, refreshToken } = props;
-  console.log('loginview', accessToken);
+  const {
+    history,
+    setRefreshTokene,
+    setAccessTokene,
+    accessToken,
+    refreshToken,
+  } = props;
+  console.log("loginview", accessToken);
   const defaultApiUrl = useContext(ApiContext);
   // setAccessTokene('')
   // setRefreshTokene('')
@@ -85,7 +92,8 @@ const LoginView = (props) => {
         });
         setAccessTokene(sending.accessToken);
         setRefreshTokene(sending.refreshToken);
-        history.push("/profile/edit");
+        const params = queryString.parse(history.location.search);
+        history.push(params.redirectBack ? params.redirectBack : "/profile");
       } else {
         message.error({
           duration: 2,
@@ -150,7 +158,7 @@ const LoginView = (props) => {
 
 const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
 const mapStateToProps = (state /*, ownProps*/) => {
-  console.log('mapstatetoprops', state);
+  console.log("mapstatetoprops", state);
   return {
     accessToken: state.app.accessToken,
     refreshToken: state.app.refreshToken,
