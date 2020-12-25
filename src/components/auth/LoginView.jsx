@@ -24,7 +24,8 @@ const LoginView = (props) => {
   const { history, setRefreshTokene, setAccessTokene, accessToken, refreshToken } = props;
   console.log('loginview', accessToken);
   const defaultApiUrl = useContext(ApiContext);
-  // setAccessTokene('ksdjflsdjflj')
+  // setAccessTokene('')
+  // setRefreshTokene('')
   const { mutate: sendOtpMutation, sendOtpLoading } = useMutate({
     verb: "POST",
     path: defaultApiUrl + AuthApiUrls.sendOtp,
@@ -84,7 +85,7 @@ const LoginView = (props) => {
         });
         setAccessTokene(sending.accessToken);
         setRefreshTokene(sending.refreshToken);
-        history.push("/profile");
+        history.push("/profile/edit");
       } else {
         message.error({
           duration: 2,

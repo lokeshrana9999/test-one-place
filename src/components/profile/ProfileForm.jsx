@@ -7,13 +7,18 @@ import {
   validate,
 } from "../form";
 import { withFormik } from "formik";
-import {
-  AiFillEdit,
-} from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 import styled, { withTheme } from "styled-components";
 import { WhiteSpace } from "../look/mobile";
-import { Input, Form, Alert, InputArea, RenderUpload } from "../look/web";
-import { Button} from "../look/mobile";
+import {
+  Input,
+  Form,
+  Alert,
+  InputArea,
+  RenderUpload,
+  Button as WebButton,
+} from "../look/web";
+import { Button } from "../look/mobile";
 
 const ProfileFormContainer = styled.div`
   color: white;
@@ -85,24 +90,23 @@ const RenderUploadStylized = styled(RenderUpload)`
     .ant-upload-list-picture-card {
       width: 100%;
       height: 100%;
-      .ant-upload-list-picture-card-container{
-          margin: 0;
+      .ant-upload-list-picture-card-container {
+        margin: 0;
         width: 100%;
         height: 100%;
-        background:white;
-      .ant-upload-list-item-done{
-        padding:0 !important;
-        margin:0 !important;
-
-      }  
+        background: white;
+        .ant-upload-list-item-done {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
       }
       .ant-upload-select-picture-card {
         margin: 0;
         width: 100%;
         height: 100%;
-        background:white;
-        border:0 !important;
-        
+        background: white;
+        border: 0 !important;
+
         .ant-upload-text {
           font-family: CircularStdMedium;
           font-weight: normal;
@@ -116,8 +120,8 @@ const RenderUploadStylized = styled(RenderUpload)`
 `;
 
 const profileFormSchema = {
-  phoneNumber: [required, phoneNumber],
-  otp: [required, minLength(4)],
+  name: [required],
+  bio: [required, minLength(4)],
 };
 
 const ProfileForm = (props) => {
@@ -125,51 +129,53 @@ const ProfileForm = (props) => {
   const { values, handleSubmit } = props;
   return (
     <ProfileFormContainer>
-      <Form name="profile" onSubmit={handleSubmit}>
-        <div style={{ position: "absolute", top: "-80px", left:'50%', transform:'translateX(-70px)' }}>
+      <Form name="profile" onFinish={handleSubmit}>
+        <div
+          style={{
+            position: "absolute",
+            top: "-80px",
+            left: "50%",
+            transform: "translateX(-70px)",
+          }}
+        >
           <Field
-            name="avatar"
+            name="profileImage"
             component={RenderUploadStylized}
             type="text"
             setload={setload}
             label={"Upload Your Photo"}
-            value={values.avatar}
+            value={values.profileImage}
           >
             <Button
-                type="primary"
-                style={{
-                  position: "absolute",
-                  bottom: "-10px",
-                  right: "-10px",
-                  zIndex: "10",
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "30px",
-                  padding:'0'
-                }}
-              >
-                <AiFillEdit size="20" style={{position:'absolute', top:'4px', left:'4px'}} />
-              </Button>
+              type="primary"
+              style={{
+                position: "absolute",
+                bottom: "-10px",
+                right: "-10px",
+                zIndex: "10",
+                width: "30px",
+                height: "30px",
+                borderRadius: "30px",
+                padding: "0",
+              }}
+            >
+              <AiFillEdit
+                size="20"
+                style={{ position: "absolute", top: "4px", left: "4px" }}
+              />
+            </Button>
           </Field>
         </div>
         <WhiteSpace size="xl" />
         <WhiteSpace size="xl" />
+
         <Field
-          name="firstName"
+          name="name"
           component={InputStylized}
           type="text"
-          label={"First Name"}
-          placeholder="First Name"
-          value={values.firstName}
-        />
-        <WhiteSpace size="xl" />
-        <Field
-          name="lastName"
-          component={InputStylized}
-          type="text"
-          label={"Last Name"}
-          placeholder="Last Name"
-          value={values.lastName}
+          label={"Name"}
+          placeholder="Name"
+          value={values.name}
         />
         <WhiteSpace size="xl" />
         <Field
@@ -180,6 +186,10 @@ const ProfileForm = (props) => {
           placeholder="Tell a few words about yourself "
           value={values.bio}
         />
+        <WhiteSpace size="xl" />
+        <WebButton type="primary" htmlType="submit" size="large" block>
+          Login
+        </WebButton>
       </Form>
     </ProfileFormContainer>
   );
@@ -187,12 +197,21 @@ const ProfileForm = (props) => {
 
 const ProfileFormWithFormik = withFormik({
   enableReinitialize: true,
-  mapPropsToValues: () => {
-    return { avatar: "https://yt3.ggpht.com/yti/ANoDKi5f9agr7oQdzZxVZZUk2_twBPhEUtrC3Rom4Jj9fg=s88-c-k-c0x00ffffff-no-rj-mo", firstName: "", lastName: "", bio: "" };
+  mapPropsToValues: ({ user }) => {
+    return {
+      profileImage:
+        (user &&
+          user.userProfile &&
+          user.userProfile.profileImage &&
+          user.userProfile.profileImage._id) ||
+        "",
+      name: (user && user.userProfile && user.userProfile.name) || "",
+      bio: (user && user.userProfile && user.userProfile.bio) || "",
+    };
   },
 
   handleSubmit(values, { props: { onSubmit } }) {
-    // console.log(values);
+    onSubmit(values);
   },
   validate: (values) => validate(values, profileFormSchema),
   displayName: "ProfileForm", // helps with React DevTools
