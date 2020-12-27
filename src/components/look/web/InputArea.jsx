@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Input } from "antd";
+import { Input, Form } from "antd";
 import styled, { withTheme } from "styled-components";
 
-const ADTextArea = Input.TextArea
+const ADTextArea = Input.TextArea;
 
 const StyledADTextArea = styled(ADTextArea)`
   /* display:block; */
@@ -11,19 +11,26 @@ const StyledADTextArea = styled(ADTextArea)`
 
 const TextArea = ({ children, ...props }) => {
   const {
-    formik: { setFieldValue },
+    formik: { setFieldValue, handleBlur },
     name,
+    meta,
   } = props;
-
+  console.log('textarea', props);
   return (
-    <StyledADTextArea
-      {...props}
-      onChange={(e) => {
-        setFieldValue(name, e.target.value);
-      }}
+    <Form.Item
+      validateStatus={meta.touched && meta.error && "error"}
+      extra={meta.touched && meta.error}
     >
-      {children}
-    </StyledADTextArea>
+      <StyledADTextArea
+        onBlur={handleBlur}
+        {...props}
+        onChange={(e) => {
+          setFieldValue(name, e.target.value);
+        }}
+      >
+        {children}
+      </StyledADTextArea>
+    </Form.Item>
   );
 };
 

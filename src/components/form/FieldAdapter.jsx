@@ -12,11 +12,15 @@ class FieldAdapter extends Component {
     this.props = props;
   }
   onChange = (e, secondArg) => {
-    const { formik, onChange } = this.props;
+    console.log("onChange", e, secondArg, this.props);
+    const { formik, onChange, type: fieldType } = this.props;
     if (onChange) {
       onChange(e);
     }
-    if (e._isAMomentObject && secondArg) {
+    if (fieldType === "image" || fieldType === "media") {
+      formik.setFieldValue(this.props.name, e);
+    }
+    else if (e._isAMomentObject && secondArg) {
       this.props.formik.setFieldValue(this.props.name, secondArg);
     } else if (
       Array.isArray(e) &&
@@ -30,11 +34,11 @@ class FieldAdapter extends Component {
       this.props.formik.setFieldValue(this.props.name, e);
     } else if (isNumber(e)) {
       this.props.formik.setFieldValue(this.props.name, e);
-    } else if (e.target.type == "radio") {
+    } else if (e && e.target && e.target.type == "radio") {
       this.props.formik.setFieldValue(e.target.name, e.target.value);
-    } else if (e.target.checked) {
+    } else if (e && e.target && e.target.checked) {
       this.props.formik.setFieldValue(e.target.name, e.target.checked);
-    } else if (e.target.type == "number") {
+    } else if (e && e.target && e.target.type == "number") {
       this.props.formik.setFieldValue(e.target.name, parseInt(e.target.value));
     } else {
       formik.handleChange(e);
@@ -84,9 +88,6 @@ class FieldAdapter extends Component {
       touched: getPath(formik.touched, name),
       error: getPath(formik.errors, name),
     };
-
-    console.log('fieldaDAPTER', name, ":", meta);
-
     const input = {
       onBlur: this.onBlur,
       name,

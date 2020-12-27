@@ -44,12 +44,14 @@ const ProfileEdit = (props) => {
 
   const onSubmit = async (values) => {
     console.log("updateProfile", values);
+    const { userProfile: profileValues } = values;
+    console.log('onSubmitProfileValues', profileValues);
     try {
       message.loading({
         content: "Updating Profile Info",
         duration: 0,
       });
-      const sending = await profileMutation(values);
+      const sending = await profileMutation(profileValues);
       console.log(sending);
       message.destroy();
       if (sending.status === true) {

@@ -13,11 +13,10 @@ const Input = ({ children, ...props }) => {
     name,
     meta,
   } = props;
-  console.log(name, ":", props);
   return (
     <Form.Item
       validateStatus={meta.touched && meta.error && "error"}
-      extra={meta.error}
+      extra={meta.touched && meta.error}
     >
       <StyledADInput
         onBlur={handleBlur}

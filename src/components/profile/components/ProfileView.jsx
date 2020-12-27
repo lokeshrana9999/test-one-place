@@ -90,9 +90,12 @@ const Profile = (props) => {
           />
         </div>
         <ProfileName>
-          {userData && userData.userProfile && userData.userProfile.name}
+          {userData && userData.userProfile && userData.userProfile.firstName}{" "}
+          {userData && userData.userProfile && userData.userProfile.lastName}
         </ProfileName>
-        <ProfileSmallText></ProfileSmallText>
+        <ProfileSmallText>
+          {userData && userData.userProfile && userData.userProfile.bio}
+        </ProfileSmallText>
         <br />
         <div align="center">
           <Flex justify="center" style={{ width: "60%" }}>

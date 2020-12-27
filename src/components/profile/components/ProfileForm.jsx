@@ -53,7 +53,7 @@ const InputStylized = styled(Input)`
   font-size: 20px;
   padding: 0 20px;
   caret-color: white;
-  color: white  !important;
+  color: white !important;
   font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
@@ -105,7 +105,7 @@ const UsernameInputStylized = styled(Input)`
 `;
 
 const InputAreaStylized = styled(InputArea)`
-  background: transparent;
+  background: transparent !important;
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 120px !important;
@@ -178,7 +178,7 @@ const RenderUploadStylized = styled(RenderUpload)`
 const profileFormSchema = Yup.object().shape({
   username: Yup.string().required("Required"),
   userProfile: Yup.object().shape({
-    bio: Yup.string().min(10, "too short").required("Required"),
+    bio: Yup.string().required("Required"),
     firstName: Yup.string().required("Required"),
   }),
 });
@@ -186,7 +186,7 @@ const profileFormSchema = Yup.object().shape({
 const ProfileForm = (props) => {
   const [load, setload] = useState(false);
   const { values, handleSubmit } = props;
-  // console.log(values);
+  console.log("form values:", values);
   return (
     <ProfileFormContainer>
       <Form name="profile" onFinish={handleSubmit}>
@@ -199,12 +199,12 @@ const ProfileForm = (props) => {
           }}
         >
           <Field
-            name="profileImage"
+            name="userProfile.profileImage"
             component={RenderUploadStylized}
-            type="text"
+            type="image"
             setload={setload}
             label={"Upload Your Photo"}
-            value={values.profileImage}
+            value={values.userProfile.profileImage}
           >
             <Button
               type="primary"
@@ -268,12 +268,12 @@ const ProfileForm = (props) => {
         />
 
         <Field
-          name="bio"
+          name="userProfile.bio"
           component={InputAreaStylized}
           type="textarea"
           label={"Tell a few words about yourself "}
           placeholder="Tell a few words about yourself "
-          value={values.bio}
+          value={values.userProfile.bio}
         />
         <WhiteSpace size="md" />
         <WhiteSpace size="md" />
@@ -303,7 +303,13 @@ const ProfileFormWithFormik = withFormik({
 
   handleSubmit(values, { props: { onSubmit } }) {
     console.log("handleSubmit", values);
-    // onSubmit(values);
+    let modifiedValues = values;
+    modifiedValues.userProfile.profileImage =
+      (values.userProfile &&
+        values.userProfile.profileImage &&
+        values.userProfile.profileImage._id) ||
+      null;
+    onSubmit(modifiedValues);
   },
   validationSchema: profileFormSchema,
   // validate: (values) => validate(values, profileFormSchema),
