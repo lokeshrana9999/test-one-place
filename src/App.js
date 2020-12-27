@@ -15,7 +15,7 @@ import { setAccessTokene, setRefreshTokene } from "./store/appReducer";
 const AsyncProfile = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName: "profileDefault" */ "./components/profile/ProfileView"
+      /* webpackChunkName: "profileDefault" */ "./components/profile/containers/Profile"
     ),
   loading: () => <PageLoader />,
   modules: ["profileDefault"],
@@ -33,7 +33,7 @@ const AsyncLogin = Loadable({
 const AsyncProfileEdit = Loadable({
   loader: () =>
     import(
-      /* webpackChunkName: "profileEditDefault" */ "./components/profile/ProfileEditView"
+      /* webpackChunkName: "profileEditDefault" */ "./components/profile/containers/ProfileEdit"
     ),
   loading: () => <PageLoader />,
   modules: ["profileEditDefault"],

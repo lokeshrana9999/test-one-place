@@ -13,16 +13,7 @@ export default class RenderUpload extends React.Component {
     this.state = {
       previewVisible: false,
       previewImage: "",
-      fileList: props.value
-        ? [
-            {
-              uid: "-1",
-              name: "image.png",
-              status: "done",
-              url: props.value,
-            },
-          ]
-        : [],
+      fileList: props.value ? [props.value] : [],
     };
   }
 
@@ -36,12 +27,11 @@ export default class RenderUpload extends React.Component {
     if (file.status == "done") {
       this.props.setload(false);
       if (file.response) {
-        let upload_id =
-          file.response && file.response.upload && file.response.upload._id;
-        if (upload_id) {
-          // console.log(upload_id);
+        let upload_obj = file.response && file.response.upload;
+        if (upload_obj) {
+          // console.log(upload_obj);
           //set value in form
-          this.props.input.onChange(upload_id);
+          this.props.input.onChange(upload_obj);
         }
       }
     } else if (file.status == "removed") {

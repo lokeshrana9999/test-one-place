@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import {
-  FieldAdapter as Field,
-  phoneNumber,
-  required,
-  minLength,
-  validate,
-} from "../form";
 import { withFormik } from "formik";
 import { AiFillEdit } from "react-icons/ai";
 import { Flex } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
+import * as Yup from "yup";
+import { FieldAdapter as Field } from "../../form";
 import {
   Input,
   Form,
@@ -17,8 +12,8 @@ import {
   InputArea,
   RenderUpload,
   Button as WebButton,
-} from "../look/web";
-import { Button, WhiteSpace } from "../look/mobile";
+} from "../../look/web";
+import { Button, WhiteSpace } from "../../look/mobile";
 
 const ProfileFormContainer = styled.div`
   color: white;
@@ -27,6 +22,9 @@ const ProfileFormContainer = styled.div`
   border-radius: 20px;
   /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89); */
   background-color: transparent;
+  .ant-form-item-extra {
+    color: white !important;
+  }
 `;
 
 const Heading = styled.h1`
@@ -48,23 +46,37 @@ const LargeHeadingComponent = styled.div`
 `;
 
 const InputStylized = styled(Input)`
-  background: transparent;
+  background: transparent !important;
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 60px !important;
   font-size: 20px;
   padding: 0 20px;
   caret-color: white;
-  color: white;
+  color: white  !important;
   font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
+  :focus {
+    caret-color: white;
+    color: white;
+    background-color: transparent !important;
+  }
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white;
+    caret-color: white;
+    color: white;
+    background-color: transparent !important;
+  }
 `;
 
 const UsernameInputStylized = styled(Input)`
   display: inline;
-  background: transparent;
+  background: transparent !important;
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 40px !important;
@@ -76,6 +88,20 @@ const UsernameInputStylized = styled(Input)`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
+  :focus {
+    caret-color: white;
+    color: white;
+    background-color: transparent !important;
+  }
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white;
+    caret-color: white;
+    color: white;
+    background-color: transparent !important;
+  }
 `;
 
 const InputAreaStylized = styled(InputArea)`
@@ -91,6 +117,20 @@ const InputAreaStylized = styled(InputArea)`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
+  :focus {
+    caret-color: white;
+    color: white;
+    background-color: transparent !important;
+  }
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white;
+    caret-color: white;
+    color: white;
+    background-color: transparent !important;
+  }
 `;
 
 const RenderUploadStylized = styled(RenderUpload)`
@@ -135,22 +175,25 @@ const RenderUploadStylized = styled(RenderUpload)`
   }
 `;
 
-const profileFormSchema = {
-  name: [required],
-  bio: [required, minLength(4)],
-};
+const profileFormSchema = Yup.object().shape({
+  username: Yup.string().required("Required"),
+  userProfile: Yup.object().shape({
+    bio: Yup.string().min(10, "too short").required("Required"),
+    firstName: Yup.string().required("Required"),
+  }),
+});
 
 const ProfileForm = (props) => {
   const [load, setload] = useState(false);
   const { values, handleSubmit } = props;
-  console.log(values);
+  // console.log(values);
   return (
     <ProfileFormContainer>
       <Form name="profile" onFinish={handleSubmit}>
         <div
           style={{
             position: "absolute",
-            top: "0",
+            top: "-20px",
             left: "50%",
             transform: "translateX(-70px)",
           }}
@@ -186,11 +229,14 @@ const ProfileForm = (props) => {
         <WhiteSpace size="md" />
         <WhiteSpace size="md" />
         <Flex type="wrap">
-          <Flex.Item style={{flex:1}}>
+          <Flex.Item style={{ flex: 1 }}>
             {" "}
-            <p style={{ color: "white", marginBottom:'20px' }}> oneplace.com/</p>
+            <p style={{ color: "white", marginBottom: "20px" }}>
+              {" "}
+              oneplace.com/
+            </p>
           </Flex.Item>
-          <Flex.Item style={{flex:2}}>
+          <Flex.Item style={{ flex: 2 }}>
             <Field
               name="username"
               component={UsernameInputStylized}
@@ -202,7 +248,6 @@ const ProfileForm = (props) => {
             />
           </Flex.Item>
         </Flex>
-        
 
         <Field
           name="userProfile.firstName"
@@ -212,7 +257,7 @@ const ProfileForm = (props) => {
           placeholder="First Name"
           value={values.userProfile.firstName}
         />
-        
+
         <Field
           name="userProfile.lastName"
           component={InputStylized}
@@ -221,7 +266,7 @@ const ProfileForm = (props) => {
           placeholder="Last Name"
           value={values.userProfile.lastName}
         />
-        
+
         <Field
           name="bio"
           component={InputAreaStylized}
@@ -257,9 +302,11 @@ const ProfileFormWithFormik = withFormik({
   },
 
   handleSubmit(values, { props: { onSubmit } }) {
-    onSubmit(values);
+    console.log("handleSubmit", values);
+    // onSubmit(values);
   },
-  validate: (values) => validate(values, profileFormSchema),
+  validationSchema: profileFormSchema,
+  // validate: (values) => validate(values, profileFormSchema),
   displayName: "ProfileForm", // helps with React DevTools
 });
 

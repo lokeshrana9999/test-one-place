@@ -10,6 +10,54 @@ import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 // import authentication from '@gqlapp/authentication-client-react';
 
 // import CURRENT_USER_QUERY from '../graphql/CurrentUserQuery.graphql';
+const withCurrentUserProfile = (Component) => {
+  const WithUserInner = ({ ...props }) => {
+    const { history, refreshToken, setAccessTokene, accessToken } = props;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + ProfileApiUrls.getCurrentUserProfile;
+    var currentUserProfileLoading = true;
+
+    var currentUserProfileData;
+    const { data, loading, error } = useGet({
+      path: apiUrl,
+      requestOptions:{
+        headers:{ Authorization: `Bearer ${accessToken}` },
+      }
+    });
+    currentUserProfileLoading = loading;
+    currentUserProfileData = data && data.userProfile;
+    console.log(data, loading, error);
+
+    // if (
+    //   !currentUserProfileLoading &&
+    //   !currentUserProfileData &&
+    //   error &&
+    //   error.status === 401
+    // ) {
+    // }
+    return currentUserProfileLoading || !currentUserProfileData ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        currentUserProfile={currentUserProfileData}
+        currentUserProfileLoading={currentUserProfileLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
+};
+
+
 
 const withAddProfile = (Component) => {
   const WithUserInner = ({ ...props }) => {
@@ -33,7 +81,7 @@ const withAddProfile = (Component) => {
       verb: "PUT",
       path:
         defaultApiUrl +
-        ProfileApiUrls.putUserProfile(currentUser.userProfile._id),
+        ProfileApiUrls.putUserProfile(currentUser.userProfile && currentUser.userProfile._id),
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
@@ -151,6 +199,7 @@ const withAddProfile = (Component) => {
 
 export {
   withAddProfile,
+  withCurrentUserProfile
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

@@ -9,14 +9,18 @@ const StyledADInput = styled(ADInput)`
 
 const Input = ({ children, ...props }) => {
   const {
-    formik: { setFieldValue },
+    formik: { setFieldValue, handleBlur },
     name,
     meta,
   } = props;
-
+  console.log(name, ":", props);
   return (
-    <Form.Item validateStatus={meta.error && "error"} extra={meta.error}>
+    <Form.Item
+      validateStatus={meta.touched && meta.error && "error"}
+      extra={meta.error}
+    >
       <StyledADInput
+        onBlur={handleBlur}
         {...props}
         onChange={(e) => {
           setFieldValue(name, e.target.value);

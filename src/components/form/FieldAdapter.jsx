@@ -85,6 +85,8 @@ class FieldAdapter extends Component {
       error: getPath(formik.errors, name),
     };
 
+    console.log('fieldaDAPTER', name, ":", meta);
+
     const input = {
       onBlur: this.onBlur,
       name,
