@@ -47,6 +47,7 @@ const ProfileStats = styled.p`
 
 const Profile = (props) => {
   const { userData, self, theme } = props;
+  const {username} = userData;
 
   return (
     <div>
@@ -141,7 +142,7 @@ const Profile = (props) => {
           </Button>
         )} */}
         <br />
-        <ProfileBlocks self={self} userData={userData} />
+        <ProfileBlocks self={self} username={username} />
       </PageLayout>
     </div>
   );

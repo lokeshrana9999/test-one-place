@@ -137,11 +137,7 @@ const ProfileForm = (props) => {
 
   return (
     <ProfileFormContainer>
-      <Form
-        name="addBlock"
-        ref={addBlockFormRef}
-        onFinish={handleSubmit}
-      >
+      <Form name="addBlock" ref={addBlockFormRef} onFinish={handleSubmit}>
         <Field
           name="title"
           component={InputStylized}
@@ -175,7 +171,7 @@ const ProfileForm = (props) => {
             <Field
               name="thumbnail"
               component={RenderUploadStylized}
-              type="text"
+              type="image"
               setload={setload}
               label={
                 <React.Fragment>
@@ -191,7 +187,7 @@ const ProfileForm = (props) => {
             <Field
               name="media"
               component={RenderUploadStylized}
-              type="text"
+              type="media"
               setload={setload}
               label={
                 <React.Fragment>
@@ -215,22 +211,26 @@ const ProfileForm = (props) => {
 
 const ProfileFormWithFormik = withFormik({
   enableReinitialize: true,
-  mapPropsToValues: () => {
+  mapPropsToValues: ({ blockData }) => {
     return {
-      thumbnail: "",
-      title: "",
-      description: "",
-      link: "",
-      price: 0,
-      question: "",
-      media: "",
+      thumbnail: (blockData && blockData.thumbnail) || null,
+      title: (blockData && blockData.title) || "",
+      description: (blockData && blockData.description) || "",
+      link: (blockData && blockData.link) || "",
+      price: (blockData && blockData.price) || 0,
+      question: (blockData && blockData.question) || "",
+      media: (blockData && blockData.media) || null,
     };
   },
 
   // handleSubmit: (values, { props: { onSubmit } }) => {
   // },
-  handleSubmit: (values, { setSubmitting }) => {
-
+  handleSubmit: (values, { props: { onSubmit } }) => {
+    let modifiedValues = values;
+    modifiedValues.thumbnail = values.thumbnail && values.thumbnail._id;
+    modifiedValues.media = values.media && values.media._id;
+    console.log("handleSubmit", values);
+    onSubmit(modifiedValues);
   },
   // validator:{() => ({})}
   validate: (values) => validate(values, profileFormSchema),

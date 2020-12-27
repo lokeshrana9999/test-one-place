@@ -58,7 +58,7 @@ export default class RenderUpload extends React.Component {
     // { input, label, meta: { touched, error }, defaultFileList }) = this.props
     // const touched = this.props.meta.touched;
     // const error = this.props.meta.error;
-    const { label, className, children, meta } = this.props;
+    const { label, className, children, meta, handleBlur } = this.props;
     // const input = this.props.input;
     // console.log(input);
     // const defaultFileList = this.props.defaultFileList;
@@ -92,14 +92,16 @@ export default class RenderUpload extends React.Component {
         <div className="ant-upload-text">{label}</div>
       </div>
     );
+    console.log('Meta', meta);
     return (
       <FormItem
         validateStatus={validateStatus}
-        validateStatus={meta.error && "error"}
-        extra={meta.error}
+        validateStatus={meta.touched && meta.error && "error"}
+        extra={meta.touched && meta.error}
       >
         <div className={`clearfix antd-upload-custom-wrapper ${className}`}>
           <Upload
+            onFocus={handleBlur}
             action={imageApiUrl}
             listType="picture-card"
             fileList={fileList}

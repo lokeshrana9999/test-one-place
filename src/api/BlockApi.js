@@ -1,7 +1,8 @@
 export const BlockApiUrls = {
     getBlockCategory:'/block-category',
     postBlockCategory:'/block-category',
-    postBloock:'/block',
+    postBlock:'/block',
     getBlock:'/block',
-    getBlockById:(id)=>`/block/${id}`
+    getBlockById:(id)=>`/block/${id}`,
+    getBlocksByUsername:(username)=>`/block/byUsername/${username}`
 }   

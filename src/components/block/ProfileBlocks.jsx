@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
-import { withUser } from "../auth/Auth";
-
+import {withUserBlocks} from './BlockOperations'
 import ProfileBlockComponent from "./ProfileBlockComponent";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
 
@@ -73,9 +72,9 @@ const CardListHeadText = styled.h3`
 `;
 
 const Profile = (props) => {
-  const { theme, currentUser, user, self } = props;
+  const { theme, currentUser, user, self, userBlock } = props;
 
-  console.log("profileview", props);
+  console.log("profileblocks", props);
   return (
     <div>
       {self && (
@@ -100,15 +99,12 @@ const Profile = (props) => {
         </React.Fragment>
       )}
       <br />
-      {profileData &&
-        profileData.cardData &&
-        profileData.cardData.nodes &&
-        (profileData.cardData.nodes.length === 0 ? (
+      {userBlock && userBlock.length === 0 ? (
           <CardListHeadText style={{ textAlign: "center", marginTop: "15px" }}>
             No Cards
           </CardListHeadText>
         ) : (
-          profileData.cardData.nodes.map((node, key) => (
+          userBlock.map((node, key) => (
             <ProfileBlockComponent
               image={node.edge.image}
               text={node.edge.text}
@@ -116,8 +112,8 @@ const Profile = (props) => {
               self={self}
             />
           ))
-        ))}
+        )}
     </div>
   );
 };
-export default withUser(withTheme(Profile));
+export default withUserBlocks(withTheme(Profile));

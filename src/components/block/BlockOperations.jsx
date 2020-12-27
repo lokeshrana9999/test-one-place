@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
-import { ApiContext, UserApiUrls, AuthApiUrls } from "../../api";
+import { ApiContext, BlockApiUrls } from "../../api";
 import { Loader } from "../look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
@@ -13,21 +13,22 @@ import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 const withUserBlocks = (Component) => {
   const WithUserBlocksInner = ({ ...props }) => {
-    const { history, refreshToken, setAccessTokene, accessToken } = props;
+    const {
+      history,
+      refreshToken,
+      setAccessTokene,
+      accessToken,
+      username,
+    } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
-    var currentUserLoading = true;
-
-    var currentUserData;
-    const { data, loading, error } = useGet({
+    const apiUrl = defaultApiUrl + BlockApiUrls.getBlocksByUsername(username);
+    const { data, loading: userBlockLoading, error } = useGet({
       path: apiUrl,
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    currentUserLoading = loading;
-    currentUserData = data && data.user;
-    console.log(data, loading, error);
+    const userBlockData = data && data.blocksList;
 
     // if (
     //   !currentUserLoading &&
@@ -36,13 +37,13 @@ const withUserBlocks = (Component) => {
     //   error.status === 401
     // ) {
     // }
-    return currentUserLoading || !currentUserData ? (
+    return userBlockLoading || !userBlockData ? (
       <Loader />
     ) : (
       <Component
         {...props}
-        currentUser={currentUserData}
-        currentUserLoading={currentUserLoading}
+        userBlock={userBlockData}
+        userBlockLoading={userBlockLoading}
       />
     );
   };
@@ -55,39 +56,28 @@ const withUserBlocks = (Component) => {
     };
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
+  return connect(mapStateToProps, mapDispatchToProps)(WithUserBlocksInner);
 };
 
 const withAddUserBlock = (Component) => {
-  const WithUserBlockInner = ({ ...props }) => {
+  const WithAddBlockInner = ({ ...props }) => {
     const { history, refreshToken, setAccessTokene, accessToken } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
-    var currentUserLoading = true;
+    const apiUrl = defaultApiUrl + BlockApiUrls.postBlock;
 
-    var currentUserData;
-    const { data, loading, error } = useGet({
+    const { mutate: postBlock, loading: postBlockLoading, error } = useMutate({
+      verb: "POST",
       path: apiUrl,
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    currentUserLoading = loading;
-    currentUserData = data && data.user;
-    console.log(data, loading, error);
-
-    // if (
-    //   !currentUserLoading &&
-    //   !currentUserData &&
-    //   error &&
-    //   error.status === 401
-    // ) {
-    // }
+    console.log('adduserblock', error);
     return (
       <Component
         {...props}
-        currentUser={currentUserData}
-        currentUserLoading={currentUserLoading}
+        postBlock={postBlock}
+        postBlockLoading={postBlockLoading}
       />
     );
   };
@@ -100,14 +90,14 @@ const withAddUserBlock = (Component) => {
     };
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
+  return connect(mapStateToProps, mapDispatchToProps)(WithAddBlockInner);
 };
 
 const withEditUserBlock = (Component) => {
-  const WithUserBlockInner = ({ ...props }) => {
+  const WithEditBlockInner = ({ ...props }) => {
     const { history, refreshToken, setAccessTokene, accessToken } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + UserApiUrls.getCurrentUser;
+    const apiUrl = defaultApiUrl + BlockApiUrls.getCurrentUser;
     var currentUserLoading = true;
 
     var currentUserData;
@@ -145,7 +135,7 @@ const withEditUserBlock = (Component) => {
     };
   };
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
+  return connect(mapStateToProps, mapDispatchToProps)(WithEditBlockInner);
 };
 
 // const RefreshAccessToken = ({ children,  }) => {

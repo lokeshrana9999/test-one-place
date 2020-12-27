@@ -1,21 +1,10 @@
 import React, { Component } from "react";
-
 import styled, { withTheme } from "styled-components";
-import { connect } from 'react-redux'
-
+import { message } from "antd";
 import { WhiteSpace } from "../look/mobile";
 import PageLayout from "../look/PageLayout";
 import BlockForm from "./BlockForm";
-import {setAccessTokene, setRefreshTokene} from '../../store/appReducer';
-
-
-const mapDispatchToProps = { setAccessTokene, setRefreshTokene }
-const mapStateToProps = (state /*, ownProps*/) => {
-  return {
-    accessToken: state.app.accessToken,
-    refreshToken: state.app.refreshToken
-  }
-}
+import { withAddUserBlock } from "./BlockOperations";
 
 const PageHead = styled.h1`
   font-family: CircularStdBlack;
@@ -35,22 +24,53 @@ const FormWrapper = styled.div`
   position: relative;
 `;
 
-class BlockAddView extends Component {
-  state = {
-    self: true,
+const BlockAddView = (props) => {
+  const { postBlock, history, match } = props;
+  console.log("blockadd", props);
+  const onSubmit = async (values) => {
+    let modifiedValues = values;
+    modifiedValues.blockCategory = match.blockCategoryId;
+    console.log("addBlock", values);
+    try {
+      message.loading({
+        content: "Adding Card ...",
+        duration: 0,
+      });
+      const sending = await postBlock(modifiedValues);
+      console.log(sending);
+      message.destroy();
+      if (sending.status === true) {
+        message.success({
+          duration: 2,
+          content: "Card Added",
+        });
+        history.push("/profile");
+      } else {
+        message.error({
+          duration: 2,
+          content: sending.data.message,
+        });
+      }
+      return sending;
+    } catch (e) {
+      message.destroy();
+      console.log("error", e);
+      if (e && e.data && e.data.message) {
+        message.error({
+          duration: 2,
+          content: e && e.data && e.data.message,
+        });
+      }
+    }
   };
-
-  render() {
-    console.log('this.props', this.props);
-    return (
-      <PageLayout>
-        <WhiteSpace size="xl" />
-        <PageHead>Add a new card</PageHead>
-        <WhiteSpace size="xl" />
-        <WhiteSpace size="xl" />
-        <BlockForm />
-      </PageLayout>
-    );
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme(BlockAddView));
+  return (
+    <PageLayout>
+      <WhiteSpace size="xl" />
+      <PageHead>Add a new card</PageHead>
+      <WhiteSpace size="xl" />
+      <WhiteSpace size="xl" />
+      <BlockForm onSubmit={onSubmit} />
+    </PageLayout>
+  );
+};
+export default withAddUserBlock(withTheme(BlockAddView));
