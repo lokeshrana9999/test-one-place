@@ -111,7 +111,7 @@ const App = (props) => {
           >
             <div>
               <Switch>
-                <Route path="/profile" exact component={AsyncProfile} />,
+                <Route path="/" exact component={AsyncProfile} />,
                 <Route path="/login" exact component={AsyncLogin} />
                 <Route
                   path="/profile/edit"

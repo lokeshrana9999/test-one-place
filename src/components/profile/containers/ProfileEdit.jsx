@@ -7,7 +7,10 @@ import { message } from "antd";
 import styled, { withTheme } from "styled-components";
 
 import { withUser } from "../../auth/Auth";
-import { withAddProfile, withCurrentUserProfile } from "../ProfileOperations";
+import {
+  withAddProfile,
+  withSocialMediaCategories,
+} from "../ProfileOperations";
 import ProfileEditView from "../components/ProfileEditView";
 
 const PageHead = styled.h2`
@@ -45,7 +48,7 @@ const ProfileEdit = (props) => {
   const onSubmit = async (values) => {
     console.log("updateProfile", values);
     const { userProfile: profileValues } = values;
-    console.log('onSubmitProfileValues', profileValues);
+    console.log("onSubmitProfileValues", profileValues);
     try {
       message.loading({
         content: "Updating Profile Info",
@@ -59,7 +62,7 @@ const ProfileEdit = (props) => {
           duration: 2,
           content: "Profile Updated",
         });
-        history.push("/profile");
+        history.push("/");
       } else {
         message.error({
           duration: 2,
@@ -81,4 +84,4 @@ const ProfileEdit = (props) => {
   return <ProfileEditView onSubmit={onSubmit} user={currentUser} />;
 };
 
-export default withUser(withAddProfile(ProfileEdit));
+export default withUser(withAddProfile(withSocialMediaCategories(ProfileEdit)));

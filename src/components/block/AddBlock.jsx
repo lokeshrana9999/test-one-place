@@ -29,8 +29,9 @@ const BlockAddView = (props) => {
   console.log("blockadd", props);
   const onSubmit = async (values) => {
     let modifiedValues = values;
-    modifiedValues.blockCategory = match.blockCategoryId;
-    console.log("addBlock", values);
+    modifiedValues.blockCategory =
+      match && match.params && match.params.blockCategoryId;
+    console.log("addBlock", modifiedValues);
     try {
       message.loading({
         content: "Adding Card ...",
@@ -44,7 +45,7 @@ const BlockAddView = (props) => {
           duration: 2,
           content: "Card Added",
         });
-        history.push("/profile");
+        history.push("/");
       } else {
         message.error({
           duration: 2,

@@ -20,9 +20,9 @@ const withCurrentUserProfile = (Component) => {
     var currentUserProfileData;
     const { data, loading, error } = useGet({
       path: apiUrl,
-      requestOptions:{
-        headers:{ Authorization: `Bearer ${accessToken}` },
-      }
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
     });
     currentUserProfileLoading = loading;
     currentUserProfileData = data && data.userProfile;
@@ -57,8 +57,6 @@ const withCurrentUserProfile = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
 };
 
-
-
 const withAddProfile = (Component) => {
   const WithUserInner = ({ ...props }) => {
     const { accessToken, currentUser } = props;
@@ -81,7 +79,9 @@ const withAddProfile = (Component) => {
       verb: "PUT",
       path:
         defaultApiUrl +
-        ProfileApiUrls.putUserProfile(currentUser.userProfile && currentUser.userProfile._id),
+        ProfileApiUrls.putUserProfile(
+          currentUser.userProfile && currentUser.userProfile._id
+        ),
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
@@ -98,6 +98,52 @@ const withAddProfile = (Component) => {
         {...props}
         postUserProfileMutation={postUserProfileMutation}
         putUserProfileMutation={putUserProfileMutation}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
+};
+
+const withSocialMediaCategories = (Component) => {
+  const WithUserInner = ({ ...props }) => {
+    const { history, refreshToken, setAccessTokene, accessToken } = props;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + ProfileApiUrls.getSocialMediaCategories;
+    const {
+      data: socialMediaCategories,
+      loading: socialMediaCategoriesLoading,
+      error,
+    } = useGet({
+      path: apiUrl,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
+    const socialMediaCategoryList =
+      socialMediaCategories && socialMediaCategories.socialMediaCategoryList;
+    // if (
+    //   !currentUserProfileLoading &&
+    //   !currentUserProfileData &&
+    //   error &&
+    //   error.status === 401
+    // ) {
+    // }
+    return socialMediaCategoriesLoading || !socialMediaCategoryList ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        socialMediaCategoryList={socialMediaCategoryList}
+        socialMediaCategoriesLoading={socialMediaCategoriesLoading}
       />
     );
   };
@@ -199,7 +245,8 @@ const withAddProfile = (Component) => {
 
 export {
   withAddProfile,
-  withCurrentUserProfile
+  withCurrentUserProfile,
+  withSocialMediaCategories,
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

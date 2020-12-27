@@ -9,7 +9,7 @@ const ProfileCardWrapper = styled.div`
   padding: 20px;
   background-color: #2c2c2c;
   height: 100px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.64);
 `;
 
@@ -19,19 +19,24 @@ const ProfileCardText = styled.div`
 `;
 
 const ProfileCard = (props) => {
+  const { block, key, self } = props;
   return (
-    <Link key={props.key}>
+    <Link
+      key={key}
+      to={self ? `/block/edit/${block && block._id}` : block && block.link}
+      target={!self && "_blank"}
+    >
       <ProfileCardWrapper>
         <Flex>
           <Flex.Item style={{ flex: 1 }}>
             <Avatar
               size="60"
               style={{ borderRadius: "10px", overflow: "hidden" }}
-              src={props.image}
+              src={block && block.thumbnail && block.thumbnail.url}
             />
           </Flex.Item>
           <Flex.Item style={{ flex: 3 }}>
-            <ProfileCardText>{props.text}</ProfileCardText>
+            <ProfileCardText>{block && block.title}</ProfileCardText>
           </Flex.Item>
         </Flex>
       </ProfileCardWrapper>

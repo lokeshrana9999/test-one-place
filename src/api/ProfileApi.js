@@ -3,5 +3,6 @@ export const ProfileApiUrls = {
   putUserProfile: (id) => `/user-profile/${id}`,
   getCurrentUserProfile: '/user-profile',
   getUserProfileByUsername:(username)=>`/user-profile/${username}`,
-  checkUsername: '/user-profile/checkUsername'
+  checkUsername: '/user-profile/checkUsername',
+  getSocialMediaCategories: '/social-media-category',
 };

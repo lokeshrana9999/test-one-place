@@ -37,9 +37,7 @@ const withUserBlocks = (Component) => {
     //   error.status === 401
     // ) {
     // }
-    return userBlockLoading || !userBlockData ? (
-      <Loader />
-    ) : (
+    return (
       <Component
         {...props}
         userBlock={userBlockData}
@@ -72,7 +70,7 @@ const withAddUserBlock = (Component) => {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    console.log('adduserblock', error);
+    console.log("adduserblock", error);
     return (
       <Component
         {...props}

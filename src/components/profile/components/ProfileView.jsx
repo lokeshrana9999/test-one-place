@@ -22,11 +22,14 @@ const ProfileName = styled.h1`
   margin-top: 10px;
   color: ${(props) => props.theme.textColor};
   text-align: center;
+  font-family: CircularStdBlack;
+  font-size: 22px;
 `;
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
+  font-family: CircularStdBlack;
 `;
 
 const ProfileSmallText = styled.p`

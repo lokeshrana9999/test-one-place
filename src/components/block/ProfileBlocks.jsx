@@ -3,66 +3,10 @@ import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-
-import {withUserBlocks} from './BlockOperations'
+import { Loader } from "../look/mobile";
+import { withUserBlocks } from "./BlockOperations";
 import ProfileBlockComponent from "./ProfileBlockComponent";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
-
-const profileData = {
-  name: "Hugo",
-  about:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  avatar:
-    "https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c",
-
-  social: {
-    facebookLink: "www.facebook.com",
-    instagramLink: "www.instagram.com",
-    linkedinLink: "www.linkedin.com",
-    whatsappContact: "+918888888888",
-  },
-  profileStats: {
-    visits: 16627,
-    superFans: 1662,
-  },
-  cardData: {
-    length: 4,
-    nodes: [
-      {
-        cursor: 1,
-        edge: {
-          image:
-            "https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c",
-          text: "Checkout My Youtube Video",
-        },
-      },
-      {
-        cursor: 2,
-        edge: {
-          image:
-            "https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c",
-          text: "Checkout My Youtube Video",
-        },
-      },
-      {
-        cursor: 3,
-        edge: {
-          image:
-            "https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c",
-          text: "Checkout My Youtube Video",
-        },
-      },
-      {
-        cursor: 4,
-        edge: {
-          image:
-            "https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c",
-          text: "Checkout My Youtube Video",
-        },
-      },
-    ],
-  },
-};
 
 const CardListHeadText = styled.h3`
   color: ${(props) => props.theme.textColor};
@@ -72,7 +16,7 @@ const CardListHeadText = styled.h3`
 `;
 
 const Profile = (props) => {
-  const { theme, currentUser, user, self, userBlock } = props;
+  const { theme, currentUser, user, self, userBlock, userBlockLoading } = props;
 
   console.log("profileblocks", props);
   return (
@@ -99,20 +43,18 @@ const Profile = (props) => {
         </React.Fragment>
       )}
       <br />
-      {userBlock && userBlock.length === 0 ? (
-          <CardListHeadText style={{ textAlign: "center", marginTop: "15px" }}>
-            No Cards
-          </CardListHeadText>
-        ) : (
-          userBlock.map((node, key) => (
-            <ProfileBlockComponent
-              image={node.edge.image}
-              text={node.edge.text}
-              key={key}
-              self={self}
-            />
+      {userBlockLoading && <Loader />}
+      {!userBlockLoading && userBlock && userBlock.length !== 0
+        ? userBlock.map((block, key) => (
+            <ProfileBlockComponent block={block} self={self} />
           ))
-        )}
+        : !userBlockLoading && (
+            <CardListHeadText
+              style={{ textAlign: "center", marginTop: "15px" }}
+            >
+              No Cards
+            </CardListHeadText>
+          )}
     </div>
   );
 };
