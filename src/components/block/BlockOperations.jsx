@@ -4,7 +4,7 @@ import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
 import { ApiContext, BlockApiUrls } from "../../api";
-import { Loader } from "../look/mobile";
+import { PageLoader } from "../look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import authentication from '@gqlapp/authentication-client-react';
@@ -57,6 +57,51 @@ const withUserBlocks = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithUserBlocksInner);
 };
 
+const withBlockById = (Component) => {
+  const WithBlockByIdInner = ({ ...props }) => {
+    const {
+      history,
+      refreshToken,
+      setAccessTokene,
+      accessToken,
+      match,
+    } = props;
+    const blockId = match && match.params && match.params.blockId;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + BlockApiUrls.getBlockById(blockId);
+    console.log("apiurl", apiUrl);
+    const { data, loading: blockByUsernameLoading, error } = useGet({
+      verb: "GET",
+      path: apiUrl,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
+    const blockByUsernameData = data && data.block;
+    console.log("blockbyid", error);
+
+    return blockByUsernameLoading ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        blockByUsername={blockByUsernameData}
+        blockByUsernameLoading={blockByUsernameLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithBlockByIdInner);
+};
+
 const withAddUserBlock = (Component) => {
   const WithAddBlockInner = ({ ...props }) => {
     const { history, refreshToken, setAccessTokene, accessToken } = props;
@@ -93,34 +138,29 @@ const withAddUserBlock = (Component) => {
 
 const withEditUserBlock = (Component) => {
   const WithEditBlockInner = ({ ...props }) => {
-    const { history, refreshToken, setAccessTokene, accessToken } = props;
+    const {
+      history,
+      refreshToken,
+      setAccessTokene,
+      accessToken,
+      match
+    } = props;
+    const blockId = match && match.params && match.params.blockId;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + BlockApiUrls.getCurrentUser;
-    var currentUserLoading = true;
-
-    var currentUserData;
-    const { data, loading, error } = useGet({
+    const apiUrl = defaultApiUrl + BlockApiUrls.putBlockById(blockId);
+    const { mutate: putBlock, loading: putBlockLoading, error } = useMutate({
+      verb: "PUT",
       path: apiUrl,
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    currentUserLoading = loading;
-    currentUserData = data && data.user;
-    console.log(data, loading, error);
-
-    // if (
-    //   !currentUserLoading &&
-    //   !currentUserData &&
-    //   error &&
-    //   error.status === 401
-    // ) {
-    // }
+    console.log("edituserblock", error);
     return (
       <Component
         {...props}
-        currentUser={currentUserData}
-        currentUserLoading={currentUserLoading}
+        putBlock={putBlock}
+        putBlockLoading={putBlockLoading}
       />
     );
   };
@@ -165,7 +205,7 @@ const withEditUserBlock = (Component) => {
 //     currentUserLoading: PropTypes.bool.isRequired,
 //   };
 
-//   return withUser(WithLoadedUser);
+//   return withCurrentUser(WithLoadedUser);
 // };
 
 // const IfLoggedInComponent = ({
@@ -224,6 +264,7 @@ export {
   withUserBlocks,
   withAddUserBlock,
   withEditUserBlock,
+  withBlockById,
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

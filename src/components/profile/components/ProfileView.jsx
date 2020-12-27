@@ -12,9 +12,11 @@ import {
   AiFillEdit,
   AiOutlinePlusCircle,
 } from "react-icons/ai";
+import { FaExternalLinkAlt } from "react-icons/fa";
+
 import { Button, Switch } from "../../look/mobile";
 import PageLayout from "../../look/PageLayout";
-// import { withUser } from "../auth/Auth";
+// import { withCurrentUser } from "../auth/Auth";
 import ProfileBlocks from "../../block/ProfileBlocks";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
 
@@ -30,6 +32,27 @@ const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-family: CircularStdBlack;
+`;
+
+const PublicLinkWrapper = styled.div`
+  /* color: ${(props) => props.theme.textColor}; */
+  /* text-align: center; */
+  border-radius: 7px;
+  border: solid 1px #f2f2f2;
+  background-color: #f8f8f8;
+  height: 60px;
+  font-family: CircularStdBlack;
+  display: grid;
+  place-items: center;
+  padding: 0 15px;
+  font-family: Circular Std Medium;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #686868;
 `;
 
 const ProfileSmallText = styled.p`
@@ -50,17 +73,32 @@ const ProfileStats = styled.p`
 
 const Profile = (props) => {
   const { userData, self, theme } = props;
-  const {username} = userData;
+  const { username } = userData;
 
   return (
     <div>
       <PageLayout>
         {self && <PageHead>OnePlace Universe</PageHead>}
+
+        {self && (
+          <Link to={`/${username}`}>
+            <PublicLinkWrapper>
+              <Flex justify="between" style={{ width: "100%" }}>
+                <Flex.Item
+                  style={{ flex: 4 }}
+                >{`oneplace.com/${username}`}</Flex.Item>{" "}
+                <Flex.Item align="right">
+                  <FaExternalLinkAlt size={25} />
+                </Flex.Item>
+              </Flex>
+            </PublicLinkWrapper>
+          </Link>
+        )}
         <div
           style={{
             position: "relative",
             width: "fit-content",
-            margin: "70px auto 0",
+            margin: "20px auto 0",
           }}
           align="center"
         >

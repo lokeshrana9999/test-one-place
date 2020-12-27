@@ -6,7 +6,7 @@ import { message } from "antd";
 
 import styled, { withTheme } from "styled-components";
 
-import { withUser } from "../../auth/Auth";
+import { withCurrentUser } from "../../auth/Auth";
 import {
   withAddProfile,
   withSocialMediaCategories,
@@ -84,4 +84,4 @@ const ProfileEdit = (props) => {
   return <ProfileEditView onSubmit={onSubmit} user={currentUser} />;
 };
 
-export default withUser(withAddProfile(withSocialMediaCategories(ProfileEdit)));
+export default withCurrentUser(withAddProfile(withSocialMediaCategories(ProfileEdit)));

@@ -11,7 +11,7 @@ import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import CURRENT_USER_QUERY from '../graphql/CurrentUserQuery.graphql';
 
-const withUser = (Component) => {
+const withCurrentUser = (Component) => {
   const WithUserInner = ({ ...props }) => {
     const { history, refreshToken, setAccessTokene, accessToken } = props;
     const defaultApiUrl = useContext(ApiContext);
@@ -58,6 +58,50 @@ const withUser = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
 };
 
+const withUserByUsername = (Component) => {
+  const WithUserInner = ({ ...props }) => {
+    const { history, refreshToken, setAccessTokene, accessToken, match } = props;
+    const username = match && match.params && match.params.username;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + UserApiUrls.getUserByUsername(username);
+
+    const { data, loading:userLoading, error } = useGet({
+      path: apiUrl,
+      requestOptions:{
+        headers:{ Authorization: `Bearer ${accessToken}` },
+      }
+    });
+    const userData = data && data.user;
+
+    // if (
+    //   !currentUserLoading &&
+    //   !currentUserData &&
+    //   error &&
+    //   error.status === 401
+    // ) {
+    // }
+    return userLoading  ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        user={userData}
+        userLoading={userLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
+};
+
 // const RefreshAccessToken = ({ children,  }) => {
 //   const { mutate: refreshAccessToken, loading } = useMutate({
 //     verb: "POST",
@@ -87,7 +131,7 @@ const withUser = (Component) => {
 //     currentUserLoading: PropTypes.bool.isRequired,
 //   };
 
-//   return withUser(WithLoadedUser);
+//   return withCurrentUser(WithLoadedUser);
 // };
 
 // const IfLoggedInComponent = ({
@@ -143,7 +187,8 @@ const withUser = (Component) => {
 //   });
 
 export {
-  withUser,
+  withCurrentUser,
+  withUserByUsername
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

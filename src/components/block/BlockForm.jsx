@@ -127,7 +127,6 @@ const profileFormSchema = {
   thumbnail: [required],
   media: [required],
   link: [required],
-  description: [required, minLength(7)],
 };
 
 const ProfileForm = (props) => {
@@ -146,15 +145,7 @@ const ProfileForm = (props) => {
           placeholder="Name of The Block"
           value={values.title}
         />
-        <WhiteSpace size="xl" />
-        <Field
-          name="description"
-          component={InputStylized}
-          type="text"
-          label={"Description"}
-          placeholder="Description"
-          value={values.description}
-        />
+
         <WhiteSpace size="xl" />
         <Field
           name="link"
@@ -171,7 +162,7 @@ const ProfileForm = (props) => {
             <Field
               name="thumbnail"
               component={RenderUploadStylized}
-              type="image"
+              type="media"
               setload={setload}
               label={
                 <React.Fragment>
@@ -215,7 +206,6 @@ const ProfileFormWithFormik = withFormik({
     return {
       thumbnail: (blockData && blockData.thumbnail) || null,
       title: (blockData && blockData.title) || "",
-      description: (blockData && blockData.description) || "",
       link: (blockData && blockData.link) || "",
       price: (blockData && blockData.price) || 0,
       question: (blockData && blockData.question) || "",

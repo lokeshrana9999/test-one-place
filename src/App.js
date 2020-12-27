@@ -21,6 +21,15 @@ const AsyncProfile = Loadable({
   modules: ["profileDefault"],
 });
 
+const AsyncPublicProfile = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileDefault" */ "./components/profile/containers/PublicProfile"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["profilePublicDefault"],
+});
+
 const AsyncLogin = Loadable({
   loader: () =>
     import(
@@ -57,6 +66,15 @@ const AsyncAddBlock = Loadable({
   modules: ["addBlockEditDefault"],
 });
 
+const AsyncEditBlock = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileEditDefault" */ "./components/block/EditBlock"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["editBlockEditDefault"],
+});
+
 const apiUrl =
   process.env.NODE_ENV === "development"
     ? process.env.REACT_APP_DEV_API_URL
@@ -69,7 +87,6 @@ const App = (props) => {
     verb: "POST",
     path: apiUrl + AuthApiUrls.refreshAccessToken,
   });
-  console.log("app", props);
   const restFulErrorHandler = async (error, retry) => {
     console.log("restFulErrorHandler", retry);
     if (error && (error.status > 400 || error.status < 500)) {
@@ -112,6 +129,7 @@ const App = (props) => {
             <div>
               <Switch>
                 <Route path="/" exact component={AsyncProfile} />,
+                <Route path="/:username" exact component={AsyncPublicProfile} />,
                 <Route path="/login" exact component={AsyncLogin} />
                 <Route
                   path="/profile/edit"
@@ -127,6 +145,11 @@ const App = (props) => {
                   path="/block/add/:blockCategoryId"
                   exact
                   component={AsyncAddBlock}
+                />
+                <Route
+                  path="/block/edit/:blockId"
+                  exact
+                  component={AsyncEditBlock}
                 />
               </Switch>
             </div>

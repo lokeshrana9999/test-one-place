@@ -20,10 +20,11 @@ const ProfileCardText = styled.div`
 
 const ProfileCard = (props) => {
   const { block, key, self } = props;
+  console.log('blockcomponent', block);
   return (
-    <Link
+    <a
       key={key}
-      to={self ? `/block/edit/${block && block._id}` : block && block.link}
+      href={self ? `/block/edit/${block && block._id}` : block && block.link}
       target={!self && "_blank"}
     >
       <ProfileCardWrapper>
@@ -40,7 +41,7 @@ const ProfileCard = (props) => {
           </Flex.Item>
         </Flex>
       </ProfileCardWrapper>
-    </Link>
+    </a>
   );
 };
 

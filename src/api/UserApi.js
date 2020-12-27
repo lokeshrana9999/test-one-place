@@ -3,5 +3,6 @@ export const UserApiUrls = {
     userGet:'/user',
     getCurrentUser:'/user/me',
     getUserById: (id) => `/user/${id}`,
-    putUserById:(id)=>`/user/${id}`
+    putUserById:(id)=>`/user/${id}`,
+    getUserByUsername:(username)=>`/user/byUsername/${username}`
 }   

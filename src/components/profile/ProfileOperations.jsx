@@ -188,7 +188,7 @@ const withSocialMediaCategories = (Component) => {
 //     currentUserLoading: PropTypes.bool.isRequired,
 //   };
 
-//   return withUser(WithLoadedUser);
+//   return withCurrentUser(WithLoadedUser);
 // };
 
 // const IfLoggedInComponent = ({

@@ -2,7 +2,7 @@ import React from "react";
 
 // import { withCurrentUserProfile } from "../ProfileOperations";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
-import { withUser } from "../../auth/Auth";
+import { withCurrentUser } from "../../auth/Auth";
 
 import ProfileView from "../components/ProfileView";
 
@@ -15,4 +15,4 @@ const Profile = (props) => {
   return <ProfileView userData={currentUser} self={true} />;
 };
 // return <h1>Profile</h1>
-export default withUser(Profile);
+export default withCurrentUser(Profile);
