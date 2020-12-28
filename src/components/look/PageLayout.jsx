@@ -1,8 +1,10 @@
 import React, { useState, Component } from "react";
 import { IoMailOutline, IoMailSharp } from "react-icons/io5";
 import { FiBarChart } from "react-icons/fi";
-import { FaCompass } from "react-icons/fa";
+import { FaCompass, FaChartBar } from "react-icons/fa";
 import { CgSignal } from "react-icons/cg";
+
+import { IoPulse, IoBarChartOutline } from "react-icons/io5";
 
 import styled, { withTheme } from "styled-components";
 import TabBar from "./mobile/TabBar";
@@ -65,10 +67,10 @@ class PageLayout extends React.Component {
           <TabBarItem
             title="Stats"
             key="Stats"
-            icon={<CgSignal size={35} />}
-            selectedIcon={<CgSignal size={35} />}
+            icon={<IoBarChartOutline size={30} />}
+            selectedIcon={<IoBarChartOutline size={30} />}
             selected={this.state.selectedTab === "blueTab"}
-            badge={1}
+            // badge={1}
             onPress={() => {
               this.setState({
                 selectedTab: "blueTab",
@@ -79,11 +81,11 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
           <TabBarItem
-            icon={<FaCompass size={35} />}
-            selectedIcon={<FaCompass size={35} />}
+            icon={<FaCompass size={30} />}
+            selectedIcon={<FaCompass size={30} />}
             title="OnePlace"
             key="OnePlace"
-            badge={"new"}
+            // badge={"new"}
             selected={this.state.selectedTab === "redTab"}
             onPress={() => {
               this.setState({
@@ -95,11 +97,11 @@ class PageLayout extends React.Component {
             {this.renderContent(this.props.children)}
           </TabBarItem>
           <TabBarItem
-            icon={<IoMailOutline size={35} />}
-            selectedIcon={<IoMailSharp size={35} />}
-            title="Messages"
-            key="Messages"
-            dot
+            icon={<IoPulse size={30} />}
+            selectedIcon={<IoPulse size={30} />}
+            title="Orders"
+            key="Orders"
+            // dot
             selected={this.state.selectedTab === "greenTab"}
             onPress={() => {
               this.setState({

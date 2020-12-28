@@ -12,7 +12,8 @@ import {
   AiFillEdit,
   AiOutlinePlusCircle,
 } from "react-icons/ai";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { IoPaperPlaneOutline } from "react-icons/io5";
+
 
 import { Button, Switch } from "../../look/mobile";
 import PageLayout from "../../look/PageLayout";
@@ -46,7 +47,7 @@ const PublicLinkWrapper = styled.div`
   place-items: center;
   padding: 0 15px;
   font-family: Circular Std Medium;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -88,7 +89,7 @@ const Profile = (props) => {
                   style={{ flex: 4 }}
                 >{`oneplace.com/${username}`}</Flex.Item>{" "}
                 <Flex.Item align="right">
-                  <FaExternalLinkAlt size={25} />
+                  <IoPaperPlaneOutline size={35} />
                 </Flex.Item>
               </Flex>
             </PublicLinkWrapper>
