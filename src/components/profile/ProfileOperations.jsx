@@ -113,6 +113,43 @@ const withAddProfile = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithUserInner);
 };
 
+const withAddSocialMedia = (Component) => {
+  const WithAddSocialMediaInner = ({ ...props }) => {
+    const { accessToken } = props;
+    const defaultApiUrl = useContext(ApiContext);
+
+    const {
+      mutate: postAddSocialMedia,
+      loading: postAddSocialMediaLoading,
+    } = useMutate({
+      verb: "POST",
+      path: defaultApiUrl + ProfileApiUrls.postSocialMediaLinks,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
+    return (
+      <Component
+        {...props}
+        postAddSocialMedia={postAddSocialMedia}
+        postAddSocialMediaLoading={postAddSocialMediaLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithAddSocialMediaInner);
+};
+
+
+
 const withSocialMediaCategories = (Component) => {
   const WithUserInner = ({ ...props }) => {
     const { history, refreshToken, setAccessTokene, accessToken } = props;
@@ -247,6 +284,7 @@ export {
   withAddProfile,
   withCurrentUserProfile,
   withSocialMediaCategories,
+  withAddSocialMedia
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

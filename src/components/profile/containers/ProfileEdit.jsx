@@ -5,11 +5,15 @@ import React from "react";
 import { message } from "antd";
 
 import styled, { withTheme } from "styled-components";
-
+import { connect } from "react-redux";
+// import { ApiContext, ProfileApiUrls } from "../../api";
 import { withCurrentUser } from "../../auth/Auth";
+// import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
+
 import {
   withAddProfile,
   withSocialMediaCategories,
+  withAddSocialMedia,
 } from "../ProfileOperations";
 import ProfileEditView from "../components/ProfileEditView";
 
@@ -33,6 +37,8 @@ const ProfileEdit = (props) => {
     currentUser,
     postUserProfileMutation,
     putUserProfileMutation,
+    socialMediaCategoryList,
+    postAddSocialMedia,
   } = props;
   // setAccessTokene('');
 
@@ -45,43 +51,105 @@ const ProfileEdit = (props) => {
   }
   const user = currentUser;
 
+  const handleSocialLinksSubmission = async (socialMediaLinks) => {
+    // var socialSending = [];
+
+    const promises = await socialMediaLinks.map(async (socia, key) => {
+      const responseSend = await postAddSocialMedia(socia);
+      console.log("responseSocialSEnd", responseSend);
+      return (
+        responseSend &&
+        responseSend.socialMediaLink &&
+        responseSend.socialMediaLink._id
+      );
+    });
+    const socialSending = await Promise.all(promises)
+    return socialSending;
+  };
+
   const onSubmit = async (values) => {
     console.log("updateProfile", values);
-    const { userProfile: profileValues } = values;
-    console.log("onSubmitProfileValues", profileValues);
+    let profileValues = values;
+    const socialMediaLinks = profileValues.socialMediaLinks;
+    console.log(
+      "onSubmitProfileValues",
+      profileValues,
+      socialMediaLinks,
+      values
+    );
     try {
       message.loading({
         content: "Updating Profile Info",
         duration: 0,
       });
-      const sending = await profileMutation(profileValues);
-      console.log(sending);
+      const socialSending = await handleSocialLinksSubmission(socialMediaLinks);
+      console.log("socialSendingLoop", socialSending);
+      const profileSubmissionObj = {
+        ...profileValues,
+        socialMediaLinks: socialSending,
+      };
+      // const profileSubmissionObj = {
+      //   bio: "I am a web developer",
+      //   firstName: "Lokesh",
+      //   lastName: "Rana",
+      //   profileImage: null,
+      //   socialMediaLinks: ["5fe9cab0ebe9b40017220f90"],
+      //   username: "lokeshrana9999",
+      // };
+      // // const sending = null;
+      console.log("profileSubmissionObj", profileSubmissionObj);
+      const sending = await profileMutation(profileSubmissionObj);
       message.destroy();
-      if (sending.status === true) {
+      if (sending) {
+        console.log("sendingsending", sending);
         message.success({
           duration: 2,
           content: "Profile Updated",
         });
         history.push("/");
       } else {
-        message.error({
-          duration: 2,
-          content: sending.data.message,
-        });
+        console.log("elsesocial", socialSending);
+        socialSending &&
+          socialSending.data &&
+          sending &&
+          sending.data &&
+          message.error({
+            duration: 2,
+            content: `${sending.data.message}`,
+          });
       }
       return sending;
     } catch (e) {
       message.destroy();
       console.log("error", e);
-      message.error({
-        duration: 2,
-        content: e.data.message,
-      });
+      e &&
+        e.data &&
+        message.error({
+          duration: 2,
+          content: e.data.message,
+        });
     }
   };
 
   console.log("currentUser", props);
-  return <ProfileEditView onSubmit={onSubmit} user={currentUser} />;
+  return (
+    <ProfileEditView
+      onSubmit={onSubmit}
+      user={currentUser}
+      socialMediaCategoryList={socialMediaCategoryList}
+    />
+  );
 };
 
-export default withCurrentUser(withAddProfile(withSocialMediaCategories(ProfileEdit)));
+// const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+// const mapStateToProps = (state /*, ownProps*/) => {
+//   console.log("mapstatetoprops", state);
+//   return {
+//     accessToken: state.app.accessToken,
+//     refreshToken: state.app.refreshToken,
+//   };
+// };
+
+export default withCurrentUser(
+  withSocialMediaCategories(withAddProfile(withAddSocialMedia(ProfileEdit)))
+);

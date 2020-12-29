@@ -7,7 +7,7 @@ import styled, { withTheme } from "styled-components";
 const ProfileCardWrapper = styled.div`
   border-radius: 20px;
   padding: 20px;
-  background-color: #2c2c2c;
+  background-color:#2c2c2c;
   height: 100px;
   margin-bottom: 20px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.64);
@@ -16,6 +16,15 @@ const ProfileCardWrapper = styled.div`
 const ProfileCardText = styled.div`
   color: white;
   text-align: center;
+  /* font-size: 17px; */
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  /* line-height: 1.43; */
+  letter-spacing: normal;
+  font-family: Circular Std Medium;
+  font-size:15px;
+
 `;
 
 const ProfileCard = (props) => {

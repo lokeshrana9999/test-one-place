@@ -13,6 +13,13 @@ const CardListHeadText = styled.h3`
   margin-top: 0;
   opacity: 0.7;
   margin-bottom: 0px;
+  font-weight: bold;
+  word-spacing: -3px;
+  font-stretch: normal;
+  font-style: normal;
+  /* line-height: 1.43; */
+  letter-spacing: normal;
+  font-family: Circular Std Medium;
 `;
 
 const Profile = (props) => {
@@ -29,12 +36,20 @@ const Profile = (props) => {
             </Flex.Item>
 
             <Flex.Item align="right">
-              <Link to="/block/choose-category">
-                <AiOutlinePlusCircle
-                  style={{ marginBottom: "-2px", marginRight: "3px" }}
-                />
-                Add A Card
+                <CardListHeadText
+                  style={{ textAlign: "right" }}
+                >
+              <Link to="/block/choose-category" style={{color:'#4643d3'}}>
+                  <AiOutlinePlusCircle
+                    style={{
+                      marginBottom: "-2px",
+                      marginRight: "3px",
+                      textAlign: "right",
+                    }}
+                  />
+                  Add A Card
               </Link>
+                </CardListHeadText>
             </Flex.Item>
           </Flex>
           <CardListHeadText style={{ textAlign: "center", marginTop: "15px" }}>

@@ -13,8 +13,7 @@ import {
   AiOutlinePlusCircle,
 } from "react-icons/ai";
 import { IoPaperPlaneOutline } from "react-icons/io5";
-
-
+import { getValidUrl } from "../../../helper";
 import { Button, Switch } from "../../look/mobile";
 import PageLayout from "../../look/PageLayout";
 // import { withCurrentUser } from "../auth/Auth";
@@ -26,13 +25,16 @@ const ProfileName = styled.h1`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-family: CircularStdBlack;
-  font-size: 22px;
+  font-size: 22px ;
+  word-spacing:-3px;
 `;
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-family: CircularStdBlack;
+  font-size: 22px ;
+  word-spacing:-3px;
 `;
 
 const PublicLinkWrapper = styled.div`
@@ -46,7 +48,7 @@ const PublicLinkWrapper = styled.div`
   display: grid;
   place-items: center;
   padding: 0 15px;
-  font-family: Circular Std Medium;
+  /* font-family: Circular Std Medium; */
   font-size: 17px;
   font-weight: normal;
   font-stretch: normal;
@@ -62,6 +64,12 @@ const ProfileSmallText = styled.p`
   color: ${(props) => props.theme.textColor};
   opacity: 0.7;
   margin-bottom: 0px;
+  font-family:Circular Std Medium;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  word-spacing:-3px;
 `;
 
 const ProfileStats = styled.p`
@@ -88,8 +96,8 @@ const Profile = (props) => {
                 <Flex.Item
                   style={{ flex: 4 }}
                 >{`oneplace.com/${username}`}</Flex.Item>{" "}
-                <Flex.Item align="right">
-                  <IoPaperPlaneOutline size={35} />
+                <Flex.Item align="right" style={{ paddingTop:'6px'}}>
+                  <IoPaperPlaneOutline size={30} />
                 </Flex.Item>
               </Flex>
             </PublicLinkWrapper>
@@ -142,29 +150,28 @@ const Profile = (props) => {
         <br />
         <div align="center">
           <Flex justify="center" style={{ width: "60%" }}>
-            <Flex.Item>
-              <div align="center">
-                <AiFillFacebook style={{ color: "#0674E7" }} size="30" />
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div align="center">
-                <AiFillInstagram style={{ color: theme.textColor }} size="30" />
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div align="center">
-                <AiFillLinkedin style={{ color: theme.textColor }} size="30" />
-              </div>
-            </Flex.Item>
-            <Flex.Item>
-              <div align="center">
-                <AiOutlineWhatsApp
-                  style={{ color: theme.textColor }}
-                  size="30"
-                />
-              </div>
-            </Flex.Item>
+            {userData &&
+              userData.userProfile &&
+              userData.userProfile.socialMediaLinks &&
+              userData.userProfile.socialMediaLinks.map((socia, key) => (
+                <Flex.Item>
+                  <a href={getValidUrl(socia && socia.link)} target='_blank'>
+                    <div align="center">
+                      <img
+                        height="30px"
+                        width="30px"
+                        src={
+                          socia &&
+                          socia.category &&
+                          socia.category.image &&
+                          socia.category.image.url
+                        }
+                        alt=""
+                      />
+                    </div>
+                  </a>
+                </Flex.Item>
+              ))}
           </Flex>
         </div>
         {/* <br />

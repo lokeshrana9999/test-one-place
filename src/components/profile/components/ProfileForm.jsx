@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { withFormik } from "formik";
+import { withFormik, FieldArray } from "formik";
 import { AiFillEdit } from "react-icons/ai";
 import { Flex } from "antd-mobile";
+// import { Persist } from 'formik-persist'
+
 import styled, { withTheme } from "styled-components";
 import * as Yup from "yup";
 import { FieldAdapter as Field } from "../../form";
@@ -12,13 +14,14 @@ import {
   InputArea,
   RenderUpload,
   Button as WebButton,
+  RenderDynamicFieldSocial,
 } from "../../look/web";
 import { Button, WhiteSpace } from "../../look/mobile";
 
 const ProfileFormContainer = styled.div`
   color: white;
   padding: 50px 26px 32px;
-  opacity: 0.88;
+  opacity: 1;
   border-radius: 20px;
   /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.89); */
   background-color: transparent;
@@ -50,7 +53,7 @@ const InputStylized = styled(Input)`
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 60px !important;
-  font-size: 20px;
+  font-size: 15px;
   padding: 0 20px;
   caret-color: white;
   color: white !important;
@@ -109,11 +112,12 @@ const InputAreaStylized = styled(InputArea)`
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 120px !important;
-  font-size: 20px;
-  padding: 20 20px;
+  font-size: 15px;
+  padding: 10px 20px !important;
   caret-color: white;
   color: white;
   font-family: Circular Std Medium;
+  word-spacing: -3px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -151,6 +155,9 @@ const RenderUploadStylized = styled(RenderUpload)`
         width: 100%;
         height: 100%;
         background: white;
+        .ant-upload-list-item-list-type-picture-card{
+          padding:0 !important;
+        }
         .ant-upload-list-item-done {
           padding: 0 !important;
           margin: 0 !important;
@@ -168,16 +175,27 @@ const RenderUploadStylized = styled(RenderUpload)`
           font-weight: normal;
           font-stretch: normal;
           font-style: normal;
-          font-size: 20px;
+          font-size: 15px;
         }
       }
     }
   }
 `;
 
+const UsernamePrefix = styled.p`
+  color: white;
+  font-family: Circular Std Medium;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  word-spacing: -3px;
+  margin-top:-4px;
+  font-size:15px;
+  text-align:right;
+`;
 const profileFormSchema = Yup.object().shape({
-  username: Yup.string().required("Required"),
   userProfile: Yup.object().shape({
+    username: Yup.string().required("Required"),
     bio: Yup.string().required("Required"),
     firstName: Yup.string().required("Required"),
   }),
@@ -185,8 +203,8 @@ const profileFormSchema = Yup.object().shape({
 
 const ProfileForm = (props) => {
   const [load, setload] = useState(false);
-  const { values, handleSubmit } = props;
-  console.log("form values:", values);
+  const { values, handleSubmit, socialMediaCategoryList } = props;
+  console.log("form values:", values, socialMediaCategoryList);
   return (
     <ProfileFormContainer>
       <Form name="profile" onFinish={handleSubmit}>
@@ -207,7 +225,6 @@ const ProfileForm = (props) => {
             value={values.userProfile.profileImage}
           >
             <Button
-              type="primary"
               style={{
                 position: "absolute",
                 bottom: "-10px",
@@ -217,6 +234,7 @@ const ProfileForm = (props) => {
                 height: "30px",
                 borderRadius: "30px",
                 padding: "0",
+                color:'#4643D3'
               }}
             >
               <AiFillEdit
@@ -229,22 +247,19 @@ const ProfileForm = (props) => {
         <WhiteSpace size="md" />
         <WhiteSpace size="md" />
         <Flex type="wrap">
-          <Flex.Item style={{ flex: 1 }}>
-            {" "}
-            <p style={{ color: "white", marginBottom: "20px" }}>
-              {" "}
-              oneplace.com/
-            </p>
-          </Flex.Item>
           <Flex.Item style={{ flex: 2 }}>
+            {" "}
+            <UsernamePrefix> oneplace.com/</UsernamePrefix>
+          </Flex.Item>
+          <Flex.Item style={{ flex: 2, marginLeft:'5px' }}>
             <Field
-              name="username"
+              name="userProfile.username"
               component={UsernameInputStylized}
               type="text"
               // prefix="www.oneplace.me/"
               label={"Username"}
               placeholder="Username"
-              value={values.username}
+              value={values.userProfile.username}
             />
           </Flex.Item>
         </Flex>
@@ -275,34 +290,65 @@ const ProfileForm = (props) => {
           placeholder="Tell a few words about yourself "
           value={values.userProfile.bio}
         />
-        <WhiteSpace size="md" />
-        <WhiteSpace size="md" />
-
-        <WebButton type="primary" htmlType="submit" size="large" block>
+        <FieldArray
+          name="userProfile.socialMediaLinks"
+          render={(arrayHelpers) => (
+            <RenderDynamicFieldSocial
+              // quizItem={values}
+              arrayHelpers={arrayHelpers}
+              values={values.userProfile.socialMediaLinks}
+              name="userProfile.socialMediaLinks"
+              // quizId={values.id}
+              // addSection={addSection}
+              // deleteSection={deleteSection}
+              // submitQuestion={submitQuestion}
+              // deleteQuestion={deleteQuestion}
+              // submitSection={submitSection}
+              socialMediaCategoryList={socialMediaCategoryList}
+            />
+          )}
+          socialVal={values.userProfile.socialMediaLinks}
+          // handleSections={handleSections}
+        />
+        <WebButton ghost htmlType="submit" size="large" block>
           Submit
         </WebButton>
+        {/* <Persist name="profile-edit-form" /> */}
       </Form>
     </ProfileFormContainer>
   );
 };
 
 const ProfileFormWithFormik = withFormik({
-  enableReinitialize: true,
+  enableReinitialize: false,
   mapPropsToValues: ({ user }) => {
+    function getSocialMediaLinks(socialM) {
+      return {
+        category: (socialM && socialM.category && socialM.category._id) || "",
+        link: socialM && socialM.link,
+      };
+    }
+
     return {
-      username: user && user.username,
       userProfile: {
+        username: user && user.username,
         profileImage:
           (user && user.userProfile && user.userProfile.profileImage) || {},
         firstName:
           (user && user.userProfile && user.userProfile.firstName) || "",
         lastName: (user && user.userProfile && user.userProfile.lastName) || "",
         bio: (user && user.userProfile && user.userProfile.bio) || "",
+        socialMediaLinks:
+          (user &&
+            user.userProfile &&
+            user.userProfile.socialMediaLinks &&
+            user.userProfile.socialMediaLinks.map(getSocialMediaLinks)) ||
+          [],
       },
     };
   },
 
-  handleSubmit(values, { props: { onSubmit } }) {
+  handleSubmit(values, { props: { onSubmit, setValues } }) {
     console.log("handleSubmit", values);
     let modifiedValues = values;
     modifiedValues.userProfile.profileImage =
@@ -310,7 +356,7 @@ const ProfileFormWithFormik = withFormik({
         values.userProfile.profileImage &&
         values.userProfile.profileImage._id) ||
       null;
-    onSubmit(modifiedValues);
+    onSubmit(modifiedValues.userProfile);
   },
   validationSchema: profileFormSchema,
   // validate: (values) => validate(values, profileFormSchema),

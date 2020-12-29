@@ -22,24 +22,26 @@ const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-weight: bold;
+  font-family: Circular Std Medium;
+  word-spacing: -3px;
+  /* font-weight: normal; */
+  font-stretch: normal;
+  font-style: normal;
+  font-size:22px;
 `;
 
 const FormWrapper = styled.div`
   color: ${(props) => props.theme.textColor};
   position: relative;
   height: fit-content;
-  margin-top:40px;
-  background-color: #211E28;
+  margin-top: 40px;
+  background-color: #4643D3;
 `;
 
 const ProfileEditView = (props) => {
-  const {
-    user,
-    onSubmit
-  } = props;
+  const { user, onSubmit, socialMediaCategoryList } = props;
   // setAccessTokene('');
-
- 
+  console.log('profileedit', props);
   return (
     <div
       style={{
@@ -78,12 +80,12 @@ const ProfileEditView = (props) => {
             style={{
               width: "100%",
               position: "absolute",
-              top: '-6px',
+              top: "-14px",
               left: 0,
               right: 0,
-              zIndex:'10'
+              zIndex: "10",
             }}
-            src="https://onelinkie.s3.ap-south-1.amazonaws.com/55361b36-a8c0-4119-833a-d0eb102a0616-method-draw-image%20%286%29.png"
+            src="https://onelinkie.s3.ap-south-1.amazonaws.com/7b5e7196-b731-4b2c-a067-9caf4bda0d75-group-219%403x.png"
             alt=""
           />
           <div
@@ -97,7 +99,11 @@ const ProfileEditView = (props) => {
               zIndex: "12",
             }}
           >
-            <ProfileForm user={user} onSubmit={onSubmit} />
+            <ProfileForm
+              user={user}
+              onSubmit={onSubmit}
+              socialMediaCategoryList={socialMediaCategoryList}
+            />
           </div>
         </FormWrapper>
       </div>

@@ -5,6 +5,7 @@ import {
   required,
   minLength,
   validate,
+  maxLength,
 } from "../form";
 import { withFormik } from "formik";
 import { FaImages, FaPhotoVideo } from "react-icons/fa";
@@ -123,7 +124,7 @@ const RenderUploadStylized = styled(RenderUpload)`
 `;
 
 const profileFormSchema = {
-  title: [required, minLength(5)],
+  title: [required, minLength(5), maxLength(50)],
   thumbnail: [required],
   media: [required],
   link: [required],

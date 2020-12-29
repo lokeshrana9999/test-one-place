@@ -14,7 +14,7 @@ export const required = (value) => (value ? undefined : 'Field Required');
  * @return {undefined | string}
  */
 export const maxLength = (max) => (value) =>
-  value && value.length > max ? `Input shouldn't be smaller than ${max} characters` : undefined;
+  value && value.length > max ? `Input shouldn't be bigger than ${max} characters` : undefined;
 
 /**
  * Validates the minimal length of the value.
