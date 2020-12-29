@@ -55,12 +55,22 @@ const LargeHeadingComponent = styled.div`
   font-weight: 1200;
 `;
 
+const StyledButton = styled(Button)`
+  font-family: Circular Std Medium;
+  /* font-size: 25px; */
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+`;
+
 const InputStylized = styled(Input)`
   background-color: transparent !important;
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 60px !important;
-  font-size: 20px;
+  font-size: 15px;
   padding: 0 20px;
   caret-color: white;
   color: white;
@@ -97,7 +107,7 @@ const InputWithSuffixStylized = styled(Input)`
   font-style: normal;
   input {
     background: inherit !important;
-    font-size: 20px;
+    font-size: 15px;
     caret-color: white;
     color: white;
   }
@@ -134,7 +144,7 @@ const LoginForm = (props) => {
         await sendOtp(values.phoneNumber);
         setOtpSent(true);
       } catch (e) {
-        console.log('formerror', e);
+        console.log("formerror", e);
       }
     } else {
       message.error({
@@ -183,19 +193,36 @@ const LoginForm = (props) => {
           />
         )}
         {!otpSent && (
-          <Button type="primary" onClick={handleSendOtp} size="large" block>
+          <StyledButton
+            ghost
+            style={{ borderRadius: "7px" }}
+            onClick={handleSendOtp}
+            size="large"
+            block
+          >
             Send Otp
-          </Button>
+          </StyledButton>
         )}
         {otpSent && (
           <React.Fragment>
-            <Button type="primary" htmlType="submit" size="large" block>
+            <StyledButton
+              ghost
+              style={{ borderRadius: "7px" }}
+              htmlType="submit"
+              size="large"
+              block
+            >
               Login
-            </Button>
+            </StyledButton>
             <WhiteSpace size="xl" />
-            <Button onClick={handleReEnter} size="large" block>
+            <StyledButton
+              style={{ borderRadius: "7px" }}
+              onClick={handleReEnter}
+              size="large"
+              block
+            >
               Re-enter Phone Number
-            </Button>
+            </StyledButton>
           </React.Fragment>
         )}
       </Form>
@@ -210,7 +237,7 @@ const LoginFormWithFormik = withFormik({
   },
 
   handleSubmit: async (values, { props: { onSubmit } }) => {
-    await onSubmit(values)
+    await onSubmit(values);
   },
   validate: (values) => validate(values, loginFormSchema),
   displayName: "LoginForm", // helps with React DevTools

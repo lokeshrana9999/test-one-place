@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
 import Avatar from "react-avatar";
+import { getValidUrl } from "../../helper";
+
 import styled, { withTheme } from "styled-components";
 
 const ProfileCardWrapper = styled.div`
@@ -33,7 +35,7 @@ const ProfileCard = (props) => {
   return (
     <a
       key={key}
-      href={self ? `/block/edit/${block && block._id}` : block && block.link}
+      href={self ? `/block/edit/${block && block._id}` : getValidUrl(block && block.link)}
       target={!self && "_blank"}
     >
       <ProfileCardWrapper>

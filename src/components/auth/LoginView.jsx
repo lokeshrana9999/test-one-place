@@ -14,11 +14,21 @@ const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-weight: bold;
+  font-family: Circular Std Medium;
+  word-spacing: -3px;
+  /* font-weight: normal; */
+  font-stretch: normal;
+  font-style: normal;
+  font-size: 22px;
 `;
 
 const FormWrapper = styled.div`
   color: ${(props) => props.theme.textColor};
   position: relative;
+  height: fit-content;
+  margin-top: 0px;
+  background-color: #4643d3;
+  padding-bottom:20px;
 `;
 
 const LoginView = (props) => {
@@ -114,7 +124,7 @@ const LoginView = (props) => {
   return (
     <div
       style={{
-        padding: "20px 0",
+        padding: "20px 0 0",
         width: "100%",
         minHeight: "100vh",
         position: "relative",
@@ -135,17 +145,33 @@ const LoginView = (props) => {
         </div>
         <WhiteSpace size="xl" />
         <FormWrapper>
-          <img
-            width="100%"
-            src="https://onelinkie.s3.ap-south-1.amazonaws.com/6f2b3bbc-8868-4865-a606-744335070a61-login_form_bc_cropped.png"
-            alt=""
-          />
           <div
             style={{
+              height: "390px",
+              width: "100%",
               position: "absolute",
-              top: "130px",
-              left: "30px",
-              right: "30px",
+              top: "-14px",
+              left: 0,
+              right: 0,
+              zIndex: "10",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              width="100%"
+              src="https://onelinkie.s3.ap-south-1.amazonaws.com/7b5e7196-b731-4b2c-a067-9caf4bda0d75-group-219%403x.png"
+              alt=""
+            />
+          </div>
+          <div
+            style={{
+              // top: "0",
+              // left: "0",
+              position: "relative",
+              // right: "0",
+              background: "transparent",
+              padding: "80px 20px 0",
+              zIndex: "12",
             }}
           >
             <LoginForm sendOtp={sendOtp} onSubmit={onSubmit} />

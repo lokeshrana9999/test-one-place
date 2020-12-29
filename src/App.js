@@ -129,7 +129,6 @@ const App = (props) => {
             <div>
               <Switch>
                 <Route path="/" exact component={AsyncProfile} />,
-                <Route path="/:username" exact component={AsyncPublicProfile} />,
                 <Route path="/login" exact component={AsyncLogin} />
                 <Route
                   path="/profile/edit"
@@ -151,6 +150,7 @@ const App = (props) => {
                   exact
                   component={AsyncEditBlock}
                 />
+                <Route path="/:username" exact component={AsyncPublicProfile} />,
               </Switch>
             </div>
           </ApiContext.Provider>

@@ -11,7 +11,10 @@ import {
   AiOutlineWhatsApp,
   AiFillEdit,
   AiOutlinePlusCircle,
+  AiOutlineLogout,
 } from "react-icons/ai";
+import { connect } from "react-redux";
+
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { getValidUrl } from "../../../helper";
 import { Button, Switch } from "../../look/mobile";
@@ -19,22 +22,23 @@ import PageLayout from "../../look/PageLayout";
 // import { withCurrentUser } from "../auth/Auth";
 import ProfileBlocks from "../../block/ProfileBlocks";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
+import { setAccessTokene, setRefreshTokene } from "../../../store/appReducer";
 
 const ProfileName = styled.h1`
   margin-top: 10px;
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-family: CircularStdBlack;
-  font-size: 22px ;
-  word-spacing:-3px;
+  font-size: 22px;
+  word-spacing: -3px;
 `;
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-family: CircularStdBlack;
-  font-size: 22px ;
-  word-spacing:-3px;
+  font-size: 22px;
+  word-spacing: -3px;
 `;
 
 const PublicLinkWrapper = styled.div`
@@ -64,12 +68,12 @@ const ProfileSmallText = styled.p`
   color: ${(props) => props.theme.textColor};
   opacity: 0.7;
   margin-bottom: 0px;
-  font-family:Circular Std Medium;
+  font-family: Circular Std Medium;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  word-spacing:-3px;
+  word-spacing: -3px;
 `;
 
 const ProfileStats = styled.p`
@@ -80,8 +84,20 @@ const ProfileStats = styled.p`
   margin-top: 5px;
 `;
 
+const StyledButton = styled(Button)`
+  font-family: Circular Std Medium;
+  /* font-size: 25px; */
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  font-size: 15px;
+  background: #4643d3;
+`;
+
 const Profile = (props) => {
-  const { userData, self, theme } = props;
+  const { userData, self, theme, setAccessTokene, setRefreshTokene } = props;
   const { username } = userData;
 
   return (
@@ -96,7 +112,7 @@ const Profile = (props) => {
                 <Flex.Item
                   style={{ flex: 4 }}
                 >{`oneplace.com/${username}`}</Flex.Item>{" "}
-                <Flex.Item align="right" style={{ paddingTop:'6px'}}>
+                <Flex.Item align="right" style={{ paddingTop: "6px" }}>
                   <IoPaperPlaneOutline size={30} />
                 </Flex.Item>
               </Flex>
@@ -116,6 +132,7 @@ const Profile = (props) => {
               <Button
                 type="primary"
                 style={{
+                  background: "#4643D3",
                   position: "absolute",
                   bottom: "-10px",
                   right: "-10px",
@@ -154,23 +171,25 @@ const Profile = (props) => {
               userData.userProfile &&
               userData.userProfile.socialMediaLinks &&
               userData.userProfile.socialMediaLinks.map((socia, key) => (
-                <Flex.Item>
-                  <a href={getValidUrl(socia && socia.link)} target='_blank'>
-                    <div align="center">
-                      <img
-                        height="30px"
-                        width="30px"
-                        src={
-                          socia &&
-                          socia.category &&
-                          socia.category.image &&
-                          socia.category.image.url
-                        }
-                        alt=""
-                      />
-                    </div>
-                  </a>
-                </Flex.Item>
+                <a
+                  href={getValidUrl(socia && socia.link)}
+                  target="_blank"
+                  key={key}
+                >
+                  <div align="center" style={{ margin: "0 5px" }}>
+                    <img
+                      height="30px"
+                      width="30px"
+                      src={
+                        socia &&
+                        socia.category &&
+                        socia.category.image &&
+                        socia.category.image.url
+                      }
+                      alt=""
+                    />
+                  </div>
+                </a>
               ))}
           </Flex>
         </div>
@@ -192,8 +211,30 @@ const Profile = (props) => {
         )} */}
         <br />
         <ProfileBlocks self={self} username={username} />
+        <br />
+        {self && (
+          <StyledButton
+            type="primary"
+            icon={<AiOutlineLogout style={{ fontSize: "20px" }} />}
+            onClick={() => {
+              setAccessTokene("");
+              setRefreshTokene("");
+            }}
+          >
+            Log Out
+          </StyledButton>
+        )}
       </PageLayout>
     </div>
   );
 };
-export default withTheme(Profile);
+
+const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+const mapStateToProps = (state /*, ownProps*/) => {
+  console.log("mapstatetoprops", state);
+  return {
+    accessToken: state.app.accessToken,
+    refreshToken: state.app.refreshToken,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Profile));

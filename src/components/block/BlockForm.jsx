@@ -57,7 +57,7 @@ const InputStylized = styled(Input)`
   font-style: normal;
   height: 60px !important;
   padding: 0 20px;
-  font-size: 20px;
+  font-size: 15px;
   /* background: transparent;
   caret-color: white;
   color: white;
@@ -65,18 +65,33 @@ const InputStylized = styled(Input)`
 `;
 
 const InputAreaStylized = styled(InputArea)`
-  /* background: transparent;
+  background: white !important;
   border-radius: 7px;
   border: solid 2px #d8d8d8;
   height: 120px !important;
-  font-size: 20px;
-  padding: 20 20px;
-  caret-color: white;
-  color: white;
-  font-family: CircularStdMedium;
+  font-size: 15px;
+  padding: 10px 20px !important;
+  caret-color: black;
+  color: black;
+  font-family: Circular Std Medium;
+  word-spacing: -3px;
   font-weight: normal;
   font-stretch: normal;
-  font-style: normal; */
+  font-style: normal;
+  :focus {
+    caret-color: black;
+    color: black;
+    background-color: white !important;
+  }
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: black;
+    caret-color: black;
+    color: black;
+    background-color: white !important;
+  }
 `;
 
 const RenderUploadStylized = styled(RenderUpload)`
@@ -126,7 +141,7 @@ const RenderUploadStylized = styled(RenderUpload)`
 const profileFormSchema = {
   title: [required, minLength(5), maxLength(50)],
   thumbnail: [required],
-  media: [required],
+  // media: [required],
   link: [required],
 };
 
@@ -140,7 +155,7 @@ const ProfileForm = (props) => {
       <Form name="addBlock" ref={addBlockFormRef} onFinish={handleSubmit}>
         <Field
           name="title"
-          component={InputStylized}
+          component={InputAreaStylized}
           type="text"
           label={"Name of The Block"}
           placeholder="Name of The Block"
@@ -175,7 +190,7 @@ const ProfileForm = (props) => {
               value={values.thumbnail}
             />
           </Flex.Item>
-          <Flex.Item>
+          {/* <Flex.Item>
             <Field
               name="media"
               component={RenderUploadStylized}
@@ -190,7 +205,7 @@ const ProfileForm = (props) => {
               }
               value={values.media}
             />
-          </Flex.Item>
+          </Flex.Item> */}
         </Flex>
         <WhiteSpace size="xl" />
         <Button type="primary" block size="large" htmlType="submit">
