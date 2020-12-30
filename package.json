@@ -2,19 +2,21 @@
   "name": "create-react-app",
   "version": "2.0.0",
   "private": true,
-  "homepage": "/wxmanager/",
+  "homepage": "/",
   "dependencies": {
     "@ant-design/icons": "4.0.0",
     "@loadable/component": "^5.14.1",
     "antd": "^4.9.4",
     "antd-mobile": "^2.0.0",
     "axios": "^0.19.0",
+    "customize-cra": "^1.0.0",
     "formik": "^2.2.6",
     "formik-persist": "^1.1.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "rc-form": "^2.4.8",
     "react": "16.8.0",
+    "react-app-rewire-eslint": "^0.2.3",
     "react-avatar": "^3.9.7",
     "react-dom": "16.8.0",
     "react-helmet": "^6.1.0",
@@ -23,7 +25,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^5.0.1",
     "react-router4": "^4.0.0-alpha.3",
-    "react-scripts": "1.0.13",
+    "react-scripts": "^4.0.1",
     "react-video": "^1.5.3",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
@@ -44,10 +46,22 @@
     "babel-plugin-import": "^1.13.3",
     "less": "^3.11.1",
     "less-loader": "^4.1.0",
-    "react-app-rewired": "^1.2.9"
+    "react-app-rewired": "^2.1.8"
   },
   "theme": {
     "brand-primary": "#6558F5",
     "color-text-base": "#333"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -11,11 +11,13 @@ import TabBar from "./mobile/TabBar";
 import TabBarItem from "./mobile/TabBarItem";
 
 const PageLayoutContainer = styled.div`
-  position: fixed;
+  position: relative;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   bottom: 0;
+  margin: auto;
+  max-width: 500px;
 `;
 
 const PageLayoutDiv = styled.div`
@@ -62,6 +64,7 @@ class PageLayout extends React.Component {
 
   render() {
     return (
+      <div >
       <PageLayoutContainer>
         <StyledTabBar style={{ height: "83px" }} hidden={this.state.hidden}>
           <TabBarItem
@@ -113,6 +116,7 @@ class PageLayout extends React.Component {
           </TabBarItem>
         </StyledTabBar>
       </PageLayoutContainer>
+      </div>
     );
   }
 }
