@@ -100,9 +100,7 @@ const App = (props) => {
         // console.log('retryRefresh', await retry());
       } catch (e) {
         console.log("refreshError", e);
-        if (e.status === 400) {
-          history.push(`/login?redirectBack=${history.location.pathname}`);
-        }
+        history.push(`/login?redirectBack=${history.location.pathname}`);
       }
     }
   };
@@ -150,7 +148,8 @@ const App = (props) => {
                   exact
                   component={AsyncEditBlock}
                 />
-                <Route path="/:username" exact component={AsyncPublicProfile} />,
+                <Route path="/:username" exact component={AsyncPublicProfile} />
+                ,
               </Switch>
             </div>
           </ApiContext.Provider>

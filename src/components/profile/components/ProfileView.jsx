@@ -28,7 +28,7 @@ const ProfileName = styled.h1`
   margin-top: 10px;
   color: ${(props) => props.theme.textColor};
   text-align: center;
-  font-family: CircularStdBlack;
+  font-family: Circular Std Black;
   font-size: 22px;
   word-spacing: -3px;
 `;
@@ -36,7 +36,7 @@ const ProfileName = styled.h1`
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
-  font-family: CircularStdBlack;
+  font-family: Circular Std Black;
   font-size: 22px;
   word-spacing: -3px;
 `;
@@ -48,7 +48,7 @@ const PublicLinkWrapper = styled.div`
   border: solid 1px #f2f2f2;
   background-color: #f8f8f8;
   height: 60px;
-  font-family: CircularStdBlack;
+  font-family: Circular Std Black;
   display: grid;
   place-items: center;
   padding: 0 15px;

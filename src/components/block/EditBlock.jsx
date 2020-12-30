@@ -7,7 +7,7 @@ import BlockForm from "./BlockForm";
 import { withEditUserBlock, withBlockById } from "./BlockOperations";
 
 const PageHead = styled.h1`
-  font-family: CircularStdBlack;
+  font-family: Circular Std Black;
   font-size: 22px;
   font-weight: normal;
   font-stretch: normal;

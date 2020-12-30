@@ -6,7 +6,7 @@ import { ApiContext, BlockApiUrls } from "../../api";
 import BlockCard from "./BlockCard";
 
 const PageHead = styled.h1`
-  font-family: CircularStdBlack;
+  font-family: Circular Std Black;
   font-size: 22px;
   font-weight: normal;
   font-stretch: normal;
