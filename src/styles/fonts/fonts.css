@@ -3,15 +3,20 @@
 
 @font-face {
   font-family: "Circular Std Black";
-  src: url("./Circular_Std_Black.woff") format('woff');
+  src: url("./circular_std_black/Circular_Std_Black.woff") format("woff");
+  src: url("./circular_std_black/Circular_Std_Black.svg") format("svg");
+  src: url("./circular_std_black/Circular_Std_Black.otf") format("otf");
+  src: url("./circular_std_black/Circular_Std_Black.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Circular Std Medium";
-  src: url("./Circular_Std_Medium.woff") format('woff');
-  font-weight: bold;
+  src: url("./circular_std_medium/Circular_Std_Medium.woff") format("woff");
+  src: url("./circular_std_medium/Circular_Std_Medium.svg") format("svg");
+  src: url("./circular_std_medium/Circular_Std_Medium.otf") format("otf");
+  src: url("./circular_std_medium/Circular_Std_Medium.woff2") format("woff2");
+  /* font-weight: bold; */
 }
-
 
 /* @font-face {
   font-family: "Circular Std Medium";
