@@ -25,5 +25,5 @@ export const getValidPhoneNumber = (numb) => {
     return phoneNu;
   }
 
-  return "+91", phoneNu;
+  return "+91" + phoneNu;
 };
