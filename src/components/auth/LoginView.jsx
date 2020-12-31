@@ -31,7 +31,7 @@ const FormWrapper = styled.div`
   margin-top: -30px;
   padding-top:50px;
   background-color: #4643d3;
-  padding-bottom:240px;
+  padding-bottom:40px;
 `;
 
 const LoginView = (props) => {

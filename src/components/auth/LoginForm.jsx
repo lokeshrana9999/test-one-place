@@ -12,7 +12,7 @@ import styled, { withTheme } from "styled-components";
 import { WhiteSpace } from "../look/mobile";
 import { Input, Form, Alert, Button } from "../look/web";
 import { AiFillCheckCircle, AiOutlineEllipsis } from "react-icons/ai";
-
+import { getValidPhoneNumber } from "../../helper";
 const LoginFormContainer = styled.div`
   color: white;
   padding: 30px 20px 32px;
@@ -105,6 +105,10 @@ const InputWithSuffixStylized = styled(Input)`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
+  .ant-input-prefix {
+    color: white;
+    margin-right: 10px;
+  }
   input {
     background: inherit !important;
     font-size: 15px;
@@ -140,8 +144,9 @@ const LoginForm = (props) => {
   const handleSendOtp = async () => {
     const phoneValidator = phoneNumber(values.phoneNumber);
     if (values.phoneNumber !== "" && !phoneValidator) {
+      const phoneN = getValidPhoneNumber(values.phoneNumber);
       try {
-        await sendOtp(values.phoneNumber);
+        await sendOtp(phoneN);
         setOtpSent(true);
       } catch (e) {
         console.log("formerror", e);
@@ -168,8 +173,9 @@ const LoginForm = (props) => {
       <Form name="login" onFinish={handleSubmit}>
         <Field
           name="phoneNumber"
-          component={InputStylized}
+          component={InputWithSuffixStylized}
           type="text"
+          prefix="+91"
           disabled={otpSent}
           label={"Your 10 digit mobile number"}
           placeholder="Your 10 digit mobile number"
@@ -237,6 +243,10 @@ const LoginFormWithFormik = withFormik({
   },
 
   handleSubmit: async (values, { props: { onSubmit } }) => {
+    let modifiedValues = values;
+    modifiedValues.phoneNumber = getValidPhoneNumber(
+      modifiedValues.phoneNumber
+    );
     await onSubmit(values);
   },
   validate: (values) => validate(values, loginFormSchema),
