@@ -25,10 +25,13 @@ const PageHead = styled.h2`
 const FormWrapper = styled.div`
   color: ${(props) => props.theme.textColor};
   position: relative;
+  bottom:0;
   height: fit-content;
-  margin-top: 0px;
+  overflow-x:hidden;
+  margin-top: -30px;
+  padding-top:50px;
   background-color: #4643d3;
-  padding-bottom:20px;
+  padding-bottom:240px;
 `;
 
 const LoginView = (props) => {
@@ -133,11 +136,12 @@ const LoginView = (props) => {
         background: "white",
       }}
     >
-      <div style={{ maxWidth: "500px", height: "100%", width: "100%" }}>
+      <div style={{ maxWidth: "500px", height: "100%", width: "100%", overflowX:'hidden' }}>
         <PageHead>OnePlace Universe</PageHead>
         <WhiteSpace size="xl" />
         <div align="center">
           <img
+            style={{position:'relative', zIndex:'100'}}
             src="https://onelinkie.s3.ap-south-1.amazonaws.com/76f5d642-2efe-4bc0-8743-df58baf1b740-login_banner_cropped2.png"
             width="80%"
             alt="login_banner"
@@ -150,11 +154,12 @@ const LoginView = (props) => {
               height: "390px",
               width: "100%",
               position: "absolute",
-              top: "-14px",
-              left: 0,
+              top: "-2px",
+              left: '-5px',
               right: 0,
               zIndex: "10",
               overflow: "hidden",
+
             }}
           >
             <img

@@ -27,7 +27,7 @@ const PageHead = styled.h2`
   /* font-weight: normal; */
   font-stretch: normal;
   font-style: normal;
-  font-size:22px;
+  font-size: 22px;
 `;
 
 const FormWrapper = styled.div`
@@ -35,13 +35,15 @@ const FormWrapper = styled.div`
   position: relative;
   height: fit-content;
   margin-top: 40px;
-  background-color: #4643D3;
+  background-color: #4643d3;
+  overflow: hidden;
+  padding-top: 50px;
 `;
 
 const ProfileEditView = (props) => {
   const { user, onSubmit, socialMediaCategoryList } = props;
   // setAccessTokene('');
-  console.log('profileedit', props);
+  console.log("profileedit", props);
   return (
     <div
       style={{
@@ -76,18 +78,26 @@ const ProfileEditView = (props) => {
         </div>
         <WhiteSpace size="xl" />
         <FormWrapper>
-          <img
+          <div
             style={{
+              height: "390px",
               width: "100%",
               position: "absolute",
-              top: "-14px",
-              left: 0,
+              top: "-2px",
+              left: "-5px",
               right: 0,
               zIndex: "10",
+              overflow: "hidden",
             }}
-            src="https://onelinkie.s3.ap-south-1.amazonaws.com/7b5e7196-b731-4b2c-a067-9caf4bda0d75-group-219%403x.png"
-            alt=""
-          />
+          >
+            <img
+              style={{
+                width: "100%",
+              }}
+              src="https://onelinkie.s3.ap-south-1.amazonaws.com/7b5e7196-b731-4b2c-a067-9caf4bda0d75-group-219%403x.png"
+              alt=""
+            />
+          </div>
           <div
             style={{
               // top: "0",
