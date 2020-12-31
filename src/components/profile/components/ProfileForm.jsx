@@ -15,6 +15,7 @@ import {
   RenderUpload,
   Button as WebButton,
   RenderDynamicFieldSocial,
+  RenderUploadWithCrop,
 } from "../../look/web";
 import { Button, WhiteSpace } from "../../look/mobile";
 
@@ -137,7 +138,7 @@ const InputAreaStylized = styled(InputArea)`
   }
 `;
 
-const RenderUploadStylized = styled(RenderUpload)`
+const RenderUploadStylized = styled(RenderUploadWithCrop)`
   width: 140px;
   height: 140px;
   border-radius: 30px;
@@ -155,8 +156,8 @@ const RenderUploadStylized = styled(RenderUpload)`
         width: 100%;
         height: 100%;
         background: white;
-        .ant-upload-list-item-list-type-picture-card{
-          padding:0 !important;
+        .ant-upload-list-item-list-type-picture-card {
+          padding: 0 !important;
         }
         .ant-upload-list-item-done {
           padding: 0 !important;
@@ -189,9 +190,9 @@ const UsernamePrefix = styled.p`
   font-stretch: normal;
   font-style: normal;
   word-spacing: -3px;
-  margin-top:-4px;
-  font-size:15px;
-  text-align:right;
+  margin-top: -4px;
+  font-size: 15px;
+  text-align: right;
 `;
 const profileFormSchema = Yup.object().shape({
   userProfile: Yup.object().shape({
@@ -219,6 +220,7 @@ const ProfileForm = (props) => {
           <Field
             name="userProfile.profileImage"
             component={RenderUploadStylized}
+            aspect={1}
             type="image"
             setload={setload}
             label={"Upload Your Photo"}
@@ -234,7 +236,7 @@ const ProfileForm = (props) => {
                 height: "30px",
                 borderRadius: "30px",
                 padding: "0",
-                color:'#4643D3'
+                color: "#4643D3",
               }}
             >
               <AiFillEdit
@@ -251,7 +253,7 @@ const ProfileForm = (props) => {
             {" "}
             <UsernamePrefix> oneplace.com/</UsernamePrefix>
           </Flex.Item>
-          <Flex.Item style={{ flex: 2, marginLeft:'5px' }}>
+          <Flex.Item style={{ flex: 2, marginLeft: "5px" }}>
             <Field
               name="userProfile.username"
               component={UsernameInputStylized}

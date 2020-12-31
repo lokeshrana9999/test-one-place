@@ -19,6 +19,7 @@ import {
   InputArea,
   RenderUpload,
   Button,
+  RenderUploadWithCrop
 } from "../look/web";
 
 const ProfileFormContainer = styled.div`
@@ -94,7 +95,7 @@ const InputAreaStylized = styled(InputArea)`
   }
 `;
 
-const RenderUploadStylized = styled(RenderUpload)`
+const RenderUploadStylized = styled(RenderUploadWithCrop)`
   width: 140px;
   height: 140px;
   border-radius: 30px;
@@ -179,6 +180,7 @@ const ProfileForm = (props) => {
               name="thumbnail"
               component={RenderUploadStylized}
               type="media"
+              aspect={1}
               setload={setload}
               label={
                 <React.Fragment>

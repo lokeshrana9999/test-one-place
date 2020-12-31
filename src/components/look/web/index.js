@@ -1,4 +1,5 @@
 export {default as RenderUpload} from './RenderUpload';
+export {default as RenderUploadWithCrop} from './RenderUploadWithCrop';
 export {default as Input} from './Input';
 export {default as InputArea} from './InputArea';
 export {default as Form} from './Form';
