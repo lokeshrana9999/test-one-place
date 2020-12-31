@@ -40,7 +40,7 @@ const ProfileCard = (props) => {
     >
       <ProfileCardWrapper>
         <Flex>
-          <Flex.Item style={{ flex: 1 }}>
+          <Flex.Item style={{ flex: '0 1 60px'}}>
             <Avatar
               size="60"
               style={{ borderRadius: "10px", overflow: "hidden" }}
