@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled, { withTheme } from "styled-components";
 import { message } from "antd";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+
 import { WhiteSpace } from "../look/mobile";
 import PageLayout from "../look/PageLayout";
 import BlockForm from "./BlockForm";
@@ -17,6 +19,7 @@ const PageHead = styled.h1`
   text-align: center;
   color: #000000;
   word-spacing: -8px;
+  position: relative;
 `;
 
 const FormWrapper = styled.div`
@@ -65,7 +68,13 @@ const BlockEditView = (props) => {
   return (
     <PageLayout>
       <WhiteSpace size="xl" />
-      <PageHead>Add a new card</PageHead>
+      <PageHead>
+        <AiOutlineArrowLeft
+          style={{ position: "absolute", top: "-3px", left: 0 }}
+          onClick={history.goBack}
+        />
+        Edit card
+      </PageHead>
       <WhiteSpace size="xl" />
       <WhiteSpace size="xl" />
       <BlockForm onSubmit={onSubmit} blockData={blockByUsername} />

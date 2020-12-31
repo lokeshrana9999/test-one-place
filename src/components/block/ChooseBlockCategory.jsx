@@ -45,13 +45,14 @@ const ChooseBlockCategoryView = (props) => {
       {" "}
       <div
         style={{
-          padding: "20px",
+          padding: "15px 20px",
           maxWidth: "500px",
           height: "100%",
           width: "100%",
           overflow: "hidden",
         }}
       >
+        <WhiteSpace size="xl" />
         <PageHead>
           {" "}
           <AiOutlineArrowLeft
