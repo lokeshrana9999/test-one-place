@@ -3,16 +3,7 @@ import Avatar from "react-avatar";
 import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
-import Loadable from "react-loadable";
-import {
-  AiFillFacebook,
-  AiFillInstagram,
-  AiFillLinkedin,
-  AiOutlineWhatsApp,
-  AiFillEdit,
-  AiOutlinePlusCircle,
-  AiOutlineLogout,
-} from "react-icons/ai";
+import { AiFillEdit, AiOutlineLogout } from "react-icons/ai";
 import { connect } from "react-redux";
 
 import { IoPaperPlaneOutline } from "react-icons/io5";
@@ -76,12 +67,14 @@ const ProfileSmallText = styled.p`
   word-spacing: -3px;
 `;
 
-const ProfileStats = styled.p`
-  text-align: center;
-  font-size: 20px;
-  color: ${(props) => props.theme.textColor};
-  opacity: 1;
-  margin-top: 5px;
+const PageContainer = styled.p`
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  bottom: 0;
+  margin: auto;
+  max-width: 500px;
 `;
 
 const StyledButton = styled(Button)`
@@ -100,9 +93,11 @@ const Profile = (props) => {
   const { userData, self, theme, setAccessTokene, setRefreshTokene } = props;
   const { username } = userData;
 
+  const PageWrapper = self ? PageLayout : PageContainer;
+
   return (
     <div>
-      <PageLayout>
+      <PageWrapper>
         {self && <PageHead>OnePlace Universe</PageHead>}
 
         {self && (
@@ -224,7 +219,7 @@ const Profile = (props) => {
             Log Out
           </StyledButton>
         )}
-      </PageLayout>
+      </PageWrapper>
     </div>
   );
 };

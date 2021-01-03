@@ -176,6 +176,47 @@ const withEditUserBlock = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithEditBlockInner);
 };
 
+
+const withDeleteUserBlock = (Component) => {
+  const WithDeleteBlockInner = ({ ...props }) => {
+    const {
+      history,
+      refreshToken,
+      setAccessTokene,
+      accessToken,
+      match
+    } = props;
+    const blockId = match && match.params && match.params.blockId;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlockById(blockId);
+    const { mutate: deleteBlock, loading: deleteBlockLoading, error } = useMutate({
+      verb: "DELETE",
+      path: apiUrl,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
+    console.log("edituserblock", error);
+    return (
+      <Component
+        {...props}
+        deleteBlock={deleteBlock}
+        deleteBlockLoading={deleteBlockLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithDeleteBlockInner);
+};
+
 // const RefreshAccessToken = ({ children,  }) => {
 //   const { mutate: refreshAccessToken, loading } = useMutate({
 //     verb: "POST",
@@ -265,6 +306,7 @@ export {
   withAddUserBlock,
   withEditUserBlock,
   withBlockById,
+  withDeleteUserBlock
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

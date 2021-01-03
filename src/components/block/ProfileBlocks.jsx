@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { Loader } from "../look/mobile";
-import { withUserBlocks } from "./BlockOperations";
+import { withUserBlocks, withDeleteUserBlock } from "./BlockOperations";
 import ProfileBlockComponent from "./ProfileBlockComponent";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
 
@@ -23,7 +23,15 @@ const CardListHeadText = styled.h3`
 `;
 
 const Profile = (props) => {
-  const { theme, currentUser, user, self, userBlock, userBlockLoading } = props;
+  const {
+    theme,
+    currentUser,
+    user,
+    self,
+    userBlock,
+    userBlockLoading,
+    deleteBlock,
+  } = props;
 
   console.log("profileblocks", props);
   return (
@@ -36,10 +44,8 @@ const Profile = (props) => {
             </Flex.Item>
 
             <Flex.Item align="right">
-                <CardListHeadText
-                  style={{ textAlign: "right" }}
-                >
-              <Link to="/block/choose-category" style={{color:'#4643d3'}}>
+              <CardListHeadText style={{ textAlign: "right" }}>
+                <Link to="/block/choose-category" style={{ color: "#4643d3" }}>
                   <AiOutlinePlusCircle
                     style={{
                       marginBottom: "-2px",
@@ -48,8 +54,8 @@ const Profile = (props) => {
                     }}
                   />
                   Add A Card
-              </Link>
-                </CardListHeadText>
+                </Link>
+              </CardListHeadText>
             </Flex.Item>
           </Flex>
           <CardListHeadText style={{ textAlign: "center", marginTop: "15px" }}>
@@ -61,7 +67,12 @@ const Profile = (props) => {
       {userBlockLoading && <Loader />}
       {!userBlockLoading && userBlock && userBlock.length !== 0
         ? userBlock.map((block, key) => (
-            <ProfileBlockComponent block={block} self={self} />
+            <ProfileBlockComponent
+              deleteBlock={deleteBlock}
+              key={key}
+              block={block}
+              self={self}
+            />
           ))
         : !userBlockLoading && (
             <CardListHeadText
@@ -73,4 +84,4 @@ const Profile = (props) => {
     </div>
   );
 };
-export default withUserBlocks(withTheme(Profile));
+export default withUserBlocks(withDeleteUserBlock(withTheme(Profile)));
