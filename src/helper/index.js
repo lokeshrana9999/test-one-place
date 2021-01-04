@@ -1,4 +1,7 @@
-export const getValidUrl = (url) => {
+// import {removeArrItem} from './arrayHelpers'
+
+
+const getValidUrl = (url) => {
   let newUrl = url;
   newUrl = newUrl.trim().replace(/\s/g, "");
 
@@ -12,7 +15,7 @@ export const getValidUrl = (url) => {
   return newUrl;
 };
 
-export const getValidPhoneNumber = (numb) => {
+const getValidPhoneNumber = (numb) => {
   let phoneNu = numb;
   // phoneNu = phoneNu.trim().replace(/\s/g, "");
   if (/^(0)/.test(phoneNu) && phoneNu.length === 11) {
@@ -27,3 +30,8 @@ export const getValidPhoneNumber = (numb) => {
 
   return "+91" + phoneNu;
 };
+
+
+export {
+  // removeArrItem, 
+  getValidUrl, getValidPhoneNumber};

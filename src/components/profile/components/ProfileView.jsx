@@ -106,7 +106,7 @@ const Profile = (props) => {
               <Flex justify="between" style={{ width: "100%" }}>
                 <Flex.Item
                   style={{ flex: 4 }}
-                >{`oneplace.com/${username}`}</Flex.Item>{" "}
+                >{`oneplace.me/${username}`}</Flex.Item>{" "}
                 <Flex.Item align="right" style={{ paddingTop: "6px" }}>
                   <IoPaperPlaneOutline size={30} />
                 </Flex.Item>

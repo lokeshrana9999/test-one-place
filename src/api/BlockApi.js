@@ -5,6 +5,6 @@ export const BlockApiUrls = {
     getBlock:'/block',
     getBlockById:(id)=>`/block/${id}`,
     putBlockById:(id)=>`/block/${id}`,
-    deleteBlockById:(id)=> `/block/${id}`,
+    deleteBlockById: `/block`,
     getBlocksByUsername:(username)=>`/block/byUsername/${username}`
 }   

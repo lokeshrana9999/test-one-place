@@ -251,7 +251,7 @@ const ProfileForm = (props) => {
         <Flex type="wrap">
           <Flex.Item style={{ flex: 2 }}>
             {" "}
-            <UsernamePrefix> oneplace.com/</UsernamePrefix>
+            <UsernamePrefix> oneplace.me/</UsernamePrefix>
           </Flex.Item>
           <Flex.Item style={{ flex: 2, marginLeft: "5px" }}>
             <Field
@@ -310,7 +310,7 @@ const ProfileForm = (props) => {
             />
           )}
           socialVal={values.userProfile.socialMediaLinks}
-          // handleSections={handleSections}
+        // handleSections={handleSections}
         />
         <WebButton ghost htmlType="submit" size="large" block>
           Submit

@@ -188,7 +188,7 @@ const withDeleteUserBlock = (Component) => {
     } = props;
     const blockId = match && match.params && match.params.blockId;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlockById(blockId);
+    const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlockById;
     const { mutate: deleteBlock, loading: deleteBlockLoading, error } = useMutate({
       verb: "DELETE",
       path: apiUrl,

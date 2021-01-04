@@ -9,5 +9,6 @@ export {default as RenderDynamicFieldSocial} from './RenderDynamicFieldSocial';
 export {default as RenderSelect} from './RenderSelect';
 export {default as Select} from './Select';
 export {default as Option} from './Option';
+export {default as Popconfirm} from './Popconfirm';
 
 

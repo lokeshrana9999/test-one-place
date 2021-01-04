@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Flex } from "antd-mobile";
+import { message } from 'antd';
 import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -24,15 +25,55 @@ const CardListHeadText = styled.h3`
 
 const Profile = (props) => {
   const {
-    theme,
-    currentUser,
-    user,
     self,
     userBlock,
     userBlockLoading,
     deleteBlock,
   } = props;
 
+
+  const [userBlockData, setUserBlockData] = useState(null)
+
+  useEffect(() => {
+    setUserBlockData(userBlock)
+  }, [userBlock, setUserBlockData]);
+
+  const handleDeleteBlock = async (id) => {
+    var userBlockDataModif = userBlockData;
+    userBlockDataModif = userBlockDataModif.filter(uBDM => uBDM && uBDM._id !== id)
+    try {
+      message.loading({
+        content: "Deleting Card ...",
+        duration: 0,
+      });
+      const deleting = await deleteBlock(id);
+      console.log(deleting);
+      message.destroy();
+      if (deleting.status === true) {
+        message.success({
+          duration: 2,
+          content: "Card Deleted",
+        });
+        setUserBlockData(userBlockDataModif);
+        // history.push("/");
+      } else {
+        message.error({
+          duration: 2,
+          content: deleting.data.message,
+        });
+      }
+      return deleting;
+    } catch (e) {
+      message.destroy();
+      console.log("error", e);
+      if (e && e.data && e.data.message) {
+        message.error({
+          duration: 2,
+          content: e && e.data && e.data.message,
+        });
+      }
+    }
+  }
   console.log("profileblocks", props);
   return (
     <div>
@@ -65,22 +106,22 @@ const Profile = (props) => {
       )}
       <br />
       {userBlockLoading && <Loader />}
-      {!userBlockLoading && userBlock && userBlock.length !== 0
-        ? userBlock.map((block, key) => (
-            <ProfileBlockComponent
-              deleteBlock={deleteBlock}
-              key={key}
-              block={block}
-              self={self}
-            />
-          ))
+      {!userBlockLoading && userBlockData && userBlockData.length !== 0
+        ? userBlockData.map((block, key) => (
+          <ProfileBlockComponent
+            handleDeleteBlock={handleDeleteBlock}
+            key={key}
+            block={block}
+            self={self}
+          />
+        ))
         : !userBlockLoading && (
-            <CardListHeadText
-              style={{ textAlign: "center", marginTop: "15px" }}
-            >
-              No Cards
-            </CardListHeadText>
-          )}
+          <CardListHeadText
+            style={{ textAlign: "center", marginTop: "15px" }}
+          >
+            No Cards
+          </CardListHeadText>
+        )}
     </div>
   );
 };

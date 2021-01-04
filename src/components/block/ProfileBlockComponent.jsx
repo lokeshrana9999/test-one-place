@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
+import { Popconfirm } from '../look/web'
 import Avatar from "react-avatar";
 import { useSwipeable } from "react-swipeable";
 import { IoTrashBin } from "react-icons/io5";
@@ -65,18 +66,28 @@ const ProfileCardText = styled.div`
 
 const ProfileCard = (props) => {
   const [swiped, setSwiped] = useState("");
-  const { block, key, self, deleteBlock } = props;
-  console.log("blockcomponent", block);
+  const { block, key, self, handleDeleteBlock } = props;
+
+
   const handlers = useSwipeable({
     onSwipedLeft: () => setSwiped("left"),
     onSwipedRight: () => setSwiped("right"),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
+
+  
   return (
     <ProfileCardWrapper {...handlers}>
       {self && (
-        <IoTrashBinStylized onClick={() => deleteBlock(block && block._id)} />
+        <Popconfirm
+          title="Are you sure to delete this Card?"
+          onConfirm={() => handleDeleteBlock(block && block._id)}
+          onCancel={() => console.log('canceled')}
+          okText="Yes"
+          cancelText="No"
+        >
+          <IoTrashBinStylized /></Popconfirm>
       )}
       <ProfileCardInnerWrapper swiped={self && swiped}>
         <a
