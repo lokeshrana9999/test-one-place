@@ -75,6 +75,7 @@ const PageContainer = styled.p`
   bottom: 0;
   margin: auto;
   max-width: 500px;
+  padding:0 20px;
 `;
 
 const StyledButton = styled(Button)`

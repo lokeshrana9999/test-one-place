@@ -20,6 +20,27 @@ const ProfileCardWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
+  animation: ${(props) => (props.shake ? "shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite" : "none")}  ;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  @keyframes shake {
+  10%, 80% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  /* 20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  } */
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 `;
 
 const ProfileCardInner = styled.div`
@@ -66,7 +87,7 @@ const ProfileCardText = styled.div`
 
 const ProfileCard = (props) => {
   const [swiped, setSwiped] = useState("");
-  const { block, key, self, handleDeleteBlock } = props;
+  const { block, keyItem, self, handleDeleteBlock } = props;
 
 
   const handlers = useSwipeable({
@@ -76,9 +97,9 @@ const ProfileCard = (props) => {
     trackMouse: true,
   });
 
-  
+  console.log('profilecard', props, keyItem);
   return (
-    <ProfileCardWrapper {...handlers}>
+    <ProfileCardWrapper {...handlers} keyItem={keyItem} shake={!self && keyItem === 0}>
       {self && (
         <Popconfirm
           title="Are you sure to delete this Card?"
@@ -92,7 +113,7 @@ const ProfileCard = (props) => {
       <ProfileCardInnerWrapper swiped={self && swiped}>
         <a
           style={{ display: "block" }}
-          key={key}
+          keyItem={keyItem}
           href={
             self
               ? `/block/edit/${block && block._id}`

@@ -196,7 +196,7 @@ const UsernamePrefix = styled.p`
 `;
 const profileFormSchema = Yup.object().shape({
   userProfile: Yup.object().shape({
-    username: Yup.string().required("Required"),
+    username: Yup.string().required("Required").matches(/^[A-Za-z0-9 ]+$/, "Can only use alphabets and numbers"),
     bio: Yup.string().required("Required"),
     firstName: Yup.string().required("Required"),
   }),

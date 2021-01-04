@@ -108,12 +108,15 @@ const Profile = (props) => {
       {userBlockLoading && <Loader />}
       {!userBlockLoading && userBlockData && userBlockData.length !== 0
         ? userBlockData.map((block, key) => (
+          <React.Fragment>
+            {console.log('mapping', block, key)}
           <ProfileBlockComponent
             handleDeleteBlock={handleDeleteBlock}
-            key={key}
+            keyItem={key}
             block={block}
             self={self}
           />
+          </React.Fragment>
         ))
         : !userBlockLoading && (
           <CardListHeadText
