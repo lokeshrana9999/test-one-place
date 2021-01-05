@@ -12,7 +12,7 @@ const Profile = (props) => {
   if (currentUser && !currentUser.userProfile) {
     history.push("/profile/edit");
   }
-  return <ProfileView userData={currentUser} self={true} />;
+  return <ProfileView userData={currentUser} history={history} self={true} />;
 };
 // return <h1>Profile</h1>
 export default withCurrentUser(Profile);

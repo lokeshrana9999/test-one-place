@@ -91,7 +91,7 @@ const StyledButton = styled(Button)`
 `;
 
 const Profile = (props) => {
-  const { userData, self, theme, setAccessTokene, setRefreshTokene } = props;
+  const { userData, self, theme, setAccessTokene, setRefreshTokene, history } = props;
   const { username } = userData;
 
   const PageWrapper = self ? PageLayout : PageContainer;
@@ -206,7 +206,7 @@ const Profile = (props) => {
           </Button>
         )} */}
         <br />
-        <ProfileBlocks self={self} username={username} />
+        <ProfileBlocks self={self} username={username} history={history} />
         <br />
         {self && (
           <StyledButton

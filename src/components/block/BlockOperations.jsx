@@ -83,12 +83,12 @@ const withBlockById = (Component) => {
     return blockByUsernameLoading ? (
       <PageLoader />
     ) : (
-        <Component
-          {...props}
-          blockByUsername={blockByUsernameData}
-          blockByUsernameLoading={blockByUsernameLoading}
-        />
-      );
+      <Component
+        {...props}
+        blockByUsername={blockByUsernameData}
+        blockByUsernameLoading={blockByUsernameLoading}
+      />
+    );
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
@@ -143,7 +143,7 @@ const withEditUserBlock = (Component) => {
       refreshToken,
       setAccessTokene,
       accessToken,
-      match
+      match,
     } = props;
     const blockId = match && match.params && match.params.blockId;
     const defaultApiUrl = useContext(ApiContext);
@@ -176,22 +176,25 @@ const withEditUserBlock = (Component) => {
   return connect(mapStateToProps, mapDispatchToProps)(WithEditBlockInner);
 };
 
-
 const withDeleteUserBlock = (Component) => {
   const WithDeleteBlockInner = ({ ...props }) => {
-    const {
-      accessToken,
-    } = props;
+    const { accessToken } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlockById;
-    const { mutate: deleteBlock, loading: deleteBlockLoading, error } = useMutate({
+    const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlock;
+    console.log("apiUrl", apiUrl);
+    const {
+      mutate: deleteBlock,
+      loading: deleteBlockLoading,
+      error,
+    } = useMutate({
       verb: "DELETE",
       path: apiUrl,
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    console.log("edituserblock", error);
+
+
     return (
       <Component
         {...props}
@@ -301,7 +304,7 @@ export {
   withAddUserBlock,
   withEditUserBlock,
   withBlockById,
-  withDeleteUserBlock
+  withDeleteUserBlock,
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

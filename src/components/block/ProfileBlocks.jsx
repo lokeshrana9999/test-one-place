@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Flex } from "antd-mobile";
-import { message } from 'antd';
+import { message } from "antd";
 import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -24,29 +24,25 @@ const CardListHeadText = styled.h3`
 `;
 
 const Profile = (props) => {
-  const {
-    self,
-    userBlock,
-    userBlockLoading,
-    deleteBlock,
-  } = props;
+  const { self, userBlock, userBlockLoading, deleteBlock, history } = props;
 
-
-  const [userBlockData, setUserBlockData] = useState(null)
+  const [userBlockData, setUserBlockData] = useState(null);
 
   useEffect(() => {
-    setUserBlockData(userBlock)
+    setUserBlockData(userBlock);
   }, [userBlock, setUserBlockData]);
 
   const handleDeleteBlock = async (id) => {
     var userBlockDataModif = userBlockData;
-    userBlockDataModif = userBlockDataModif.filter(uBDM => uBDM && uBDM._id !== id)
+    userBlockDataModif = userBlockDataModif.filter(
+      (uBDM) => uBDM && uBDM._id !== id
+    );
     try {
       message.loading({
         content: "Deleting Card ...",
         duration: 0,
       });
-      const deleting = await deleteBlock(id);
+      const deleting = await deleteBlock({ id });
       console.log(deleting);
       message.destroy();
       if (deleting.status === true) {
@@ -73,7 +69,7 @@ const Profile = (props) => {
         });
       }
     }
-  }
+  };
   console.log("profileblocks", props);
   return (
     <div>
@@ -100,7 +96,7 @@ const Profile = (props) => {
             </Flex.Item>
           </Flex>
           <CardListHeadText style={{ textAlign: "center", marginTop: "15px" }}>
-            Tap to edit Cards
+            swipe left to edit, right to delete Cards
           </CardListHeadText>
         </React.Fragment>
       )}
@@ -108,23 +104,24 @@ const Profile = (props) => {
       {userBlockLoading && <Loader />}
       {!userBlockLoading && userBlockData && userBlockData.length !== 0
         ? userBlockData.map((block, key) => (
-          <React.Fragment>
-            {console.log('mapping', block, key)}
-          <ProfileBlockComponent
-            handleDeleteBlock={handleDeleteBlock}
-            keyItem={key}
-            block={block}
-            self={self}
-          />
-          </React.Fragment>
-        ))
+            <React.Fragment>
+              {console.log("mapping", block, key)}
+              <ProfileBlockComponent
+                handleDeleteBlock={handleDeleteBlock}
+                keyItem={key}
+                block={block}
+                self={self}
+                history={history}
+              />
+            </React.Fragment>
+          ))
         : !userBlockLoading && (
-          <CardListHeadText
-            style={{ textAlign: "center", marginTop: "15px" }}
-          >
-            No Cards
-          </CardListHeadText>
-        )}
+            <CardListHeadText
+              style={{ textAlign: "center", marginTop: "15px" }}
+            >
+              No Cards
+            </CardListHeadText>
+          )}
     </div>
   );
 };

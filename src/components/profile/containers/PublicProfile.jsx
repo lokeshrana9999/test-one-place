@@ -14,16 +14,16 @@ const PublicProfile = (props) => {
       <div>
         <h2 style={{ textAlign: "center" }}>User doesn't exist</h2>
         <br />
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
         <Button type="primary" href="/" size="lg" block>
           Go back
         </Button>
       </div>
     );
   }
-  return <ProfileView userData={user} self={false} />;
+  return <ProfileView userData={user} history={history} self={false} />;
 };
 // return <h1>Profile</h1>
 export default withUserByUsername(PublicProfile);
