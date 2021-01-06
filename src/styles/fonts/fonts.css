@@ -1,8 +1,11 @@
 /* @import url("https://db.onlinewebfonts.com/c/9475d6a0b79c164f9f605673714e75d9?family=Circular+Std+Medium");
 @import url("https://db.onlinewebfonts.com/c/f1a22f6f15d272c7aa56da8b2c91f5e5?family=Circular+Std+Black"); */
 
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
+
+/* 
 @font-face {
-  font-family: "Circular Std Black";
+  font-family: "Rubik";
   src: url("./circular_std_black/Circular_Std_Black.woff") format("woff");
   src: url("./circular_std_black/Circular_Std_Black.svg") format("svg");
   src: url("./circular_std_black/Circular_Std_Black.otf") format("otf");
@@ -10,16 +13,16 @@
 }
 
 @font-face {
-  font-family: "Circular Std Medium";
+  font-family: "Rubik";
   src: url("./circular_std_medium/Circular_Std_Medium.woff") format("woff");
   src: url("./circular_std_medium/Circular_Std_Medium.svg") format("svg");
   src: url("./circular_std_medium/Circular_Std_Medium.otf") format("otf");
   src: url("./circular_std_medium/Circular_Std_Medium.woff2") format("woff2");
-  /* font-weight: bold; */
-}
+  font-weight: bold;
+} */
 
 /* @font-face {
-  font-family: "Circular Std Medium";
+  font-family: "Rubik";
   src: url("https://db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.eot");
   src: url("https://db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.eot?#iefix")
       format("embedded-opentype"),
@@ -29,12 +32,12 @@
       format("woff"),
     url("https://db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.ttf")
       format("truetype"),
-    url("https://db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.svg#Circular Std Medium")
+    url("https://db.onlinewebfonts.com/t/9475d6a0b79c164f9f605673714e75d9.svg#Rubik")
       format("svg");
 }
 
 @font-face {
-  font-family: "Circular Std Black";
+  font-family: "Rubik";
   src: url("https://db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.eot");
   src: url("https://db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.eot?#iefix")
       format("embedded-opentype"),
@@ -44,6 +47,6 @@
       format("woff"),
     url("https://db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.ttf")
       format("truetype"),
-    url("https://db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.svg#Circular Std Black")
+    url("https://db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.svg#Rubik")
       format("svg");
 } */

@@ -14,13 +14,13 @@ const CardListHeadText = styled.h3`
   margin-top: 0;
   opacity: 0.7;
   margin-bottom: 0px;
-  font-weight: bold;
-  word-spacing: -3px;
+  /* font-weight: bold; */
+  /* word-spacing: -3px; */
   font-stretch: normal;
   font-style: normal;
   /* line-height: 1.43; */
   letter-spacing: normal;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
 `;
 
 const Profile = (props) => {

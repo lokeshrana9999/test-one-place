@@ -39,6 +39,15 @@ const DrawerWrapperRenderer = styled.div`
           padding: 0;
           padding-left: 10px;
           background: white !important;
+          .social-wrapper {
+            /* background: red; */
+            scrollbar-width: none; /* Firefox */
+            /* -ms-overflow-style: none; */
+            /* width: 0px; */
+            /* background: transparent;  */
+          }
+          /* .social-wrapper::-webkit-scrollbar {
+          } */
         }
         .ant-drawer-header {
           .ant-drawer-title {
@@ -56,35 +65,35 @@ const InputStylized = styled(Input)`
   height: 60px !important;
   font-size: 20px;
   padding: 0 10px;
-  caret-color:#4643D3;
-  color: #4643D3 !important;
-  font-family: Circular Std Medium;
+  caret-color: #4643d3;
+  color: #4643d3 !important;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   input {
     background: transparent !important;
     caret-color: white;
-    color: #4643D3 !important;
+    color: #4643d3 !important;
     font-size: 15px;
-    word-spacing:-3px;
-    font-family: Circular Std Medium;
+    /* word-spacing:-3px; */
+    font-family: Rubik;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
   }
   input:focus {
-    caret-color: #4643D3;
-    color: #4643D3;
+    caret-color: #4643d3;
+    color: #4643d3;
     background-color: transparent !important;
   }
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: #4643D3;
-    caret-color: #4643D3;
-    color: #4643D3;
+    -webkit-text-fill-color: #4643d3;
+    caret-color: #4643d3;
+    color: #4643d3;
     background-color: transparent !important;
   }
 `;
@@ -93,8 +102,8 @@ const AddSocialMedia = styled.div`
   color: white;
   padding-left: 20px;
   font-size: 15px;
-  word-spacing:-3px;
-  font-family: Circular Std Medium;
+  /* word-spacing:-3px; */
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -222,7 +231,10 @@ class DynamicFieldSet extends React.Component {
                   getContainer={false}
                   style={{ position: "absolute" }}
                 >
-                  <div style={{ width: "100%", overflowX: "scroll" }}>
+                  <div
+                    className="social-wrapper"
+                    style={{ width: "100%", overflowX: "scroll" }}
+                  >
                     <Flex
                       justify="left"
                       style={{ width: "fit-content", marginTop: "13px" }}

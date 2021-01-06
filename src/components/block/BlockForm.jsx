@@ -52,7 +52,7 @@ const LargeHeadingComponent = styled.div`
 const InputStylized = styled(Input)`
   border: solid 2px #d8d8d8;
   border-radius: 7px;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -74,8 +74,8 @@ const InputAreaStylized = styled(InputArea)`
   padding: 10px 20px !important;
   caret-color: black;
   color: black;
-  font-family: Circular Std Medium;
-  word-spacing: -3px;
+  font-family: Rubik;
+  /* word-spacing: -3px; */
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -128,7 +128,7 @@ const RenderUploadStylized = styled(RenderUploadWithCrop)`
 
         .ant-upload-text {
           padding: 10px;
-          font-family: Circular Std Medium;
+          font-family: Rubik;
           font-weight: normal;
           font-stretch: normal;
           font-style: normal;

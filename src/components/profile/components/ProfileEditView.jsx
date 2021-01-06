@@ -22,8 +22,8 @@ const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-weight: bold;
-  font-family: Circular Std Medium;
-  word-spacing: -3px;
+  font-family: Rubik;
+  /* word-spacing: -3px; */
   /* font-weight: normal; */
   font-stretch: normal;
   font-style: normal;

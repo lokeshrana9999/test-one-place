@@ -19,17 +19,17 @@ const ProfileName = styled.h1`
   margin-top: 10px;
   color: ${(props) => props.theme.textColor};
   text-align: center;
-  font-family: Circular Std Black;
+  font-family: Rubik;
   font-size: 22px;
-  word-spacing: -3px;
+  /* word-spacing: -3px; */
 `;
 
 const PageHead = styled.h2`
   color: ${(props) => props.theme.textColor};
   text-align: center;
-  font-family: Circular Std Black;
+  font-family: Rubik;
   font-size: 22px;
-  word-spacing: -3px;
+  /* word-spacing: -3px; */
 `;
 
 const PublicLinkWrapper = styled.div`
@@ -39,13 +39,13 @@ const PublicLinkWrapper = styled.div`
   border: solid 1px #f2f2f2;
   background-color: #f8f8f8;
   height: 60px;
-  font-family: Circular Std Black;
+  font-family: Rubik;
   display: grid;
   place-items: center;
   padding: 0 15px;
-  /* font-family: Circular Std Medium; */
+  /* font-family: Rubik; */
   font-size: 17px;
-  font-weight: normal;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.43;
@@ -59,12 +59,12 @@ const ProfileSmallText = styled.p`
   color: ${(props) => props.theme.textColor};
   opacity: 0.7;
   margin-bottom: 0px;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  word-spacing: -3px;
+  /* word-spacing: -3px; */
 `;
 
 const PageContainer = styled.p`
@@ -79,7 +79,7 @@ const PageContainer = styled.p`
 `;
 
 const StyledButton = styled(Button)`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   /* font-size: 25px; */
   font-weight: normal;
   font-stretch: normal;

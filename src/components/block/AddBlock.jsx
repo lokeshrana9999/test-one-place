@@ -9,7 +9,7 @@ import BlockForm from "./BlockForm";
 import { withAddUserBlock } from "./BlockOperations";
 
 const PageHead = styled.h1`
-  font-family: Circular Std Black;
+  font-family: Rubik;
   font-size: 22px;
   font-weight: normal;
   font-stretch: normal;
@@ -18,7 +18,7 @@ const PageHead = styled.h1`
   letter-spacing: normal;
   text-align: center;
   color: #000000;
-  word-spacing: -8px;
+  /* word-spacing: -8px; */
   position: relative;
 `;
 

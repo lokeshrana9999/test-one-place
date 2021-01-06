@@ -38,7 +38,7 @@ const LoginFormBackgroundFilter = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-size: 25px;
   font-weight: normal;
   font-stretch: normal;
@@ -50,13 +50,13 @@ const Heading = styled.h1`
 `;
 
 const LargeHeadingComponent = styled.div`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-size: 30px;
   font-weight: 1200;
 `;
 
 const StyledButton = styled(Button)`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   /* font-size: 25px; */
   font-weight: normal;
   font-stretch: normal;
@@ -74,7 +74,7 @@ const InputStylized = styled(Input)`
   padding: 0 20px;
   caret-color: white;
   color: white;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -101,7 +101,7 @@ const InputWithSuffixStylized = styled(Input)`
   height: 60px !important;
   padding: 0 20px;
 
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

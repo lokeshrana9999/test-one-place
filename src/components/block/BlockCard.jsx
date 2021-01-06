@@ -16,7 +16,7 @@ const BlockCardWrapper = styled.div`
 `;
 
 const BlockCardTitle = styled.h2`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-size: 17px;
   font-weight: normal;
   font-stretch: normal;
@@ -28,7 +28,7 @@ const BlockCardTitle = styled.h2`
 `;
 
 const BlockCardDescription = styled.p`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;

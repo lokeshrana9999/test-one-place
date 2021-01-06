@@ -98,12 +98,12 @@ const ProfileCardText = styled.div`
   color: white;
   text-align: center;
   /* font-size: 17px; */
-  font-weight: normal;
+  /* font-weight: normal; */
   font-stretch: normal;
   font-style: normal;
   /* line-height: 1.43; */
   letter-spacing: normal;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-size: 15px;
 `;
 

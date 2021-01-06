@@ -32,7 +32,7 @@ const ProfileFormContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-size: 30px;
   font-weight: normal;
   font-stretch: normal;
@@ -58,7 +58,7 @@ const InputStylized = styled(Input)`
   padding: 0 20px;
   caret-color: white;
   color: white !important;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -88,7 +88,7 @@ const UsernameInputStylized = styled(Input)`
   padding: 0 10px;
   caret-color: white;
   color: white;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -117,8 +117,8 @@ const InputAreaStylized = styled(InputArea)`
   padding: 10px 20px !important;
   caret-color: white;
   color: white;
-  font-family: Circular Std Medium;
-  word-spacing: -3px;
+  font-family: Rubik;
+  /* word-spacing: -3px; */
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -172,7 +172,7 @@ const RenderUploadStylized = styled(RenderUploadWithCrop)`
         border: 0 !important;
 
         .ant-upload-text {
-          font-family: Circular Std Medium;
+          font-family: Rubik;
           font-weight: normal;
           font-stretch: normal;
           font-style: normal;
@@ -185,11 +185,11 @@ const RenderUploadStylized = styled(RenderUploadWithCrop)`
 
 const UsernamePrefix = styled.p`
   color: white;
-  font-family: Circular Std Medium;
+  font-family: Rubik;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  word-spacing: -3px;
+  /* word-spacing: -3px; */
   margin-top: -4px;
   font-size: 15px;
   text-align: right;
