@@ -11,7 +11,7 @@ import { withFormik } from "formik";
 import { FaImages, FaPhotoVideo } from "react-icons/fa";
 import { Flex } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
-import { WhiteSpace } from "../look/mobile";
+import { WhiteSpace, Switch } from "../look/mobile";
 import {
   Input,
   Form,
@@ -19,10 +19,10 @@ import {
   InputArea,
   RenderUpload,
   Button,
-  RenderUploadWithCrop
+  RenderUploadWithCrop,
 } from "../look/web";
 
-const ProfileFormContainer = styled.div`
+const BlockFormContainer = styled.div`
   /* color: white;
   padding: 50px 26px 32px;
   opacity: 0.88;
@@ -139,20 +139,20 @@ const RenderUploadStylized = styled(RenderUploadWithCrop)`
   }
 `;
 
-const profileFormSchema = {
+const blockFormSchema = {
   title: [required, minLength(5), maxLength(50)],
   thumbnail: [required],
   // media: [required],
   link: [required],
 };
 
-const ProfileForm = (props) => {
+const BlockForm = (props) => {
   const addBlockFormRef = useRef(null);
   const [load, setload] = useState(false);
   const { values, handleSubmit, errors } = props;
-
+  console.log("blockform", props);
   return (
-    <ProfileFormContainer>
+    <BlockFormContainer>
       <Form name="addBlock" ref={addBlockFormRef} onFinish={handleSubmit}>
         <Field
           name="title"
@@ -173,7 +173,15 @@ const ProfileForm = (props) => {
           value={values.link}
         />
         <WhiteSpace size="xl" />
-
+        <Field
+          name="isHighlight"
+          component={Switch}
+          type="text"
+          label={"Is a Highlight"}
+          placeholder="Is a Highlight"
+          value={values.isHighlight}
+        />
+        <WhiteSpace size="xl" />
         <Flex justify="between">
           <Flex.Item>
             <Field
@@ -214,11 +222,11 @@ const ProfileForm = (props) => {
           Go Live
         </Button>
       </Form>
-    </ProfileFormContainer>
+    </BlockFormContainer>
   );
 };
 
-const ProfileFormWithFormik = withFormik({
+const BlockFormWithFormik = withFormik({
   enableReinitialize: true,
   mapPropsToValues: ({ blockData }) => {
     return {
@@ -228,6 +236,7 @@ const ProfileFormWithFormik = withFormik({
       price: (blockData && blockData.price) || 0,
       question: (blockData && blockData.question) || "",
       media: (blockData && blockData.media) || null,
+      isHighlight: (blockData && blockData.isHighlight) || false,
     };
   },
 
@@ -241,8 +250,8 @@ const ProfileFormWithFormik = withFormik({
     onSubmit(modifiedValues);
   },
   // validator:{() => ({})}
-  validate: (values) => validate(values, profileFormSchema),
-  displayName: "ProfileForm", // helps with React DevTools
+  validate: (values) => validate(values, blockFormSchema),
+  displayName: "BlockForm", // helps with React DevTools
 });
 
-export default withTheme(ProfileFormWithFormik(ProfileForm));
+export default withTheme(BlockFormWithFormik(BlockForm));

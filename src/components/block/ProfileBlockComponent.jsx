@@ -82,7 +82,7 @@ const AiFillEditStylized = styled(AiFillEdit)`
   top: 30px;
   right: 20px;
   font-size: 40px;
-  color: #605EE8;
+  color: #605ee8;
   cursor: pointer;
 `;
 
@@ -156,7 +156,7 @@ const ProfileCard = (props) => {
     <ProfileCardWrapper
       {...handlers}
       keyItem={keyItem}
-      shake={!self && keyItem === 0}
+      shake={!self && block && block.isHighlight}
     >
       {self && (
         <React.Fragment>
