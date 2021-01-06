@@ -60,7 +60,7 @@ const ProfileSmallText = styled.p`
   opacity: 0.7;
   margin-bottom: 0px;
   font-family: Rubik;
-  font-weight: normal;
+  font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
