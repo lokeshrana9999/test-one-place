@@ -32,9 +32,9 @@ if(isDevelopment){
       // Webpack extra entry
       entry: 'src/public-index.js',
       // HTML template used in plugin HtmlWebpackPlugin
-      template: 'public/public-app.html',
+      template: 'public/index.html',
       // The file to write the HTML to. You can specify a subdirectory
-      outPath: 'index.html',
+      outPath: 'public-index.html',
       Visit: "http://localhost:3000/public/index.html"
     },
     {
@@ -43,7 +43,7 @@ if(isDevelopment){
       // HTML template used in plugin HtmlWebpackPlugin
       template: 'public/index.html',
       // The file to write the HTML to. You can specify a subdirectory
-      outPath: 'private-index.html',
+      outPath: 'index.html',
       Visit: "http://localhost:3000/index.html"
     },
   ]);
