@@ -161,7 +161,7 @@ const App = (props) => {
                 {appType === "public" && (
                   <React.Fragment>
                     <Route
-                      path="/:username"
+                      path="/"
                       exact
                       component={AsyncPublicProfile}
                     />

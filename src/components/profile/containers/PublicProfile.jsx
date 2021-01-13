@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../../look/mobile";
 // import { withCurrentUserProfile } from "../ProfileOperations";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
-import { withUserByUsername } from "../../auth/Auth";
+import { withPublicProfileByUsername } from "../ProfileOperations";
 
 import ProfileView from "../components/ProfileView";
 
@@ -26,4 +26,4 @@ const PublicProfile = (props) => {
   return <ProfileView userData={user} history={history} self={false} />;
 };
 // return <h1>Profile</h1>
-export default withUserByUsername(PublicProfile);
+export default withPublicProfileByUsername(PublicProfile);
