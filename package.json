@@ -11,6 +11,7 @@
     "antd-img-crop": "^3.13.2",
     "antd-mobile": "^2.0.0",
     "axios": "^0.19.0",
+    "cross-env": "^7.0.3",
     "customize-cra": "^1.0.0",
     "formik": "^2.2.6",
     "formik-persist": "^1.1.0",
@@ -41,7 +42,8 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start:public": "cross-env REACT_APP_TYPE=public react-app-rewired  start",
+    "start:private": "cross-env REACT_APP_TYPE=private react-app-rewired  start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"

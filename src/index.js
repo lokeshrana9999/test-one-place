@@ -17,7 +17,7 @@ const AppBundle = (
   <ReduxProvider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <App appType='private' />
       </BrowserRouter>
     </PersistGate>
   </ReduxProvider>

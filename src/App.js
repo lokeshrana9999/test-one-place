@@ -82,7 +82,13 @@ const apiUrl =
 
 const App = (props) => {
   const [theme, handleThemeChange] = useState(themes.normal);
-  const { accessToken, refreshToken, setAccessTokene, history } = props;
+  const {
+    accessToken,
+    refreshToken,
+    setAccessTokene,
+    history,
+    appType,
+  } = props;
   const { mutate: refreshAccessToken, loading } = useMutate({
     verb: "POST",
     path: apiUrl + AuthApiUrls.refreshAccessToken,
@@ -126,30 +132,41 @@ const App = (props) => {
           >
             <div>
               <Switch>
-                <Route path="/" exact component={AsyncProfile} />,
-                <Route path="/login" exact component={AsyncLogin} />
-                <Route
-                  path="/profile/edit"
-                  exact
-                  component={AsyncProfileEdit}
-                />
-                <Route
-                  path="/block/choose-category"
-                  exact
-                  component={AsyncChooseBlockCategory}
-                />
-                <Route
-                  path="/block/add/:blockCategoryId"
-                  exact
-                  component={AsyncAddBlock}
-                />
-                <Route
-                  path="/block/edit/:blockId"
-                  exact
-                  component={AsyncEditBlock}
-                />
-                <Route path="/:username" exact component={AsyncPublicProfile} />
-                ,
+                {appType === "private" && (
+                  <React.Fragment>
+                    <Route path="/" exact component={AsyncProfile} />,
+                    <Route path="/login" exact component={AsyncLogin} />
+                    <Route
+                      path="/profile/edit"
+                      exact
+                      component={AsyncProfileEdit}
+                    />
+                    <Route
+                      path="/block/choose-category"
+                      exact
+                      component={AsyncChooseBlockCategory}
+                    />
+                    <Route
+                      path="/block/add/:blockCategoryId"
+                      exact
+                      component={AsyncAddBlock}
+                    />
+                    <Route
+                      path="/block/edit/:blockId"
+                      exact
+                      component={AsyncEditBlock}
+                    />
+                  </React.Fragment>
+                )}
+                {appType === "public" && (
+                  <React.Fragment>
+                    <Route
+                      path="/:username"
+                      exact
+                      component={AsyncPublicProfile}
+                    />
+                  </React.Fragment>
+                )}
               </Switch>
             </div>
           </ApiContext.Provider>
@@ -161,7 +178,6 @@ const App = (props) => {
 
 const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
 const mapStateToProps = (state /*, ownProps*/) => {
-  console.log("mapstatetoprops", state);
   return {
     accessToken: state.app.accessToken,
     refreshToken: state.app.refreshToken,
