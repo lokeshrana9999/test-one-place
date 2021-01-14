@@ -4,8 +4,23 @@ import styled, { withTheme } from "styled-components";
 import { Form } from "antd";
 
 const StyledADSwitch = styled(ADSwitch)`
+  /* background:green; */
   input[type="checkbox"]:checked + .checkbox {
     background: ${(props) => props.theme.brandPrimary};
+  }
+  .checkbox {
+    /* background:red; */
+    :before {
+      height: 28px !important;
+      border-radius: 28px !important;
+    }
+    :after {
+      width: 28px !important;
+      height: 28px !important;
+      border-radius: 28px !important;
+      box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2),
+        0 2px 11.5px 0 rgba(0, 0, 0, 0.08), -1px 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
   }
   /* .am-picker-popup-body {
     background: ${(props) => props.theme.brandSecondary};

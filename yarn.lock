@@ -2327,7 +2327,7 @@ antd-img-crop@^3.13.2:
     "@babel/runtime" "^7.12.1"
     react-easy-crop "^3.3.0"
 
-antd-mobile@^2.0.0:
+antd-mobile@^2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/antd-mobile/-/antd-mobile-2.3.4.tgz#8f584707b30343d102f3ca10fdaf677e2a5d1cc8"
   integrity sha512-Uw02Ghc+DPzaQceJQ+5p1ZnQFafvILA0chTTen7m7c89Uzbw6Ny3zsVZDE1gfteNEIsL4JpPe0I/+aI3Q/nPAA==

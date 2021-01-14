@@ -42,7 +42,7 @@ const Profile = (props) => {
         content: "Deleting Card ...",
         duration: 0,
       });
-      const deleting = await deleteBlock({ id });
+      const deleting = await deleteBlock(id);
       console.log(deleting);
       message.destroy();
       if (deleting.status === true) {

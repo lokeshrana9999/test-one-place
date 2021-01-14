@@ -9,42 +9,42 @@ const {
   getBabelLoader,
 } = require("customize-cra");
 
-const isPublic = process.env.REACT_APP_TYPE === 'public';
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isPublic = process.env.REACT_APP_TYPE === "public";
+const isDevelopment = process.env.NODE_ENV === "development";
 
 var multipleEntry = null;
 
-if(isDevelopment){
-  multipleEntry = require('react-app-rewire-multiple-entry')([
+if (isDevelopment) {
+  multipleEntry = require("react-app-rewire-multiple-entry")([
     {
       // Webpack extra entry
-      entry: isPublic ? 'src/public-index.js' : 'src/index.js',
+      entry: isPublic ? "src/public-index.js" : "src/index.js",
       // HTML template used in plugin HtmlWebpackPlugin
-      template: isPublic ?  'public/public-app.html' : 'public/public-app.html',
+      template: "public/index.html",
       // The file to write the HTML to. You can specify a subdirectory
-      outPath: 'index.html',
+      outPath: "index.html",
       // Visit: "http://localhost:3000/index.html"
-    }
+    },
   ]);
-}else{
-  multipleEntry = require('react-app-rewire-multiple-entry')([
+} else {
+  multipleEntry = require("react-app-rewire-multiple-entry")([
     {
       // Webpack extra entry
-      entry: 'src/public-index.js',
+      entry: "src/public-index.js",
       // HTML template used in plugin HtmlWebpackPlugin
-      template: 'public/index.html',
+      template: "public/index.html",
       // The file to write the HTML to. You can specify a subdirectory
-      outPath: 'public-index.html',
-      Visit: "http://localhost:3000/public/index.html"
+      outPath: "public-index.html",
+      Visit: "http://localhost:3000/public/index.html",
     },
     {
       // Webpack extra entry
-      entry: 'src/index.js',
+      entry: "src/index.js",
       // HTML template used in plugin HtmlWebpackPlugin
-      template: 'public/index.html',
+      template: "public/index.html",
       // The file to write the HTML to. You can specify a subdirectory
-      outPath: 'index.html',
-      Visit: "http://localhost:3000/index.html"
+      outPath: "index.html",
+      Visit: "http://localhost:3000/index.html",
     },
   ]);
 }
@@ -94,7 +94,7 @@ module.exports = {
       javascriptEnabled: true,
       // modifyVars: {'@primary-color': '#a50052'},
     }),
-    disableEsLint(),
+    disableEsLint()
   ),
   devServer: overrideDevServer(
     // dev server plugin

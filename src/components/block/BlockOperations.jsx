@@ -180,26 +180,39 @@ const withDeleteUserBlock = (Component) => {
   const WithDeleteBlockInner = ({ ...props }) => {
     const { accessToken } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlock;
-    console.log("apiUrl", apiUrl);
-    const {
-      mutate: deleteBlock,
-      loading: deleteBlockLoading,
-      error,
-    } = useMutate({
-      verb: "DELETE",
-      path: apiUrl,
-      requestOptions: {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      },
-    });
+
+    async function deleteBlock(id) {
+      return await fetch(defaultApiUrl + BlockApiUrls.deleteBlock(id), {
+        method: 'DELETE',
+        headers:{ Authorization: `Bearer ${accessToken}` }
+      }).then(response =>
+        response.json().then(json => {
+          return json;
+        })
+      );
+    }
+    // const apiUrl = defaultApiUrl + BlockApiUrls.deleteBlock;
+
+
+    // console.log("apiUrl", apiUrl);
+    // const {
+    //   mutate: deleteBlock,
+    //   loading: deleteBlockLoading,
+    //   error,
+    // } = useMutate({
+    //   verb: "DELETE",
+    //   path: apiUrl,
+    //   requestOptions: {
+    //     headers: { Authorization: `Bearer ${accessToken}` },
+    //   },
+    // });
 
 
     return (
       <Component
         {...props}
         deleteBlock={deleteBlock}
-        deleteBlockLoading={deleteBlockLoading}
+        // deleteBlockLoading={deleteBlockLoading}
       />
     );
   };
