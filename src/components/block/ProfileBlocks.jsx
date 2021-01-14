@@ -24,7 +24,7 @@ const CardListHeadText = styled.h3`
 `;
 
 const Profile = (props) => {
-  const { self, userBlock, userBlockLoading, deleteBlock, history } = props;
+  const { self, userBlock, userBlockLoading, deleteBlock, history, theme } = props;
 
   const [userBlockData, setUserBlockData] = useState(null);
 
@@ -82,7 +82,7 @@ const Profile = (props) => {
 
             <Flex.Item align="right">
               <CardListHeadText style={{ textAlign: "right" }}>
-                <Link to="/block/choose-category" style={{ color: "#4643d3" }}>
+                <Link to="/block/choose-category">
                   <AiOutlinePlusCircle
                     style={{
                       marginBottom: "-2px",

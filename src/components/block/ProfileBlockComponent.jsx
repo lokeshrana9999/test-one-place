@@ -82,7 +82,7 @@ const AiFillEditStylized = styled(AiFillEdit)`
   top: 30px;
   right: 20px;
   font-size: 40px;
-  color: #605ee8;
+  color: #4643D3;
   cursor: pointer;
 `;
 

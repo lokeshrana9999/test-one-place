@@ -13,6 +13,9 @@ import { WhiteSpace } from "../look/mobile";
 import { Input, Form, Alert, Button } from "../look/web";
 import { AiFillCheckCircle, AiOutlineEllipsis } from "react-icons/ai";
 import { getValidPhoneNumber } from "../../helper";
+
+
+
 const LoginFormContainer = styled.div`
   color: white;
   padding: 30px 20px 32px;
@@ -115,6 +118,9 @@ const InputWithSuffixStylized = styled(Input)`
     caret-color: white;
     color: white;
   }
+  .ant-input[disabled]{
+    color:white;
+  }
   input:focus {
     caret-color: white;
     color: white;
@@ -186,15 +192,13 @@ const LoginForm = (props) => {
         {otpSent && (
           <Field
             name="otp"
-            component={InputWithSuffixStylized}
+            component={InputStylized}
             type="text"
             label={"Enter Your OTP"}
             placeholder="Enter Your OTP"
             value={values.otp}
             suffix={
-              <AiFillCheckCircle size="32" style={{ color: "#32b264" }} /> || (
-                <AiOutlineEllipsis size="20" />
-              )
+              ''
             }
           />
         )}

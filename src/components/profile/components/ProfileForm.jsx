@@ -92,6 +92,7 @@ const UsernameInputStylized = styled(Input)`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
+  text-align:right;
   :focus {
     caret-color: white;
     color: white;
@@ -192,11 +193,13 @@ const UsernamePrefix = styled.p`
   /* word-spacing: -3px; */
   margin-top: -4px;
   font-size: 15px;
-  text-align: right;
+  text-align: left;
 `;
 const profileFormSchema = Yup.object().shape({
   userProfile: Yup.object().shape({
-    username: Yup.string().required("Required").matches(/^[A-Za-z0-9 ]+$/, "Can only use alphabets and numbers"),
+    username: Yup.string()
+      .required("Required")
+      .matches(/^[A-Za-z0-9 ]+$/, "Can only use alphabets and numbers"),
     bio: Yup.string().required("Required"),
     firstName: Yup.string().required("Required"),
   }),
@@ -249,10 +252,6 @@ const ProfileForm = (props) => {
         <WhiteSpace size="md" />
         <WhiteSpace size="md" />
         <Flex type="wrap">
-          <Flex.Item style={{ flex: 2 }}>
-            {" "}
-            <UsernamePrefix> oneplace.me/</UsernamePrefix>
-          </Flex.Item>
           <Flex.Item style={{ flex: 2, marginLeft: "5px" }}>
             <Field
               name="userProfile.username"
@@ -263,6 +262,10 @@ const ProfileForm = (props) => {
               placeholder="Username"
               value={values.userProfile.username}
             />
+          </Flex.Item>
+          <Flex.Item style={{ flex: 2 }}>
+            {" "}
+            <UsernamePrefix> .oneplace.me</UsernamePrefix>
           </Flex.Item>
         </Flex>
 
@@ -310,7 +313,7 @@ const ProfileForm = (props) => {
             />
           )}
           socialVal={values.userProfile.socialMediaLinks}
-        // handleSections={handleSections}
+          // handleSections={handleSections}
         />
         <WebButton ghost htmlType="submit" size="large" block>
           Submit

@@ -2,7 +2,7 @@ export const themes = {
   normal: {
     title: "Normal",
     value: "normal",
-    brandPrimary: " #605ee8",
+    brandPrimary: " #4643D3",
     textColor: "#000000",
     brandSecondary: "#ffffff",
     color1: "#4B5C6B",

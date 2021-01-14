@@ -102,18 +102,18 @@ const Profile = (props) => {
         {self && <PageHead>OnePlace Universe</PageHead>}
 
         {self && (
-          <Link to={`/${username}`}>
+          <a target='_blank' href={`https://${username}.oneplace.me`}>
             <PublicLinkWrapper>
               <Flex justify="between" style={{ width: "100%" }}>
                 <Flex.Item
                   style={{ flex: 4 }}
-                >{`oneplace.me/${username}`}</Flex.Item>{" "}
+                >{`${username}.oneplace.me`}</Flex.Item>{" "}
                 <Flex.Item align="right" style={{ paddingTop: "6px" }}>
                   <IoPaperPlaneOutline size={30} />
                 </Flex.Item>
               </Flex>
             </PublicLinkWrapper>
-          </Link>
+          </a>
         )}
         <div
           style={{
