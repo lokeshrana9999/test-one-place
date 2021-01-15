@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
-import { ApiContext, ProfileApiUrls, UsernameContext, UserApiUrls } from "../../api";
-import { PageLoader } from "../look/mobile";
+import { ApiContext, ProfileApiUrls, UsernameContext, UserApiUrls } from "@api";
+import { PageLoader } from "@look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import authentication from '@gqlapp/authentication-client-react';

@@ -8,8 +8,8 @@ import { connect } from "react-redux";
 
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { getValidUrl } from "../../../helper";
-import { Button, Switch } from "../../look/mobile";
-import PageLayout from "../../look/PageLayout";
+import { Button, Switch } from "@look/mobile";
+import PageLayout from "@look/PageLayout";
 // import { withCurrentUser } from "../auth/Auth";
 import ProfileBlocks from "../../block/ProfileBlocks";
 // import { BigPlayButton } from "./ProfileVideoPlayer";

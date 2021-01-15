@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
-import { ApiContext, BlockApiUrls } from "../../api";
-import { PageLoader } from "../look/mobile";
+import { ApiContext, BlockApiUrls } from "@api";
+import { PageLoader } from "@look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import authentication from '@gqlapp/authentication-client-react';
@@ -100,6 +100,48 @@ const withBlockById = (Component) => {
   };
 
   return connect(mapStateToProps, mapDispatchToProps)(WithBlockByIdInner);
+};
+
+const withBlockCategoryList = (Component) => {
+  const WithBlockCategoryListInner = ({ ...props }) => {
+    const {
+      history,
+      refreshToken,
+      setAccessTokene,
+      accessToken,
+      match,
+    } = props;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + BlockApiUrls.getBlockCategory;
+    const { data, loading: blockCategoryListLoading, error } = useGet({
+      verb: "GET",
+      path: apiUrl,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
+    const blockCategoryList = data && data.blockCategoryList;
+
+    return blockCategoryListLoading ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        blockCategoryList={blockCategoryList}
+        blockCategoryListLoading={blockCategoryListLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    console.log("mapstatetoprops", state);
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithBlockCategoryListInner);
 };
 
 const withAddUserBlock = (Component) => {
@@ -318,6 +360,7 @@ export {
   withEditUserBlock,
   withBlockById,
   withDeleteUserBlock,
+  withBlockCategoryList
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

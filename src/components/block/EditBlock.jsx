@@ -3,8 +3,8 @@ import styled, { withTheme } from "styled-components";
 import { message } from "antd";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-import { WhiteSpace } from "../look/mobile";
-import PageLayout from "../look/PageLayout";
+import { WhiteSpace } from "@look/mobile";
+import PageLayout from "@look/PageLayout";
 import BlockForm from "./BlockForm";
 import { withEditUserBlock, withBlockById } from "./BlockOperations";
 

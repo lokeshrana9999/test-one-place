@@ -9,9 +9,10 @@ import { connect } from "react-redux";
 // import ThemeChanger from "./components/look/ThemeChanger";
 import { themes } from "./styles/themes";
 import { ApiContext, AuthApiUrls } from "./api";
-import { PageLoader } from "./components/look/mobile";
+import { PageLoader } from "@look/mobile";
 import { setAccessTokene, setRefreshTokene } from "./store/appReducer";
 
+// Profile Pages
 const AsyncProfile = Loadable({
   loader: () =>
     import(
@@ -30,15 +31,6 @@ const AsyncPublicProfile = Loadable({
   modules: ["profilePublicDefault"],
 });
 
-const AsyncLogin = Loadable({
-  loader: () =>
-    import(
-      /* webpackChunkName: "loginDefault" */ "./components/auth/LoginView"
-    ),
-  loading: () => <PageLoader />,
-  modules: ["loginDefault"],
-});
-
 const AsyncProfileEdit = Loadable({
   loader: () =>
     import(
@@ -48,6 +40,17 @@ const AsyncProfileEdit = Loadable({
   modules: ["profileEditDefault"],
 });
 
+// Auth Pages
+const AsyncLogin = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "loginDefault" */ "./components/auth/LoginView"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["loginDefault"],
+});
+
+//BlockPages
 const AsyncChooseBlockCategory = Loadable({
   loader: () =>
     import(
@@ -73,6 +76,15 @@ const AsyncEditBlock = Loadable({
     ),
   loading: () => <PageLoader />,
   modules: ["editBlockEditDefault"],
+});
+
+const AsyncBlockDetail = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileEditDefault" */ "./components/block/containers/BlockDetail"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["editBlockDetailDefault"],
 });
 
 const apiUrl =
@@ -160,10 +172,11 @@ const App = (props) => {
                 )}
                 {appType === "public" && (
                   <React.Fragment>
+                    <Route path="/" exact component={AsyncPublicProfile} />
                     <Route
-                      path="/"
+                      path="/block/detail"
                       exact
-                      component={AsyncPublicProfile}
+                      component={AsyncBlockDetail}
                     />
                   </React.Fragment>
                 )}

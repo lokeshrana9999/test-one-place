@@ -5,9 +5,9 @@ import { useMutate } from "restful-react";
 import { connect } from "react-redux";
 import queryString from "query-string";
 
-import { WhiteSpace } from "../look/mobile";
+import { WhiteSpace } from "@look/mobile";
 import LoginForm from "./LoginForm";
-import { ApiContext, AuthApiUrls } from "../../api";
+import { ApiContext, AuthApiUrls } from "@api";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 const PageHead = styled.h2`

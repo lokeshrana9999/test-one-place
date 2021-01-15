@@ -9,8 +9,8 @@ import {
 import { withFormik } from "formik";
 import { message } from "antd";
 import styled, { withTheme } from "styled-components";
-import { WhiteSpace } from "../look/mobile";
-import { Input, Form, Alert, Button } from "../look/web";
+import { WhiteSpace } from "@look/mobile";
+import { Input, Form, Alert, Button } from "@look/web";
 import { AiFillCheckCircle, AiOutlineEllipsis } from "react-icons/ai";
 import { getValidPhoneNumber } from "../../helper";
 

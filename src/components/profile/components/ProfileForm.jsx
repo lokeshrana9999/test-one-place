@@ -16,8 +16,8 @@ import {
   Button as WebButton,
   RenderDynamicFieldSocial,
   RenderUploadWithCrop,
-} from "../../look/web";
-import { Button, WhiteSpace } from "../../look/mobile";
+} from "@look/web";
+import { Button, WhiteSpace } from "@look/mobile";
 
 const ProfileFormContainer = styled.div`
   color: white;

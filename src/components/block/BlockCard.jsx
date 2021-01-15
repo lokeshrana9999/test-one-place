@@ -3,7 +3,7 @@ import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
 import Avatar from "react-avatar";
 import styled, { withTheme } from "styled-components";
-import { WhiteSpace } from "../look/mobile";
+import { WhiteSpace } from "@look/mobile";
 
 const BlockCardWrapper = styled.div`
   padding: 20px;

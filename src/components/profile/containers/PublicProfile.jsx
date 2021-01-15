@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../look/mobile";
+import { Button } from "@look/mobile";
 // import { withCurrentUserProfile } from "../ProfileOperations";
 // import { BigPlayButton } from "./ProfileVideoPlayer";
 import { withPublicProfileByUsername } from "../ProfileOperations";

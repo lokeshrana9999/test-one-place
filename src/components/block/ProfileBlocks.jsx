@@ -4,7 +4,7 @@ import { message } from "antd";
 import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { Loader } from "../look/mobile";
+import { Loader } from "@look/mobile";
 import { withUserBlocks, withDeleteUserBlock } from "./BlockOperations";
 import ProfileBlockComponent from "./ProfileBlockComponent";
 // import { BigPlayButton } from "./ProfileVideoPlayer";

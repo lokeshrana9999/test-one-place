@@ -1,12 +1,9 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import styled, { withTheme } from "styled-components";
-import { useGet } from "restful-react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-import { WhiteSpace, Loader } from "@look/mobile";
-import { ApiContext, BlockApiUrls } from "@api";
-import BlockCard from "./BlockCard";
-import { withBlockCategoryList } from "./BlockOperations";
+import { WhiteSpace } from "@look/mobile";
+// import BlockCard from "./BlockCard";
 
 const PageHead = styled.h1`
   font-family: Rubik;
@@ -22,7 +19,7 @@ const PageHead = styled.h1`
   position: relative;
 `;
 
-const ChooseBlockCategoryView = (props) => {
+const BlockDetailView = (props) => {
   const { history, navigation, blockCategoryList } = props;
   return (
     <div
@@ -44,8 +41,15 @@ const ChooseBlockCategoryView = (props) => {
           width: "100%",
           overflow: "hidden",
         }}
-      >
-        <WhiteSpace size="xl" />
+      >block detail
+      <WhiteSpace size="xl" />
+      block detail
+      <WhiteSpace size="xl" />
+      block detail
+      <WhiteSpace size="xl" />
+      block detail
+      <WhiteSpace size="xl" />
+        {/* <WhiteSpace size="xl" />
         <PageHead>
           {" "}
           <AiOutlineArrowLeft
@@ -66,10 +70,10 @@ const ChooseBlockCategoryView = (props) => {
           ) : (
             <h3>No cards available</h3>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default withBlockCategoryList(withTheme(ChooseBlockCategoryView));
+export default withTheme(BlockDetailView);

@@ -15,7 +15,7 @@ import styled, { withTheme } from "styled-components";
 //   AiFillEdit,
 //   AiOutlinePlusCircle,
 // } from "react-icons/ai";
-import { WhiteSpace } from "../../look/mobile";
+import { WhiteSpace } from "@look/mobile";
 import ProfileForm from "./ProfileForm";
 
 const PageHead = styled.h2`

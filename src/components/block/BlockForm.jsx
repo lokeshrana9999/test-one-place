@@ -11,7 +11,7 @@ import { withFormik } from "formik";
 import { FaImages, FaPhotoVideo } from "react-icons/fa";
 import { Flex } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
-import { WhiteSpace, Switch } from "../look/mobile";
+import { WhiteSpace, Switch } from "@look/mobile";
 import {
   Input,
   Form,

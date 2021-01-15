@@ -4,7 +4,7 @@ import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
 import { ApiContext, UserApiUrls, AuthApiUrls } from "../../api";
-import { PageLoader } from "../look/mobile";
+import { PageLoader } from "@look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import authentication from '@gqlapp/authentication-client-react';
