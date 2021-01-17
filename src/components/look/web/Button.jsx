@@ -1,12 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button as ADButton } from "antd";
+import styled, { withTheme } from "styled-components";
 
-const Button = ({ children, type, ...props }) => {
+const StyledADButtonWrapper = styled.div`
+  /* .am-button.am-button-primary {
+    color: ${(props) => props.theme.brandSecondary};
+    background: ${(props) => props.theme.brandPrimary};
+    border: 1px solid ${(props) => props.theme.brandPrimary};
+
+    ::before {
+      border: 1px solid ${(props) => props.theme.brandPrimary};
+    }
+  } */
+`;
+
+const Button = ({ children, type, theme, ...props }) => {
   return (
-    <ADButton type={type} {...props}>
-      {children}
-    </ADButton>
+    <StyledADButtonWrapper theme={theme}>
+      <ADButton type={type} {...props}>
+        {children}
+      </ADButton>
+    </StyledADButtonWrapper>
   );
 };
 
@@ -15,4 +30,4 @@ Button.propTypes = {
   type: PropTypes.string,
 };
 
-export default Button;
+export default withTheme(Button);

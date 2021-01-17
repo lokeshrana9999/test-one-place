@@ -1,22 +1,48 @@
 import React from "react";
 import styled, { withTheme } from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-
+import { Player, BigPlayButton } from "video-react";
 import { WhiteSpace } from "@look/mobile";
+import { Typography, Button } from "@look/web";
 // import BlockCard from "./BlockCard";
 
-const PageHead = styled.h1`
-  font-family: Rubik;
-  font-size: 22px;
+const { Title, Text, Paragraph } = Typography;
+
+const StyledHeading = styled(Title)`
+  font-size: 22px !important;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 0.86;
   letter-spacing: normal;
-  text-align: center;
   color: #000000;
-  /* word-spacing: -8px; */
   position: relative;
+  margin-bottom: 13px !important;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 41px !important;
+`;
+
+const StyledPriceDisplay = styled(Text)`
+  font-size: 25px;
+  color: #4643d3;
+  font-weight: bold;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0;
+`;
+
+const StyledPriceSubText = styled(Text)`
+  font-size: 17px;
+  opacity: 0.5;
+
+  color: #4643d3;
+  font-weight: bold;
+  line-height: 1.47;
+  margin-bottom: 0;
 `;
 
 const BlockDetailView = (props) => {
@@ -27,28 +53,49 @@ const BlockDetailView = (props) => {
         width: "100%",
         minHeight: "100vh",
         position: "relative",
-        display: "grid",
-        placeItems: "center",
+        // display: "grid",
+        // placeItems: "center",
         background: "white",
+        overflow: "hidden",
       }}
     >
-      {" "}
       <div
         style={{
-          padding: "15px 20px",
+          // marginTop: "50vh",
           maxWidth: "500px",
           height: "100%",
           width: "100%",
           overflow: "hidden",
         }}
-      >block detail
-      <WhiteSpace size="xl" />
-      block detail
-      <WhiteSpace size="xl" />
-      block detail
-      <WhiteSpace size="xl" />
-      block detail
-      <WhiteSpace size="xl" />
+      >
+        <div style={{ width: "100%", height: "50vh" }}>
+          <Player
+            fluid={false}
+            width="100%"
+            height="100%"
+            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
+          >
+            <BigPlayButton position="center" />
+          </Player>{" "}
+        </div>
+        <div style={{ padding: "32px 34px" }}>
+          <StyledHeading>Name of the Card</StyledHeading>
+          <StyledParagraph>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            commodo ligula eget dolor. Aenean test massa. Cum sociis natoque
+            penatibus et magn men Lorem ipsum dolor sit amet, consectetuer
+            adipiscing elit. Aenean commodo ligula eget dolor. Aenean for massa.
+            Cum sociis natoque penatibus et magn.
+          </StyledParagraph>
+
+          <StyledPriceDisplay>{`1000 INR`}</StyledPriceDisplay>
+          <StyledPriceSubText>Per Request</StyledPriceSubText>
+          <WhiteSpace size="xl" />
+          <Button type="primary" block size='large'>
+            Continue
+          </Button>
+        </div>
+
         {/* <WhiteSpace size="xl" />
         <PageHead>
           {" "}
