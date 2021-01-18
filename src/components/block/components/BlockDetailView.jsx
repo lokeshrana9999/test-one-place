@@ -1,9 +1,8 @@
 import React from "react";
 import styled, { withTheme } from "styled-components";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { Player, BigPlayButton } from "video-react";
 import { WhiteSpace } from "@look/mobile";
 import { Typography, Button } from "@look/web";
+import  VideoComponent  from "@look/VideoComponent";
 // import BlockCard from "./BlockCard";
 
 const { Title, Text, Paragraph } = Typography;
@@ -47,6 +46,7 @@ const StyledPriceSubText = styled(Text)`
 
 const BlockDetailView = (props) => {
   const { history, navigation, blockCategoryList } = props;
+
   return (
     <div
       style={{
@@ -69,14 +69,12 @@ const BlockDetailView = (props) => {
         }}
       >
         <div style={{ width: "100%", height: "50vh" }}>
-          <Player
+          <VideoComponent
             fluid={false}
             width="100%"
             height="100%"
-            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-          >
-            <BigPlayButton position="center" />
-          </Player>{" "}
+            src={"https://media.w3.org/2010/05/sintel/trailer_hd.mp4"}
+          />
         </div>
         <div style={{ padding: "32px 34px" }}>
           <StyledHeading>Name of the Card</StyledHeading>
@@ -91,7 +89,7 @@ const BlockDetailView = (props) => {
           <StyledPriceDisplay>{`1000 INR`}</StyledPriceDisplay>
           <StyledPriceSubText>Per Request</StyledPriceSubText>
           <WhiteSpace size="xl" />
-          <Button type="primary" block size='large'>
+          <Button type="primary" block size="large">
             Continue
           </Button>
         </div>
