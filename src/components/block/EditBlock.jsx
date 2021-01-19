@@ -29,17 +29,14 @@ const FormWrapper = styled.div`
 
 const BlockEditView = (props) => {
   const { putBlock, history, match, blockByUsername } = props;
-  console.log("blockedit", props);
   const onSubmit = async (values) => {
     let modifiedValues = values;
-    console.log("editBlock", modifiedValues);
     try {
       message.loading({
         content: "Editing Card ...",
         duration: 0,
       });
       const sending = await putBlock(modifiedValues);
-      console.log(sending);
       message.destroy();
       if (sending.status === true) {
         message.success({

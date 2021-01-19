@@ -145,7 +145,6 @@ const loginFormSchema = {
 const LoginForm = (props) => {
   const { values, handleSubmit, sendOtp } = props;
   const [otpSent, setOtpSent] = useState(false);
-  console.log("phoneNumber", phoneNumber(values.phoneNumber));
 
   const handleSendOtp = async () => {
     const phoneValidator = phoneNumber(values.phoneNumber);

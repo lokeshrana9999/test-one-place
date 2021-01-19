@@ -42,7 +42,6 @@ const LoginView = (props) => {
     accessToken,
     refreshToken,
   } = props;
-  console.log("loginview", accessToken);
   const defaultApiUrl = useContext(ApiContext);
   // setAccessTokene('')
   // setRefreshTokene('')
@@ -62,9 +61,7 @@ const LoginView = (props) => {
         content: "Sending Otp",
         duration: 0,
       });
-      console.log("sentOtp", values);
       const sending = await sendOtpMutation({ phoneNumber: values });
-      console.log(sending);
       message.destroy();
       if (sending.status === true) {
         message.success({
@@ -80,7 +77,6 @@ const LoginView = (props) => {
       return sending;
     } catch (e) {
       message.destroy();
-      console.log("error", e);
       message.error({
         duration: 2,
         content: e.data.message,
@@ -94,9 +90,7 @@ const LoginView = (props) => {
         content: "Verifying Otp",
         duration: 0,
       });
-      console.log("sentOtp", values);
       const sending = await verifyOtpMutation(values);
-      console.log(sending);
       message.destroy();
       if (sending.status === true) {
         message.success({
@@ -116,7 +110,6 @@ const LoginView = (props) => {
       return sending;
     } catch (e) {
       message.destroy();
-      console.log("error", e);
       message.error({
         duration: 2,
         content: e.data.message,
@@ -189,7 +182,6 @@ const LoginView = (props) => {
 
 const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
 const mapStateToProps = (state /*, ownProps*/) => {
-  console.log("mapstatetoprops", state);
   return {
     accessToken: state.app.accessToken,
     refreshToken: state.app.refreshToken,

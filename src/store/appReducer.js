@@ -4,7 +4,6 @@ export const initialState = {
 };
 
 export const appReducer = (state = initialState, action) => {
-  console.log('appReducer', state, action);
   switch (action.type) {
     case "SET_ACCESS_TOKEN":
       return {
@@ -27,7 +26,6 @@ export const setAccessTokene = (accessToken) => ({
 });
 
 export const setRefreshTokene = (refreshToken) => {
-  console.log("setRefreshToken", refreshToken);
   return {
     type: "SET_REFRESH_TOKEN",
     refreshToken,

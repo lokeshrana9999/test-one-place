@@ -26,7 +26,6 @@ const withCurrentUserProfile = (Component) => {
     });
     currentUserProfileLoading = loading;
     currentUserProfileData = data && data.userProfile;
-    console.log(data, loading, error);
 
     // if (
     //   !currentUserProfileLoading &&
@@ -47,7 +46,6 @@ const withCurrentUserProfile = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -103,7 +101,6 @@ const withAddProfile = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -138,7 +135,6 @@ const withAddSocialMedia = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -186,7 +182,6 @@ const withSocialMediaCategories = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -201,7 +196,6 @@ const withPublicProfileByUsername = (Component) => {
     const { accessToken} = props;
     const username = useContext(UsernameContext);
     const defaultApiUrl = useContext(ApiContext);
-    console.log('usernameusername', username);
     const apiUrl = defaultApiUrl + UserApiUrls.getUserByUsername(username);
 
     const { data, loading:userLoading, error } = useGet({
@@ -231,7 +225,6 @@ const withPublicProfileByUsername = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,

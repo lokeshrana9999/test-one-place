@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { Flex } from "antd-mobile";
+import { Card } from "antd";
 import { Link } from "react-router-dom";
 import Avatar from "react-avatar";
 import styled, { withTheme } from "styled-components";
 import { WhiteSpace } from "@look/mobile";
 
-const BlockCardWrapper = styled.div`
-  padding: 20px;
+const { Meta } = Card;
+
+const BlockCardWrapper = styled(Card)`
+  /* padding: 20px; */
   background-color: #2c2c2c;
   height: 107px;
   margin-bottom: 20px;
@@ -17,6 +20,7 @@ const BlockCardWrapper = styled.div`
 
 const BlockCardTitle = styled.h2`
   font-family: Rubik;
+  margin-bottom:0 !important;
   font-size: 17px;
   font-weight: normal;
   font-stretch: normal;
@@ -54,7 +58,32 @@ const BlockCard = (props) => {
   return (
     <Link key={key} to={`/block/add/${blockCategory._id}`}>
       <BlockCardWrapper key={key}>
-        <Flex>
+        <Meta
+          avatar={
+            <BlockCardAvatarWrapper>
+              <Avatar
+                size="30"
+                src={
+                  blockCategory &&
+                  blockCategory.image &&
+                  blockCategory.image.url
+                }
+              />
+            </BlockCardAvatarWrapper>
+          }
+          title={
+            <BlockCardTitle className="one-line-limiter">
+              {blockCategory && blockCategory.title}
+            </BlockCardTitle>
+          }
+          description={
+            <BlockCardDescription className="two-line-limiter">
+              {blockCategory && blockCategory.description}
+            </BlockCardDescription>
+          }
+        />
+
+        {/* <Flex>
           <Flex.Item style={{ flex: 1 }}>
             <div
               style={{
@@ -64,28 +93,15 @@ const BlockCard = (props) => {
                 placeItems: "center",
               }}
             >
-              <BlockCardAvatarWrapper>
-                <Avatar
-                  size="30"
-                  src={
-                    blockCategory &&
-                    blockCategory.image &&
-                    blockCategory.image.url
-                  }
-                />
-              </BlockCardAvatarWrapper>
+             
             </div>
           </Flex.Item>
           <Flex.Item style={{ flex: 3 }}>
-            <BlockCardTitle className="one-line-limiter">
-              {blockCategory && blockCategory.title}
-            </BlockCardTitle>
+            
             <WhiteSpace size="sm" />
-            <BlockCardDescription className="two-line-limiter">
-              {blockCategory && blockCategory.description}
-            </BlockCardDescription>
+            
           </Flex.Item>
-        </Flex>
+        </Flex> */}
       </BlockCardWrapper>
     </Link>
   );

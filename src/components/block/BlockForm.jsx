@@ -95,7 +95,7 @@ const InputAreaStylized = styled(InputArea)`
   }
 `;
 
-const RenderUploadStylized = styled(RenderUploadWithCrop)`
+const uploadComponentCss = `
   width: 140px;
   height: 140px;
   border-radius: 30px;
@@ -139,6 +139,14 @@ const RenderUploadStylized = styled(RenderUploadWithCrop)`
   }
 `;
 
+const RenderUploadWithCropStylized = styled(RenderUploadWithCrop)`
+  ${uploadComponentCss}
+`;
+
+const RenderUploadStylized = styled(RenderUpload)`
+  ${uploadComponentCss}
+`;
+
 const blockFormSchema = {
   title: [required, minLength(5), maxLength(50)],
   thumbnail: [required],
@@ -149,29 +157,33 @@ const blockFormSchema = {
 const BlockForm = (props) => {
   const addBlockFormRef = useRef(null);
   const [load, setload] = useState(false);
-  const { values, handleSubmit, errors } = props;
-  console.log("blockform", props);
+  const { values, handleSubmit, errors, blockCategory, block } = props;
+  console.log("blockCategory", props);
   return (
     <BlockFormContainer>
       <Form name="addBlock" ref={addBlockFormRef} onFinish={handleSubmit}>
         <Field
           name="title"
-          component={InputAreaStylized}
+          component={InputStylized}
           type="text"
           label={"Name of The Block"}
           placeholder="Name of The Block"
           value={values.title}
         />
 
-        <WhiteSpace size="xl" />
-        <Field
-          name="link"
-          component={InputStylized}
-          type="text"
-          label={"Paste a Link"}
-          placeholder="Paste a Link"
-          value={values.link}
-        />
+        {blockCategory && blockCategory.isMedia && (
+          <React.Fragment>
+            <WhiteSpace size="xl" />
+            <Field
+              name="title"
+              component={InputAreaStylized}
+              type="text"
+              label={"Description of the offering"}
+              placeholder="Description of the offering"
+              value={values.title}
+            />
+          </React.Fragment>
+        )}
         <WhiteSpace size="xl" />
         <Field
           name="isHighlight"
@@ -186,8 +198,9 @@ const BlockForm = (props) => {
           <Flex.Item>
             <Field
               name="thumbnail"
-              component={RenderUploadStylized}
+              component={RenderUploadWithCropStylized}
               type="media"
+              fileFormat="image/*"
               aspect={1}
               setload={setload}
               label={
@@ -200,24 +213,102 @@ const BlockForm = (props) => {
               value={values.thumbnail}
             />
           </Flex.Item>
-          {/* <Flex.Item>
-            <Field
-              name="media"
-              component={RenderUploadStylized}
-              type="media"
-              setload={setload}
-              label={
-                <React.Fragment>
-                  <FaPhotoVideo size={30} />
-                  <br />
-                  Upload Media
-                </React.Fragment>
-              }
-              value={values.media}
-            />
-          </Flex.Item> */}
+          {blockCategory && blockCategory.isMedia && (
+            <Flex.Item>
+              <Field
+                name="media"
+                component={RenderUploadStylized}
+                type="media"
+                fileFormat="video/*"
+                setload={setload}
+                label={
+                  <React.Fragment>
+                    <FaPhotoVideo size={30} />
+                    <br />
+                    Upload Media
+                  </React.Fragment>
+                }
+                value={values.media}
+              />
+            </Flex.Item>
+          )}
         </Flex>
-        <WhiteSpace size="xl" />
+        {blockCategory && blockCategory.isContent && (
+          <React.Fragment>
+            <WhiteSpace size="xl" />
+            <Flex justify="between">
+              <Flex.Item>
+                <Field
+                  name="content"
+                  component={RenderUploadStylized}
+                  type="content"
+                  fileFormat="*"
+                  setload={setload}
+                  label={
+                    <React.Fragment>
+                      <FaPhotoVideo size={30} />
+                      <br />
+                      Upload content to be mailed
+                    </React.Fragment>
+                  }
+                  value={values.content}
+                />
+              </Flex.Item>
+            </Flex>
+          </React.Fragment>
+        )}
+
+        {blockCategory && blockCategory.isPayment && (
+          <React.Fragment>
+            <WhiteSpace size="xl" />
+            <Field
+              name="isPaymentEnabled"
+              component={Switch}
+              type="text"
+              label={"Payment Enabled"}
+              placeholder="Payment Enabled"
+              value={values.isPaymentEnabled}
+            />
+          </React.Fragment>
+        )}
+        {blockCategory &&
+          blockCategory.isPayment &&
+          values.isPaymentEnabled && (
+            <Field
+              name="price"
+              component={InputStylized}
+              type="number"
+              label={"Cost in INR"}
+              placeholder="Cost in INR"
+              value={values.price}
+            />
+          )}
+
+        {((blockCategory &&
+          blockCategory.isPayment &&
+          values.isPaymentEnabled) ||
+          !blockCategory ||
+          (blockCategory && !blockCategory.isPayment)) && (
+          <React.Fragment>
+            <WhiteSpace size="xl" />
+            <Field
+              name="link"
+              component={InputStylized}
+              type="text"
+              label={
+                blockCategory && blockCategory.isPayment
+                  ? "Paste the payment link"
+                  : "Paste a Link"
+              }
+              placeholder={
+                blockCategory && blockCategory.isPayment
+                  ? "Paste the payment link"
+                  : "Paste a Link"
+              }
+              value={values.link}
+            />
+          </React.Fragment>
+        )}
         <Button type="primary" block size="large" htmlType="submit">
           Go Live
         </Button>
@@ -236,7 +327,10 @@ const BlockFormWithFormik = withFormik({
       price: (blockData && blockData.price) || 0,
       question: (blockData && blockData.question) || "",
       media: (blockData && blockData.media) || null,
+      isPaymentEnabled: (blockData && blockData.isPaymentEnabled) || true,
+      description: (blockData && blockData.description) || "",
       isHighlight: (blockData && blockData.isHighlight) || false,
+      content: (blockData && blockData.media) || null,
     };
   },
 
@@ -246,7 +340,6 @@ const BlockFormWithFormik = withFormik({
     let modifiedValues = values;
     modifiedValues.thumbnail = values.thumbnail && values.thumbnail._id;
     modifiedValues.media = values.media && values.media._id;
-    console.log("handleSubmit", values);
     onSubmit(modifiedValues);
   },
   // validator:{() => ({})}

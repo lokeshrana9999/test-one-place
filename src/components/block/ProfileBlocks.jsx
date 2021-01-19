@@ -43,7 +43,6 @@ const Profile = (props) => {
         duration: 0,
       });
       const deleting = await deleteBlock(id);
-      console.log(deleting);
       message.destroy();
       if (deleting.status === true) {
         message.success({
@@ -70,7 +69,6 @@ const Profile = (props) => {
       }
     }
   };
-  console.log("profileblocks", props);
   return (
     <div>
       {self && (
@@ -105,7 +103,6 @@ const Profile = (props) => {
       {!userBlockLoading && userBlockData && userBlockData.length !== 0
         ? userBlockData.map((block, key) => (
             <React.Fragment>
-              {console.log("mapping", block, key)}
               <ProfileBlockComponent
                 handleDeleteBlock={handleDeleteBlock}
                 keyItem={key}

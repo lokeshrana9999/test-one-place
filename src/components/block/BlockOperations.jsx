@@ -47,7 +47,6 @@ const withUserBlocks = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -69,7 +68,6 @@ const withBlockById = (Component) => {
     const blockId = match && match.params && match.params.blockId;
     const defaultApiUrl = useContext(ApiContext);
     const apiUrl = defaultApiUrl + BlockApiUrls.getBlockById(blockId);
-    console.log("apiurl", apiUrl);
     const { data, loading: blockByUsernameLoading, error } = useGet({
       verb: "GET",
       path: apiUrl,
@@ -78,7 +76,6 @@ const withBlockById = (Component) => {
       },
     });
     const blockByUsernameData = data && data.block;
-    console.log("blockbyid", error);
 
     return blockByUsernameLoading ? (
       <PageLoader />
@@ -92,7 +89,6 @@ const withBlockById = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -134,7 +130,6 @@ const withBlockCategoryList = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -142,6 +137,49 @@ const withBlockCategoryList = (Component) => {
   };
 
   return connect(mapStateToProps, mapDispatchToProps)(WithBlockCategoryListInner);
+};
+
+
+const withBlockCategoryById = (Component) => {
+  const WithBlockByIdInner = ({ ...props }) => {
+    const {
+      history,
+      refreshToken,
+      setAccessTokene,
+      accessToken,
+      match,
+    } = props;
+    const blockCategoryId = match && match.params && match.params.blockCategoryId;
+    const defaultApiUrl = useContext(ApiContext);
+    const apiUrl = defaultApiUrl + BlockApiUrls.getBlockCategoryById(blockCategoryId);
+    const { data, loading: blockCategoryLoading, error } = useGet({
+      verb: "GET",
+      path: apiUrl,
+      requestOptions: {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      },
+    });
+    const blockCategory = data && data.blockCategory;
+
+    return blockCategoryLoading ? (
+      <PageLoader />
+    ) : (
+      <Component
+        {...props}
+        blockCategory={blockCategory}
+        blockCategoryLoading={blockCategoryLoading}
+      />
+    );
+  };
+  const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
+  const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+      accessToken: state.app.accessToken,
+      refreshToken: state.app.refreshToken,
+    };
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithBlockByIdInner);
 };
 
 const withAddUserBlock = (Component) => {
@@ -157,7 +195,6 @@ const withAddUserBlock = (Component) => {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    console.log("adduserblock", error);
     return (
       <Component
         {...props}
@@ -168,7 +205,6 @@ const withAddUserBlock = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -197,7 +233,6 @@ const withEditUserBlock = (Component) => {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    console.log("edituserblock", error);
     return (
       <Component
         {...props}
@@ -208,7 +243,6 @@ const withEditUserBlock = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -260,7 +294,6 @@ const withDeleteUserBlock = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -360,7 +393,8 @@ export {
   withEditUserBlock,
   withBlockById,
   withDeleteUserBlock,
-  withBlockCategoryList
+  withBlockCategoryList,
+  withBlockCategoryById
   //   hasRole,
   //   withLoadedUser,
   //   IfLoggedIn,

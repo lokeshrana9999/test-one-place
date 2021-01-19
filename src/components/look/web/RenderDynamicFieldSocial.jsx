@@ -151,7 +151,6 @@ class DynamicFieldSet extends React.Component {
   render() {
     const drawerOpenState = this.state.visible;
     const { socialMediaCategoryList, name, values, arrayHelpers } = this.props;
-    console.log("renderdynamic", socialMediaCategoryList);
     let formItems = null;
     const availableSocialMediaCategoryList = socialMediaCategoryList.filter(
       (item) => !values.find((vall) => vall.category === item._id)

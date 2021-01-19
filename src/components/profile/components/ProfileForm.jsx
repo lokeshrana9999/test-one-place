@@ -208,7 +208,6 @@ const profileFormSchema = Yup.object().shape({
 const ProfileForm = (props) => {
   const [load, setload] = useState(false);
   const { values, handleSubmit, socialMediaCategoryList } = props;
-  console.log("form values:", values, socialMediaCategoryList);
   return (
     <ProfileFormContainer>
       <Form name="profile" onFinish={handleSubmit}>
@@ -354,7 +353,6 @@ const ProfileFormWithFormik = withFormik({
   },
 
   handleSubmit(values, { props: { onSubmit, setValues } }) {
-    console.log("handleSubmit", values);
     let modifiedValues = values;
     modifiedValues.userProfile.profileImage =
       (values.userProfile &&

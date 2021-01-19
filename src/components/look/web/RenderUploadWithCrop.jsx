@@ -59,7 +59,7 @@ export default class RenderUpload extends React.Component {
     // { input, label, meta: { touched, error }, defaultFileList }) = this.props
     // const touched = this.props.meta.touched;
     // const error = this.props.meta.error;
-    const { label, className, children, meta, handleBlur, aspect } = this.props;
+    const { label, className, children, meta, handleBlur, aspect, fileFormat } = this.props;
     // const input = this.props.input;
     // console.log(input);
     // const defaultFileList = this.props.defaultFileList;
@@ -93,7 +93,6 @@ export default class RenderUpload extends React.Component {
         <div className="ant-upload-text">{label}</div>
       </div>
     );
-    console.log("Meta", meta);
     return (
       <FormItem
         validateStatus={validateStatus}
@@ -109,6 +108,7 @@ export default class RenderUpload extends React.Component {
               fileList={fileList}
               onPreview={this.handlePreview}
               onChange={this.onChangeHandler}
+              accept={fileFormat}
             >
               {fileList.length >= 1 ? null : uploadButton}
               {children}

@@ -15,7 +15,6 @@ const TextArea = ({ children, ...props }) => {
     name,
     meta,
   } = props;
-  console.log('textarea', props);
   return (
     <Form.Item
       validateStatus={meta.touched && meta.error && "error"}

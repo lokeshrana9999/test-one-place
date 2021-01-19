@@ -227,7 +227,6 @@ const Profile = (props) => {
 
 const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
 const mapStateToProps = (state /*, ownProps*/) => {
-  console.log("mapstatetoprops", state);
   return {
     accessToken: state.app.accessToken,
     refreshToken: state.app.refreshToken,

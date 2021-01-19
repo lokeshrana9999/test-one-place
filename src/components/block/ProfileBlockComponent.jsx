@@ -134,7 +134,6 @@ const ProfileCard = (props) => {
   });
 
   const getSwipeTrans = getSwipeTranslate(self, swiped);
-  console.log("profilecard", props);
 
   const profileCardInn = (
     <ProfileCardInner swiped={swiped}>

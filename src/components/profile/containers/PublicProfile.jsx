@@ -7,7 +7,6 @@ import { withPublicProfileByUsername } from "../ProfileOperations";
 import ProfileView from "../components/ProfileView";
 
 const PublicProfile = (props) => {
-  console.log("profile", props);
   const { user, history } = props;
   if (!user) {
     return (

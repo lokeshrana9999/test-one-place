@@ -6,7 +6,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { WhiteSpace } from "@look/mobile";
 import PageLayout from "@look/PageLayout";
 import BlockForm from "./BlockForm";
-import { withAddUserBlock } from "./BlockOperations";
+import { withAddUserBlock, withBlockCategoryById } from "./BlockOperations";
 
 const PageHead = styled.h1`
   font-family: Rubik;
@@ -28,20 +28,17 @@ const FormWrapper = styled.div`
 `;
 
 const BlockAddView = (props) => {
-  const { postBlock, history, match } = props;
-  console.log("blockadd", props);
+  const { postBlock, history, match, blockCategory } = props;
   const onSubmit = async (values) => {
     let modifiedValues = values;
     modifiedValues.blockCategory =
       match && match.params && match.params.blockCategoryId;
-    console.log("addBlock", modifiedValues);
     try {
       message.loading({
         content: "Adding Card ...",
         duration: 0,
       });
       const sending = await postBlock(modifiedValues);
-      console.log(sending);
       message.destroy();
       if (sending.status === true) {
         message.success({
@@ -58,7 +55,6 @@ const BlockAddView = (props) => {
       return sending;
     } catch (e) {
       message.destroy();
-      console.log("error", e);
       if (e && e.data && e.data.message) {
         message.error({
           duration: 2,
@@ -79,8 +75,8 @@ const BlockAddView = (props) => {
       </PageHead>
       <WhiteSpace size="xl" />
       <WhiteSpace size="xl" />
-      <BlockForm onSubmit={onSubmit} />
+      <BlockForm onSubmit={onSubmit} blockCategory={blockCategory} />
     </PageLayout>
   );
 };
-export default withAddUserBlock(withTheme(BlockAddView));
+export default withAddUserBlock(withBlockCategoryById(withTheme(BlockAddView)));

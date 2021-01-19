@@ -11,7 +11,6 @@ import configureStore from "./store/configureStore";
 // import registerServiceWorker from './registerServiceWorker';
 const { store, persistor } = configureStore(window.__REDUX_STATE__ || {});
 
-console.log(persistor);
 
 const AppBundle = (
   <ReduxProvider store={store}>

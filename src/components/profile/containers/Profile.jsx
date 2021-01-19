@@ -7,7 +7,6 @@ import { withCurrentUser } from "../../auth/Auth";
 import ProfileView from "../components/ProfileView";
 
 const Profile = (props) => {
-  console.log("profile", props);
   const { currentUser, history } = props;
   if (currentUser && !currentUser.userProfile) {
     history.push("/profile/edit");

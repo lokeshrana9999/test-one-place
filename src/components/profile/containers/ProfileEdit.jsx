@@ -56,7 +56,6 @@ const ProfileEdit = (props) => {
 
     const promises = await socialMediaLinks.map(async (socia, key) => {
       const responseSend = await postAddSocialMedia(socia);
-      console.log("responseSocialSEnd", responseSend);
       return (
         responseSend &&
         responseSend.socialMediaLink &&
@@ -68,22 +67,14 @@ const ProfileEdit = (props) => {
   };
 
   const onSubmit = async (values) => {
-    console.log("updateProfile", values);
     let profileValues = values;
     const socialMediaLinks = profileValues.socialMediaLinks;
-    console.log(
-      "onSubmitProfileValues",
-      profileValues,
-      socialMediaLinks,
-      values
-    );
     try {
       message.loading({
         content: "Updating Profile Info",
         duration: 0,
       });
       const socialSending = await handleSocialLinksSubmission(socialMediaLinks);
-      console.log("socialSendingLoop", socialSending);
       const profileSubmissionObj = {
         ...profileValues,
         socialMediaLinks: socialSending,
@@ -97,18 +88,15 @@ const ProfileEdit = (props) => {
       //   username: "lokeshrana9999",
       // };
       // // const sending = null;
-      console.log("profileSubmissionObj", profileSubmissionObj);
       const sending = await profileMutation(profileSubmissionObj);
       message.destroy();
       if (sending) {
-        console.log("sendingsending", sending);
         message.success({
           duration: 2,
           content: "Profile Updated",
         });
         history.push("/");
       } else {
-        console.log("elsesocial", socialSending);
         socialSending &&
           socialSending.data &&
           sending &&
@@ -131,7 +119,6 @@ const ProfileEdit = (props) => {
     }
   };
 
-  console.log("currentUser", props);
   return (
     <ProfileEditView
       onSubmit={onSubmit}

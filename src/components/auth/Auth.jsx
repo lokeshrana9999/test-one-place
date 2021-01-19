@@ -27,7 +27,6 @@ const withCurrentUser = (Component) => {
     });
     currentUserLoading = loading;
     currentUserData = data && data.user;
-    console.log(data, loading, error);
 
     // if (
     //   !currentUserLoading &&
@@ -48,7 +47,6 @@ const withCurrentUser = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,
@@ -92,7 +90,6 @@ const withUserByUsername = (Component) => {
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
   const mapStateToProps = (state /*, ownProps*/) => {
-    console.log("mapstatetoprops", state);
     return {
       accessToken: state.app.accessToken,
       refreshToken: state.app.refreshToken,

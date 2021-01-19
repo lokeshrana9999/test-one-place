@@ -43,7 +43,6 @@ const FormWrapper = styled.div`
 const ProfileEditView = (props) => {
   const { user, onSubmit, socialMediaCategoryList } = props;
   // setAccessTokene('');
-  console.log("profileedit", props);
   return (
     <div
       style={{
