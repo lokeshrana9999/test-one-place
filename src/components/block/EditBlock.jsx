@@ -74,7 +74,11 @@ const BlockEditView = (props) => {
       </PageHead>
       <WhiteSpace size="xl" />
       <WhiteSpace size="xl" />
-      <BlockForm onSubmit={onSubmit} blockData={blockByUsername} />
+      <BlockForm
+        onSubmit={onSubmit}
+        blockData={blockByUsername}
+        blockCategory={blockByUsername && blockByUsername.blockCategory}
+      />
     </PageLayout>
   );
 };

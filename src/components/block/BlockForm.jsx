@@ -175,12 +175,12 @@ const BlockForm = (props) => {
           <React.Fragment>
             <WhiteSpace size="xl" />
             <Field
-              name="title"
+              name="description"
               component={InputAreaStylized}
               type="text"
               label={"Description of the offering"}
               placeholder="Description of the offering"
-              value={values.title}
+              value={values.description}
             />
           </React.Fragment>
         )}

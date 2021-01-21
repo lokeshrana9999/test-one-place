@@ -17,7 +17,7 @@ class FieldAdapter extends Component {
     if (onChange) {
       onChange(e);
     }
-    if (fieldType === "image" || fieldType === "media") {
+    if (fieldType === "image" || fieldType === "media" || fieldType === "content") {
       formik.setFieldValue(this.props.name, e);
     }
     else if (e._isAMomentObject && secondArg) {
