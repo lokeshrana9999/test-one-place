@@ -2,7 +2,8 @@ import React from "react";
 import styled, { withTheme } from "styled-components";
 import { WhiteSpace } from "@look/mobile";
 import { Typography, Button } from "@look/web";
-import  VideoComponent  from "@look/VideoComponent";
+import VideoComponent from "@look/VideoComponent";
+import GoogleLoginButon from "@auth/GoogleLoginButton";
 // import BlockCard from "./BlockCard";
 
 const { Title, Text, Paragraph } = Typography;
@@ -45,16 +46,16 @@ const StyledPriceSubText = styled(Text)`
 `;
 
 const BlockDetailView = (props) => {
-  const { history, navigation, blockCategoryList } = props;
-
+  const { history, navigation, blockById } = props;
+  console.log("blockdetailview", props);
   return (
     <div
       style={{
         width: "100%",
         minHeight: "100vh",
         position: "relative",
-        // display: "grid",
-        // placeItems: "center",
+        display: "grid",
+        placeItems: "center",
         background: "white",
         overflow: "hidden",
       }}
@@ -73,49 +74,29 @@ const BlockDetailView = (props) => {
             fluid={false}
             width="100%"
             height="100%"
-            src={"https://media.w3.org/2010/05/sintel/trailer_hd.mp4"}
+            src={blockById && blockById.media && blockById.media.url}
           />
         </div>
         <div style={{ padding: "32px 34px" }}>
-          <StyledHeading>Name of the Card</StyledHeading>
+          <StyledHeading>{blockById && blockById.title}</StyledHeading>
           <StyledParagraph>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean test massa. Cum sociis natoque
-            penatibus et magn men Lorem ipsum dolor sit amet, consectetuer
-            adipiscing elit. Aenean commodo ligula eget dolor. Aenean for massa.
-            Cum sociis natoque penatibus et magn.
+            {blockById && blockById.description}
           </StyledParagraph>
 
-          <StyledPriceDisplay>{`1000 INR`}</StyledPriceDisplay>
-          <StyledPriceSubText>Per Request</StyledPriceSubText>
-          <WhiteSpace size="xl" />
-          <Button type="primary" block size="large">
-            Continue
-          </Button>
-        </div>
-
-        {/* <WhiteSpace size="xl" />
-        <PageHead>
-          {" "}
-          <AiOutlineArrowLeft
-            style={{ position: "absolute", top: "-3px", left: 0 }}
-            onClick={history.goBack}
-          />
-          Add a new card
-        </PageHead>
-        <WhiteSpace size="xl" />
-
-        <div>
-          {blockCategoryList && blockCategoryList.length !== 0 ? (
-            <div>
-              {blockCategoryList.map((blockCat, key) => (
-                <BlockCard blockCategory={blockCat} key={key} />
-              ))}
-            </div>
-          ) : (
-            <h3>No cards available</h3>
+          {blockById && blockById.isPaymentEnabled && (
+            <React.Fragment>
+              <StyledPriceDisplay>{`${
+                blockById && blockById.price
+              } INR`}</StyledPriceDisplay>
+              <StyledPriceSubText>Per Request</StyledPriceSubText>
+            </React.Fragment>
           )}
-        </div> */}
+          <WhiteSpace size="xl" />
+          <GoogleLoginButon
+            buttonText="Continue with google"
+            redirect={`/order/checkout/${blockById && blockById._id}`}
+          />
+        </div>
       </div>
     </div>
   );

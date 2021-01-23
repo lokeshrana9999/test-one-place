@@ -1,7 +1,8 @@
 import React, { useState, Component } from "react";
+import { withRouter, NavLink } from "react-router-dom";
 import { IoMailOutline, IoMailSharp } from "react-icons/io5";
 import { FiBarChart } from "react-icons/fi";
-import { FaCompass, FaChartBar } from "react-icons/fa";
+import { FaCompass, FaRegCompass } from "react-icons/fa";
 import { CgSignal } from "react-icons/cg";
 
 import { IoPulse, IoBarChartOutline } from "react-icons/io5";
@@ -48,7 +49,7 @@ class PageLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: "redTab",
+      selectedTab: "/profile",
       hidden: false,
       fullScreen: false,
     };
@@ -63,62 +64,66 @@ class PageLayout extends React.Component {
   }
 
   render() {
+    console.log("pagelayout", this.props);
+    const {
+      match: { path },
+      history,
+    } = this.props;
     return (
-      <div >
-      <PageLayoutContainer>
-        <StyledTabBar style={{ height: "83px" }} hidden={this.state.hidden}>
-          <TabBarItem
-            title="Stats"
-            key="Stats"
-            icon={<IoBarChartOutline size={30} />}
-            selectedIcon={<IoBarChartOutline size={30} />}
-            selected={this.state.selectedTab === "blueTab"}
-            // badge={1}
-            onPress={() => {
-              this.setState({
-                selectedTab: "blueTab",
-              });
-            }}
-            data-seed="logId"
-          >
-            {this.renderContent(this.props.children)}
-          </TabBarItem>
-          <TabBarItem
-            icon={<FaCompass size={30} />}
-            selectedIcon={<FaCompass size={30} />}
-            title="OnePlace"
-            key="OnePlace"
-            // badge={"new"}
-            selected={this.state.selectedTab === "redTab"}
-            onPress={() => {
-              this.setState({
-                selectedTab: "redTab",
-              });
-            }}
-            data-seed="logId1"
-          >
-            {this.renderContent(this.props.children)}
-          </TabBarItem>
-          <TabBarItem
-            icon={<IoPulse size={30} />}
-            selectedIcon={<IoPulse size={30} />}
-            title="Orders"
-            key="Orders"
-            // dot
-            selected={this.state.selectedTab === "greenTab"}
-            onPress={() => {
-              this.setState({
-                selectedTab: "greenTab",
-              });
-            }}
-          >
-            {this.renderContent(this.props.children)}
-          </TabBarItem>
-        </StyledTabBar>
-      </PageLayoutContainer>
+      <div>
+        <PageLayoutContainer>
+          <StyledTabBar style={{ height: "83px" }} hidden={this.state.hidden}>
+            <TabBarItem
+              title="Stats"
+              key="Stats"
+              icon={<IoBarChartOutline size={30} color="grey" />}
+              selectedIcon={<IoBarChartOutline size={30} color="white" />}
+              selected={path === "/statistics"}
+              // badge={1}
+              onPress={() => {
+                history.push("/statistics");
+                this.setState({ selectedTab: "/statistics" });
+              }}
+              data-seed="logId"
+            >
+              {this.renderContent(this.props.children)}
+            </TabBarItem>
+
+            <TabBarItem
+              icon={<FaCompass size={30} color="grey" />}
+              selectedIcon={<FaCompass size={30} color="white" />}
+              title="OnePlace"
+              key="OnePlace"
+              // badge={"new"}
+              selected={path === "/profile"}
+              onPress={() => {
+                history.push("/profile");
+                this.setState({ selectedTab: "/profile" });
+              }}
+              data-seed="logId1"
+            >
+              {this.renderContent(this.props.children)}
+            </TabBarItem>
+
+            <TabBarItem
+              icon={<IoPulse size={30} color="grey" />}
+              selectedIcon={<IoPulse size={30} color="white" />}
+              title="Orders"
+              key="Order"
+              // dot
+              selected={path === "/order/my"}
+              onPress={() => {
+                history.push("/order/my");
+                this.setState({ selectedTab: "/order/my" });
+              }}
+            >
+              {this.renderContent(this.props.children)}
+            </TabBarItem>
+          </StyledTabBar>
+        </PageLayoutContainer>
       </div>
     );
   }
 }
 
-export default withTheme(PageLayout);
+export default withRouter(withTheme(PageLayout));

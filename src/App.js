@@ -84,7 +84,26 @@ const AsyncBlockDetail = Loadable({
       /* webpackChunkName: "profileEditDefault" */ "./components/block/containers/BlockDetail"
     ),
   loading: () => <PageLoader />,
-  modules: ["editBlockDetailDefault"],
+  modules: ["blockDetailDefault"],
+});
+
+//OrderPages
+const AsyncCheckout = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileEditDefault" */ "./components/order/containers/Checkout"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["checkoutDefault"],
+});
+
+const AsyncMyOrders = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "profileEditDefault" */ "./components/order/containers/MyOrders"
+    ),
+  loading: () => <PageLoader />,
+  modules: ["myOrdersDefault"],
 });
 
 const apiUrl =
@@ -146,7 +165,7 @@ const App = (props) => {
               <Switch>
                 {appType === "private" && (
                   <React.Fragment>
-                    <Route path="/" exact component={AsyncProfile} />,
+                    <Route path="/profile" exact component={AsyncProfile} />
                     <Route path="/login" exact component={AsyncLogin} />
                     <Route
                       path="/profile/edit"
@@ -168,16 +187,26 @@ const App = (props) => {
                       exact
                       component={AsyncEditBlock}
                     />
+                    <Route
+                      path="/block/detail/:blockId"
+                      exact
+                      component={AsyncBlockDetail}
+                    />
+                    <Route
+                      path="/order/checkout/:blockId"
+                      exact
+                      component={AsyncCheckout}
+                    />
+                    <Route
+                      path="/order/my"
+                      exact
+                      component={AsyncMyOrders}
+                    />
                   </React.Fragment>
                 )}
                 {appType === "public" && (
                   <React.Fragment>
                     <Route path="/" exact component={AsyncPublicProfile} />
-                    <Route
-                      path="/block/detail"
-                      exact
-                      component={AsyncBlockDetail}
-                    />
                   </React.Fragment>
                 )}
               </Switch>

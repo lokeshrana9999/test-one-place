@@ -68,22 +68,23 @@ const withBlockById = (Component) => {
     const blockId = match && match.params && match.params.blockId;
     const defaultApiUrl = useContext(ApiContext);
     const apiUrl = defaultApiUrl + BlockApiUrls.getBlockById(blockId);
-    const { data, loading: blockByUsernameLoading, error } = useGet({
+    const { data, loading: blockByIdLoading, error } = useGet({
       verb: "GET",
       path: apiUrl,
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
     });
-    const blockByUsernameData = data && data.block;
+    // console.log('withBLockQuery', blockByIdLoading, data);
+    const blockByIdData = data && data.block;
 
-    return blockByUsernameLoading ? (
+    return blockByIdLoading ? (
       <PageLoader />
     ) : (
       <Component
         {...props}
-        blockByUsername={blockByUsernameData}
-        blockByUsernameLoading={blockByUsernameLoading}
+        blockById={blockByIdData}
+        blockByIdLoading={blockByIdLoading}
       />
     );
   };

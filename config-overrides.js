@@ -63,6 +63,8 @@ module.exports = {
       "@app": path.resolve(__dirname, "./src"),
       "@look": path.resolve(__dirname, "./src/components/look"),
       "@api": path.resolve(__dirname, "./src/api"),
+      "@form": path.resolve(__dirname, "./src/components/form"),
+      "@auth": path.resolve(__dirname, "./src/components/auth"),
     }),
     addDecoratorsLegacy(),
     disableEsLint(),

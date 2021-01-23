@@ -1,6 +1,8 @@
 export const initialState = {
-  accessToken: 'null',
-  refreshToken: 'null',
+  accessToken: "null",
+  refreshToken: "null",
+  googleAccesssToken: "null",
+  googleTokenId: "null",
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -14,6 +16,16 @@ export const appReducer = (state = initialState, action) => {
       return {
         ...state,
         refreshToken: action.refreshToken,
+      };
+    case "SET_GOOGLE_ACCESS_TOKEN":
+      return {
+        ...state,
+        googleAccesssToken: action.googleAccesssToken,
+      };
+    case "SET_GOOGLE_TOKEN_ID":
+      return {
+        ...state,
+        googleTokenId: action.googleTokenId,
       };
     default:
       return state;
@@ -32,6 +44,18 @@ export const setRefreshTokene = (refreshToken) => {
   };
 };
 
+export const setGoogleAccessTokene = (googleAccesssToken) => ({
+  type: "SET_GOOGLE_ACCESS_TOKEN",
+  googleAccesssToken,
+});
+
+export const setGoogleTokeneId = (googleTokenId) => {
+  return {
+    type: "SET_GOOGLE_TOKEN_ID",
+    googleTokenId,
+  };
+};
+
 export const setAsyncAccessTokene = (accessToken) => (dispatch) =>
   new Promise((resolve, reject) => {
     setTimeout(() => resolve(), 2000);
@@ -41,3 +65,13 @@ export const setAsyncRefreshTokene = (refreshToken) => (dispatch) =>
   new Promise((resolve, reject) => {
     setTimeout(() => resolve(), 2000);
   }).then(() => dispatch(setRefreshTokene(refreshToken)));
+
+export const setAsyncGoogleAccessTokene = (googleAccessToken) => (dispatch) =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => resolve(), 2000);
+  }).then(() => dispatch(setGoogleAccessTokene(googleAccessToken)));
+
+export const setAsyncGoogleTokeneId = (googleTokenId) => (dispatch) =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => resolve(), 2000);
+  }).then(() => dispatch(setGoogleTokeneId(googleTokenId)));

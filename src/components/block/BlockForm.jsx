@@ -330,7 +330,7 @@ const BlockFormWithFormik = withFormik({
       isPaymentEnabled: (blockData && blockData.isPaymentEnabled) || true,
       description: (blockData && blockData.description) || "",
       isHighlight: (blockData && blockData.isHighlight) || false,
-      content: (blockData && blockData.media) || null,
+      content: (blockData && blockData.content) || null,
     };
   },
 

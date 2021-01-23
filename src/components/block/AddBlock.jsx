@@ -45,7 +45,7 @@ const BlockAddView = (props) => {
           duration: 2,
           content: "Card Added",
         });
-        history.push("/");
+        history.push("/profile");
       } else {
         message.error({
           duration: 2,

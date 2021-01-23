@@ -95,7 +95,7 @@ const ProfileEdit = (props) => {
           duration: 2,
           content: "Profile Updated",
         });
-        history.push("/");
+        history.push("/profile");
       } else {
         socialSending &&
           socialSending.data &&

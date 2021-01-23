@@ -82,7 +82,7 @@ const AiFillEditStylized = styled(AiFillEdit)`
   top: 30px;
   right: 20px;
   font-size: 40px;
-  color: #4643D3;
+  color: #4643d3;
   cursor: pointer;
 `;
 
@@ -151,6 +151,18 @@ const ProfileCard = (props) => {
       </Flex>
     </ProfileCardInner>
   );
+
+  const getPublicCardLink = () => {
+    const { blockCategory } = block;
+    var url = "";
+    if (blockCategory && blockCategory.isMedia) {
+      url = `https://oneplace.com/block/detail/${block && block._id}`;
+    } else {
+      url = getValidUrl(block && block.link);
+    }
+    return url;
+  };
+  console.log("publiccard", block);
   return (
     <ProfileCardWrapper
       {...handlers}
@@ -180,7 +192,7 @@ const ProfileCard = (props) => {
           <a
             style={{ display: "block" }}
             keyItem={keyItem}
-            href={getValidUrl(block && block.link)}
+            href={getPublicCardLink()}
             target={!self && "_blank"}
           >
             {profileCardInn}

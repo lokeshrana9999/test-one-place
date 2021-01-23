@@ -28,7 +28,7 @@ const FormWrapper = styled.div`
 `;
 
 const BlockEditView = (props) => {
-  const { putBlock, history, match, blockByUsername } = props;
+  const { putBlock, history, match, blockById } = props;
   const onSubmit = async (values) => {
     let modifiedValues = values;
     try {
@@ -43,7 +43,7 @@ const BlockEditView = (props) => {
           duration: 2,
           content: "Card Updated",
         });
-        history.push("/");
+        history.push("/profile");
       } else {
         message.error({
           duration: 2,
@@ -76,8 +76,8 @@ const BlockEditView = (props) => {
       <WhiteSpace size="xl" />
       <BlockForm
         onSubmit={onSubmit}
-        blockData={blockByUsername}
-        blockCategory={blockByUsername && blockByUsername.blockCategory}
+        blockData={blockById}
+        blockCategory={blockById && blockById.blockCategory}
       />
     </PageLayout>
   );
