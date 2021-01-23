@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled, { withTheme } from "styled-components";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { connect } from "react-redux";
-import { Modal, Drawer, Card, Avatar } from "antd";
+import { Card, message } from "antd";
 import { getValidUrl } from "../../../helper";
 import { Button, Switch, WhiteSpace } from "@look/mobile";
 import { PageHead, PageContainer } from "@look";
@@ -76,35 +76,69 @@ const StyledButton = styled(Button)`
   background: #4643d3;
 `;
 
+const popoverConst = {
+  WARNING: "warning",
+  SCREESSHOT: "screenshot",
+  STATUS: "status",
+};
+
 const CheckoutView = (props) => {
   const [formValues, setFormValues] = useState(null);
-  const [modalWarningVisible, setModalWarningVisible] = useState(false);
-  const [drawerSSVisible, setDrawerSSVisible] = useState(false);
-  const [modalStatusVisible, setModalStatusVisible] = useState(false);
+  const [popoverVisible, setPopoverVisible] = useState('');
 
-  const { history, customerData, blockById } = props;
+  const { history, customerData, blockById, postOrder } = props;
   // const { username } = userData;
-  console.log("formValuesContainer", formValues);
+  console.log("formValuesContainer", props);
 
   // const PageContainer = self ? PageLayout : PageContainer;
 
   const handleFormSubmit = (values) => {
-    setModalWarningVisible(true);
+    setPopoverVisible(popoverConst.WARNING);
     setFormValues(values);
     console.log("formValues", values);
   };
 
   const handleContinuePayment = () => {
-    setModalWarningVisible(false);
-    setDrawerSSVisible(true);
+    setPopoverVisible(popoverConst.SCREESSHOT);
   };
 
-  const handleScreenShotSubmit = (ssVal) => {
+  const handleScreenShotSubmit = async (ssVal) => {
     var formVal = formValues;
-    formVal.image = ssVal.image;
+    formVal.paymentScreenshot =
+      ssVal && ssVal.paymentScreenshot && ssVal.paymentScreenshot._id;
     setFormValues(formVal);
-    setDrawerSSVisible(false);
-    setModalStatusVisible(true);
+    setPopoverVisible('')
+    console.log('handleSSSubmit', formVal, ssVal);
+    try {
+      message.loading({
+        content: "Placing Order ...",
+        duration: 0,
+      });
+      const sending = await postOrder(formVal);
+      message.destroy();
+      if (sending.status === true) {
+        message.success({
+          duration: 2,
+          content: "Order Placed",
+        });
+        setPopoverVisible(popoverConst.STATUS);
+      } else {
+        message.error({
+          duration: 2,
+          content: sending && sending.data && sending.data.message,
+        });
+      }
+      return sending;
+    } catch (e) {
+      message.destroy();
+      console.log("error", e);
+      if (e && e.data && e.data.message) {
+        message.error({
+          duration: 2,
+          content: e && e.data && e.data.message,
+        });
+      }
+    }
   };
 
   return (
@@ -127,19 +161,20 @@ const CheckoutView = (props) => {
         initialValues={{ ...customerData }}
       />
       <CheckoutWarningModal
-        visible={modalWarningVisible}
+        visible={popoverConst.WARNING === popoverVisible}
         changeVisibility={handleContinuePayment}
         link={blockById && blockById.link}
       />
       <CheckoutUploadDrawer
         block={blockById}
-        visible={drawerSSVisible}
+        visible={popoverConst.SCREESSHOT === popoverVisible}
         handleScreenShotSubmit={handleScreenShotSubmit}
       />
       <CheckoutStatusModal
-        visible={modalStatusVisible}
-        changeVisibility={handleContinuePayment}
-        link={blockById && blockById.link}
+        visible={popoverConst.STATUS === popoverVisible}
+        // changeVisibility={handleContinuePayment}
+        // link={blockById && blockById.link}
+        block={blockById}
       />
       {/* {self && <PageHead>OnePlace Universe</PageHead>}
 

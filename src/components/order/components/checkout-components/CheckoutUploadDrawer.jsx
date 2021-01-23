@@ -64,6 +64,18 @@ const CheckoutUploadDrawer = ({ handleScreenShotSubmit, block, visible }) => {
     handleScreenShotSubmit(values);
   };
   console.log("upload drawer", block);
+  const firstName =
+    block &&
+    block.celebrity &&
+    block.celebrity.userProfile &&
+    block.celebrity.userProfile.firstName;
+
+  const lastName =
+    block &&
+    block.celebrity &&
+    block.celebrity.userProfile &&
+    block.celebrity.userProfile.lastName;
+
   return (
     <StyledUploadDrawer
       title=""
@@ -78,10 +90,16 @@ const CheckoutUploadDrawer = ({ handleScreenShotSubmit, block, visible }) => {
         <Card.Grid hoverable={false} style={{ width: "70%" }}>
           <Meta
             description={block && block.title}
-            title="Lokesh Rana"
+            title={`${firstName} ${lastName}`}
             avatar={
               <Avatar
-                src="https://lh3.googleusercontent.com/a-/AOh14GiqfYuv1MybkQcHeKqYLgJo2_R7LeoBLs0zjlpOZA=s96-c"
+                src={
+                  block &&
+                  block.celebrity &&
+                  block.celebrity.userProfile &&
+                  block.celebrity.userProfile.profileImage &&
+                  block.celebrity.userProfile.profileImage.url
+                }
                 size={46}
                 shape="circle"
               />

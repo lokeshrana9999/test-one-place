@@ -170,7 +170,7 @@ const PaymentConfirmationUploadForm = (props) => {
         <Flex justify="between">
           <Flex.Item>
             <Field
-              name="image"
+              name="paymentScreenshot"
               component={RenderUploadStylized}
               type="media"
               fileFormat="image/*"
@@ -193,7 +193,7 @@ const PaymentConfirmationUploadForm = (props) => {
               //     Upload Avatar
               //   </React.Fragment>
               // }
-              value={values.image}
+              value={values.paymentScreenshot}
             />
           </Flex.Item>
         </Flex>
@@ -210,7 +210,7 @@ const PaymentConfirmationUploadFormWithFormik = withFormik({
   enableReinitialize: true,
   mapPropsToValues: () => {
     return {
-      image: "",
+      paymentScreenshot: "",
     };
   },
 

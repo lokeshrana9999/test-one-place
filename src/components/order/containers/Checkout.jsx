@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useGet } from "restful-react";
 import { PageLoader } from "@look/mobile";
+import { withAddOrder } from "../OrderOperations";
 import { withBlockById } from "../../block/BlockOperations";
 
 import CheckoutView from "../components/CheckoutView";
@@ -38,4 +39,4 @@ const mapStateToProps = (state /*, ownProps*/) => {
   };
 };
 
-export default withBlockById(connect(mapStateToProps)(Checkout));
+export default withBlockById(withAddOrder(connect(mapStateToProps)(Checkout)));

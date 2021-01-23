@@ -239,19 +239,19 @@ const BlockForm = (props) => {
             <Flex justify="between">
               <Flex.Item>
                 <Field
-                  name="content"
+                  name="downloadbleFile"
                   component={RenderUploadStylized}
-                  type="content"
-                  fileFormat="*"
+                  type="media"
+                  // fileFormat="*"
                   setload={setload}
                   label={
                     <React.Fragment>
                       <FaPhotoVideo size={30} />
                       <br />
-                      Upload content to be mailed
+                      Upload Content to be mailed
                     </React.Fragment>
                   }
-                  value={values.content}
+                  value={values.downloadbleFile}
                 />
               </Flex.Item>
             </Flex>
@@ -330,7 +330,7 @@ const BlockFormWithFormik = withFormik({
       isPaymentEnabled: (blockData && blockData.isPaymentEnabled) || true,
       description: (blockData && blockData.description) || "",
       isHighlight: (blockData && blockData.isHighlight) || false,
-      content: (blockData && blockData.content) || null,
+      downloadbleFile: (blockData && blockData.downloadbleFile) || null,
     };
   },
 
@@ -340,6 +340,8 @@ const BlockFormWithFormik = withFormik({
     let modifiedValues = values;
     modifiedValues.thumbnail = values.thumbnail && values.thumbnail._id;
     modifiedValues.media = values.media && values.media._id;
+    modifiedValues.downloadbleFile =
+      values.downloadbleFile && values.downloadbleFile._id;
     onSubmit(modifiedValues);
   },
   // validator:{() => ({})}

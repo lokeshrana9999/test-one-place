@@ -156,7 +156,7 @@ const ProfileCard = (props) => {
     const { blockCategory } = block;
     var url = "";
     if (blockCategory && blockCategory.isMedia) {
-      url = `https://oneplace.com/block/detail/${block && block._id}`;
+      url = `https://oneplace.me/block/detail/${block && block._id}`;
     } else {
       url = getValidUrl(block && block.link);
     }
