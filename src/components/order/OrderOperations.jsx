@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { useGet, useMutate } from "restful-react";
 
 import { connect } from "react-redux";
 import { ApiContext, OrderApiUrls } from "@api";
-import { PageLoader } from "@look/mobile";
+import { PageLoader, Loader } from "@look/mobile";
 import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 // import authentication from '@gqlapp/authentication-client-react';
@@ -13,23 +13,27 @@ import { setAccessTokene, setRefreshTokene } from "../../store/appReducer";
 
 const withUserOrders = (Component) => {
   const WithUserOrdersInner = ({ ...props }) => {
-    const {
-      history,
-      refreshToken,
-      setAccessTokene,
-      accessToken,
-      username,
-    } = props;
+    const [pageSize, setPageSize] = useState(5);
+    const [afterFirstLoad, setAfterFirstLoad] = useState(false);
+    const { accessToken, type } = props;
     const defaultApiUrl = useContext(ApiContext);
-    const apiUrl = defaultApiUrl + OrderApiUrls.getOrdersByUsername(username);
-    const { data, loading: userOrderLoading, error } = useGet({
+    const apiUrl = defaultApiUrl + OrderApiUrls.getCurrentUserOrders;
+    const { data, loading: ordersLoading, error } = useGet({
       path: apiUrl,
       requestOptions: {
         headers: { Authorization: `Bearer ${accessToken}` },
       },
+      queryParams: {
+        status: type,
+        pageNumber: 1,
+        pageSize: pageSize,
+      },
     });
-    const userOrderData = data && data.ordersList;
-
+    const ordersData = data;
+    const fetchMoreData = () => {
+      setAfterFirstLoad(true);
+      setPageSize(pageSize + 1);
+    };
     // if (
     //   !currentUserLoading &&
     //   !currentUserData &&
@@ -38,11 +42,18 @@ const withUserOrders = (Component) => {
     // ) {
     // }
     return (
-      <Component
-        {...props}
-        userOrder={userOrderData}
-        userOrderLoading={userOrderLoading}
-      />
+      <React.Fragment>
+        {ordersLoading && !afterFirstLoad ? (
+          <Loader />
+        ) : (
+          <Component
+            {...props}
+            fetchMoreData={fetchMoreData}
+            ordersData={ordersData}
+            ordersLoading={ordersLoading}
+          />
+        )}
+      </React.Fragment>
     );
   };
   const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
@@ -98,8 +109,6 @@ const withOrderById = (Component) => {
 
   return connect(mapStateToProps, mapDispatchToProps)(WithOrderByIdInner);
 };
-
-
 
 const withAddOrder = (Component) => {
   const WithAddOrderInner = ({ ...props }) => {
@@ -178,16 +187,15 @@ const withDeleteOrder = (Component) => {
 
     async function deleteOrder(id) {
       return await fetch(defaultApiUrl + OrderApiUrls.deleteOrder(id), {
-        method: 'DELETE',
-        headers:{ Authorization: `Bearer ${accessToken}` }
-      }).then(response =>
-        response.json().then(json => {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }).then((response) =>
+        response.json().then((json) => {
           return json;
         })
       );
     }
     // const apiUrl = defaultApiUrl + OrderApiUrls.deleteOrder;
-
 
     // console.log("apiUrl", apiUrl);
     // const {
@@ -201,7 +209,6 @@ const withDeleteOrder = (Component) => {
     //     headers: { Authorization: `Bearer ${accessToken}` },
     //   },
     // });
-
 
     return (
       <Component
@@ -221,7 +228,6 @@ const withDeleteOrder = (Component) => {
 
   return connect(mapStateToProps, mapDispatchToProps)(WithDeleteOrderInner);
 };
-
 
 export {
   withUserOrders,

@@ -213,6 +213,8 @@ const BlockFormWithFormik = withFormik({
       name: (initialValues && initialValues.name) || "",
       avatar: (initialValues && initialValues.avatar) || "",
       email: (initialValues && initialValues.email) || "",
+      phoneNumber: "asdflkjsldjfl",
+      instagramLink: "ksdjfksdfjksd",
     };
   },
 

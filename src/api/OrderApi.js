@@ -1,6 +1,6 @@
 export const OrderApiUrls = {
   postOrder: "/order",
-  getOrder:"/order",
+  getCurrentUserOrders:"/order",
   getOrderById: (id) => `/order/${id}`,
   putOrderById: (id) => `/order/${id}`,
   // postBlock: "/block",

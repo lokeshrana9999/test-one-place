@@ -84,7 +84,7 @@ const popoverConst = {
 
 const CheckoutView = (props) => {
   const [formValues, setFormValues] = useState(null);
-  const [popoverVisible, setPopoverVisible] = useState('');
+  const [popoverVisible, setPopoverVisible] = useState("");
 
   const { history, customerData, blockById, postOrder } = props;
   // const { username } = userData;
@@ -106,9 +106,11 @@ const CheckoutView = (props) => {
     var formVal = formValues;
     formVal.paymentScreenshot =
       ssVal && ssVal.paymentScreenshot && ssVal.paymentScreenshot._id;
+    formVal.celebrity = blockById && blockById.celebrity && blockById.celebrity._id;
+    formVal.block = blockById && blockById._id;
     setFormValues(formVal);
-    setPopoverVisible('')
-    console.log('handleSSSubmit', formVal, ssVal);
+    setPopoverVisible("");
+    console.log("handleSSSubmit", formVal, ssVal);
     try {
       message.loading({
         content: "Placing Order ...",
@@ -176,112 +178,7 @@ const CheckoutView = (props) => {
         // link={blockById && blockById.link}
         block={blockById}
       />
-      {/* {self && <PageHead>OnePlace Universe</PageHead>}
 
-        {self && (
-          <a target='_blank' href={`https://${username}.oneplace.me`}>
-            <PublicLinkWrapper>
-              <Flex justify="between" style={{ width: "100%" }}>
-                <Flex.Item
-                  style={{ flex: 4 }}
-                >{`${username}.oneplace.me`}</Flex.Item>{" "}
-                <Flex.Item align="right" style={{ paddingTop: "6px" }}>
-                  <IoPaperPlaneOutline size={30} />
-                </Flex.Item>
-              </Flex>
-            </PublicLinkWrapper>
-          </a>
-        )}
-        <div
-          style={{
-            position: "relative",
-            width: "fit-content",
-            margin: "20px auto 0",
-          }}
-          align="center"
-        >
-          {self && (
-            <Link to="/profile/edit">
-              <Button
-                type="primary"
-                style={{
-                  background: "#4643D3",
-                  position: "absolute",
-                  bottom: "-10px",
-                  right: "-10px",
-                  zIndex: "10",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "40px",
-                }}
-              >
-                <AiFillEdit size="20" />
-              </Button>
-            </Link>
-          )}
-          <Avatar
-            size="150"
-            style={{ borderRadius: "20px", overflow: "hidden" }}
-            src={
-              userData &&
-              userData.userCheckoutView &&
-              userData.userCheckoutView.profileImage &&
-              userData.userCheckoutView.profileImage.url
-            }
-          />
-        </div>
-        <CheckoutViewName>
-          {userData && userData.userCheckoutView && userData.userCheckoutView.firstName}{" "}
-          {userData && userData.userCheckoutView && userData.userCheckoutView.lastName}
-        </CheckoutViewName>
-        <CheckoutViewSmallText>
-          {userData && userData.userCheckoutView && userData.userCheckoutView.bio}
-        </CheckoutViewSmallText>
-        <br />
-        <div align="center">
-          <Flex justify="center" style={{ width: "60%" }}>
-            {userData &&
-              userData.userCheckoutView &&
-              userData.userCheckoutView.socialMediaLinks &&
-              userData.userCheckoutView.socialMediaLinks.map((socia, key) => (
-                <a
-                  href={getValidUrl(socia && socia.link)}
-                  target="_blank"
-                  key={key}
-                >
-                  <div align="center" style={{ margin: "0 5px" }}>
-                    <img
-                      height="30px"
-                      width="30px"
-                      src={
-                        socia &&
-                        socia.category &&
-                        socia.category.image &&
-                        socia.category.image.url
-                      }
-                      alt=""
-                    />
-                  </div>
-                </a>
-              ))}
-          </Flex>
-        </div>
-
-        <br />
-        <CheckoutViewBlocks self={self} username={username} history={history} />
-        <br />
-        {self && (
-          <StyledButton
-            type="primary"
-            icon={<AiOutlineLogout style={{ fontSize: "20px" }} />}
-            onClick={() => {
-              setAccessTokene("");
-              setRefreshTokene("");
-            }}
-          >
-            Log Out
-          </StyledButton>
-        )} */}
     </PageContainer>
   );
 };

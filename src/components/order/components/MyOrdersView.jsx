@@ -1,22 +1,48 @@
-import React, { Component, useState } from "react";
-import Avatar from "react-avatar";
-import { Flex } from "antd-mobile";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import styled, { withTheme } from "styled-components";
-import { AiFillEdit, AiOutlineLogout } from "react-icons/ai";
-import { connect } from "react-redux";
-
-import { IoPaperPlaneOutline } from "react-icons/io5";
-import { getValidUrl } from "../../../helper";
-import { Button, Switch } from "@look/mobile";
+import { Divider, Tabs } from "antd";
+import { WhiteSpace } from "@look/mobile";
 import PageLayout from "@look/PageLayout";
-// import { withCurrentUser } from "../auth/Auth";
-import ProfileBlocks from "../../block/ProfileBlocks";
-// import { BigPlayButton } from "./ProfileVideoPlayer";
-import { setAccessTokene, setRefreshTokene } from "../../../store/appReducer";
+import MyOrdersQueryContainer from "../containers/MyOrdersQueryContainer";
+import MyOrdersAcceptDeclineDrawer from "./MyOrdersAcceptDeclineDrawer";
+import { orderStates } from "../constants";
 
-const ProfileName = styled.h1`
-  margin-top: 10px;
+const { TabPane } = Tabs;
+
+const StyledTabs = styled(Tabs)`
+  .ant-tabs-nav::before {
+    border-bottom: solid 1px #707070;
+    opacity: 0.1;
+  }
+  .ant-tabs-nav-wrap {
+    padding-left: 24px;
+    .ant-tabs-nav-list {
+      .ant-tabs-tab {
+        padding: 0;
+        .ant-tabs-tab-btn {
+          font-size: 18px;
+          padding-bottom: 10px;
+        }
+      }
+    }
+  }
+`;
+
+const PageSubTitles = styled.h2`
+  font-size: 18px;
+  margin-bottom: 0;
+  /* word-spacing: -3px; */
+`;
+
+const StyledDivider = styled(Divider)`
+  margin: 7px 0;
+  border-top: solid 1px #707070;
+  opacity: 0.1;
+
+  /* word-spacing: -3px; */
+`;
+
+const PageHead = styled.h1`
   color: ${(props) => props.theme.textColor};
   text-align: center;
   font-family: Rubik;
@@ -24,91 +50,63 @@ const ProfileName = styled.h1`
   /* word-spacing: -3px; */
 `;
 
-const PageHead = styled.h2`
-  color: ${(props) => props.theme.textColor};
-  text-align: center;
-  font-family: Rubik;
-  font-size: 22px;
-  /* word-spacing: -3px; */
-`;
-
-const PublicLinkWrapper = styled.div`
-  /* color: ${(props) => props.theme.textColor}; */
-  /* text-align: center; */
-  border-radius: 7px;
-  border: solid 1px #f2f2f2;
-  background-color: #f8f8f8;
-  height: 60px;
-  font-family: Rubik;
-  display: grid;
-  place-items: center;
+const MyOrdersListComponentWrapper = styled.div`
   padding: 0 15px;
-  /* font-family: Rubik; */
-  font-size: 17px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  color: #686868;
-`;
-
-const ProfileSmallText = styled.p`
-  text-align: center;
-  font-size: 15px;
-  color: ${(props) => props.theme.textColor};
-  opacity: 0.7;
-  margin-bottom: 0px;
-  font-family: Rubik;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  /* word-spacing: -3px; */
-`;
-
-const PageContainer = styled.p`
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
-  bottom: 0;
-  margin: auto;
-  max-width: 500px;
-  padding:0 20px;
-`;
-
-const StyledButton = styled(Button)`
-  font-family: Rubik;
-  /* font-size: 25px; */
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.33;
-  letter-spacing: normal;
-  font-size: 15px;
-  background: #4643d3;
+  height: 30vh;
+  overflow-y: hidden;
 `;
 
 const Profile = (props) => {
-  const { userData, self, theme, setAccessTokene, setRefreshTokene, history } = props;
-
-
+  const [modalOrder, setModalOrder] = useState(null);
+  const { ordersList } = props;
+  const handleOpenModal = (ord) => {
+    setModalOrder(ord);
+  };
+  const handleSubmit = (val) =>{
+    console.log(val);
+    setModalOrder(null)
+  }
   return (
-      <PageLayout>
-         <PageHead>My Orders</PageHead>
-
-      
-       
-      </PageLayout>
+    <PageLayout>
+      <PageHead>My Orders</PageHead>
+      <MyOrdersAcceptDeclineDrawer order={modalOrder} handleOpenModal={handleOpenModal} handleSubmit={handleSubmit} />
+      <WhiteSpace size="md" />
+      <StyledDivider />
+      <div style={{ padding: "0 24px" }}>
+        <PageSubTitles>Pending</PageSubTitles>
+      </div>
+      <StyledDivider />
+      <WhiteSpace size="md" />
+      <MyOrdersListComponentWrapper id='my-orders-list-wrapper-pending' key='pendingwrapper'>
+        <MyOrdersQueryContainer
+          scrollableTarget='my-orders-list-wrapper-pending'
+          handleOpenModal={handleOpenModal}
+          type={orderStates.PENDING}
+        />
+      </MyOrdersListComponentWrapper>
+      <WhiteSpace size="xl" />
+      <StyledDivider />
+      <StyledTabs defaultActiveKey="1">
+        <TabPane tab="Accepted" key="accepted" >
+          <MyOrdersListComponentWrapper id='my-orders-list-wrapper'  key='acceptedwrapper'>
+            <MyOrdersQueryContainer
+              handleOpenModal={handleOpenModal}
+              type={orderStates.COMPLETED}
+            />
+          </MyOrdersListComponentWrapper>
+        </TabPane>
+        <TabPane tab="Declined" key="declined">
+          <MyOrdersListComponentWrapper id='my-orders-list-wrapper'>
+            <MyOrdersQueryContainer
+             key='declinedwrapper'
+              handleOpenModal={handleOpenModal}
+              type={orderStates.DECLINED}
+            />
+          </MyOrdersListComponentWrapper>
+        </TabPane>
+      </StyledTabs>
+    </PageLayout>
   );
 };
 
-const mapDispatchToProps = { setAccessTokene, setRefreshTokene };
-const mapStateToProps = (state /*, ownProps*/) => {
-  return {
-    accessToken: state.app.accessToken,
-    refreshToken: state.app.refreshToken,
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Profile));
+export default withTheme(Profile);
