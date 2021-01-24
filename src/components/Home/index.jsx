@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import "./index.less"
-export default function Home() {
+export default function Home(props) {
+  let { history } = props
   const [timer, setTimer] = useState(0);
   const [placeHolder, setPlaceholder] = useState('')
   const [categoryButtons, setCategoryButtons] = useState(0);
@@ -53,7 +54,7 @@ export default function Home() {
           <img className="head-icon" src="/Icon.svg"></img>
           <p className="landing-headName">OnePlace</p>
         </div>
-        <p className="landing-signup">Sign Up</p>
+        <p onClick={() => history.push('/login')} className="landing-signup">Sign Up</p>
       </div>
       <div className="landing-part2">
         <div>
@@ -64,7 +65,7 @@ export default function Home() {
             <div className="landing-part2-seperator"></div>
             <div style={{ display: 'flex', paddingLeft: '6px' }}>
               <p className="landing-part2-inputWord">.oneplace.me</p>
-              <img className="landing-part2-check" src="/check.png"></img>
+              <img onClick={() => history.push('/login')} className="landing-part2-check" src="/check.png"></img>
             </div>
           </div>
           <p className="landing-part2-desc">Set up your exclusive <span style={{ color: '#4643d3' }}>personal webpage</span> in less than <span style={{ color: '#4643d3' }}>2 mins</span></p>
@@ -95,7 +96,7 @@ export default function Home() {
           <div className="landing-part2-seperator"></div>
           <div style={{ display: 'flex', paddingLeft: '8px' }}>
             <p className="landing-part2-inputWord">.oneplace.me</p>
-            <img style={{ height: '30px', margin: 'auto', paddingRight: '10px', cursor: 'pointer', paddingLeft: '10px' }} src="/check.png"></img>
+            <img onClick={() => history.push('/login')} style={{ height: '30px', margin: 'auto', paddingRight: '10px', cursor: 'pointer', paddingLeft: '10px' }} src="/check.png"></img>
           </div>
         </div>
       </div>
