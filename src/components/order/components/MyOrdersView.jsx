@@ -62,14 +62,18 @@ const Profile = (props) => {
   const handleOpenModal = (ord) => {
     setModalOrder(ord);
   };
-  const handleSubmit = (val) =>{
+  const handleSubmit = (val) => {
     console.log(val);
-    setModalOrder(null)
-  }
+    setModalOrder(null);
+  };
   return (
     <PageLayout>
       <PageHead>My Orders</PageHead>
-      <MyOrdersAcceptDeclineDrawer order={modalOrder} handleOpenModal={handleOpenModal} handleSubmit={handleSubmit} />
+      <MyOrdersAcceptDeclineDrawer
+        order={modalOrder}
+        orderId={modalOrder && modalOrder._id}
+        setModalOrder={setModalOrder}
+      />
       <WhiteSpace size="md" />
       <StyledDivider />
       <div style={{ padding: "0 24px" }}>
@@ -77,9 +81,12 @@ const Profile = (props) => {
       </div>
       <StyledDivider />
       <WhiteSpace size="md" />
-      <MyOrdersListComponentWrapper id='my-orders-list-wrapper-pending' key='pendingwrapper'>
+      <MyOrdersListComponentWrapper
+        id="my-orders-list-wrapper-pending"
+        key="pendingwrapper"
+      >
         <MyOrdersQueryContainer
-          scrollableTarget='my-orders-list-wrapper-pending'
+          scrollableTarget="my-orders-list-wrapper-pending"
           handleOpenModal={handleOpenModal}
           type={orderStates.PENDING}
         />
@@ -87,8 +94,11 @@ const Profile = (props) => {
       <WhiteSpace size="xl" />
       <StyledDivider />
       <StyledTabs defaultActiveKey="1">
-        <TabPane tab="Accepted" key="accepted" >
-          <MyOrdersListComponentWrapper id='my-orders-list-wrapper'  key='acceptedwrapper'>
+        <TabPane tab="Accepted" key="accepted">
+          <MyOrdersListComponentWrapper
+            id="my-orders-list-wrapper"
+            key="acceptedwrapper"
+          >
             <MyOrdersQueryContainer
               handleOpenModal={handleOpenModal}
               type={orderStates.COMPLETED}
@@ -96,9 +106,9 @@ const Profile = (props) => {
           </MyOrdersListComponentWrapper>
         </TabPane>
         <TabPane tab="Declined" key="declined">
-          <MyOrdersListComponentWrapper id='my-orders-list-wrapper'>
+          <MyOrdersListComponentWrapper id="my-orders-list-wrapper">
             <MyOrdersQueryContainer
-             key='declinedwrapper'
+              key="declinedwrapper"
               handleOpenModal={handleOpenModal}
               type={orderStates.DECLINED}
             />

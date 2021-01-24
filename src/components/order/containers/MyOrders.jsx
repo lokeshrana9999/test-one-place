@@ -1,5 +1,4 @@
 import React from "react";
-import { withEditOrder } from "../OrderOperations";
 import MyOrdersView from "../components/MyOrdersView";
 
 const MyOrders = (props) => {

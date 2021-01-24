@@ -163,7 +163,7 @@ const BlockForm = (props) => {
         <Flex justify="between">
           <Flex.Item>
             <Field
-              name="avatar"
+              name="avatarUrl"
               component={RenderUploadWithCropUnnestedStylized}
               type="media"
               fileFormat="image/*"
@@ -176,7 +176,7 @@ const BlockForm = (props) => {
                   Upload Avatar
                 </React.Fragment>
               }
-              value={values.avatar}
+              value={values.avatarUrl}
             />
           </Flex.Item>
         </Flex>
@@ -211,7 +211,7 @@ const BlockFormWithFormik = withFormik({
   mapPropsToValues: ({ initialValues }) => {
     return {
       name: (initialValues && initialValues.name) || "",
-      avatar: (initialValues && initialValues.avatar) || "",
+      avatarUrl: (initialValues && initialValues.avatar) || "",
       email: (initialValues && initialValues.email) || "",
       phoneNumber: "asdflkjsldjfl",
       instagramLink: "ksdjfksdfjksd",

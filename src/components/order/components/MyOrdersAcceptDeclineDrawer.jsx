@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Flex } from "antd-mobile";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Drawer, Card, Avatar } from "antd";
-// import CheckoutConfirmationUploadForm from "./CheckoutConfirmationUploadForm";
+import { Drawer, Card, Avatar, Image, message } from "antd";
+import { withEditOrder } from "../OrderOperations";
+
+import MyOrdersAcceptDeclineForm from "./MyOrdersAcceptDeclineForm";
+import { orderStates } from "../constants";
 
 const { Meta } = Card;
 
@@ -58,14 +61,50 @@ const StyledCardUploadDrawer = styled(Card)`
     }
   }
 `;
-const CheckoutUploadDrawer = ({ handleSubmit, order, handleOpenModal }) => {
+const CheckoutUploadDrawer = ({ order, setModalOrder, putOrder }) => {
   const onClose = () => {
-    handleOpenModal(null);
+    setModalOrder(null);
   };
   const block = order && order.block;
   const name = order && order.name;
   console.log("orderacceptdecline", order);
   const visible = order ? true : false;
+  const handleSubmit = async (val) => {
+    // var formVal = formValues;
+
+    console.log("handleSSSubmit", val);
+    setModalOrder(null);
+    try {
+      message.loading({
+        content: "Changing Status ...",
+        duration: 0,
+      });
+      const sending = await putOrder(val);
+      message.destroy();
+      if (sending.status === true) {
+        message.success({
+          duration: 2,
+          content: "Order Status Updated",
+        });
+      } else {
+        message.error({
+          duration: 2,
+          content: sending && sending.data && sending.data.message,
+        });
+      }
+      return sending;
+    } catch (e) {
+      message.destroy();
+      console.log("error", e);
+      if (e && e.data && e.data.message) {
+        message.error({
+          duration: 2,
+          content: e && e.data && e.data.message,
+        });
+      }
+    }
+  };
+
   return (
     <StyledUploadDrawer
       title=""
@@ -82,7 +121,7 @@ const CheckoutUploadDrawer = ({ handleSubmit, order, handleOpenModal }) => {
             description={block && block.title}
             title={name}
             avatar={
-              <Avatar src={order && order.avatar} size={46} shape="circle" />
+              <Avatar src={order && order.avatarUrl} size={46} shape="circle" />
             }
           />
         </Card.Grid>
@@ -93,9 +132,18 @@ const CheckoutUploadDrawer = ({ handleSubmit, order, handleOpenModal }) => {
           <p>&#x20B9; {block && block.price}</p>
         </Card.Grid>
       </StyledCardUploadDrawer>
-      {/* <CheckoutConfirmationUploadForm onSubmit={onSubmit} /> */}
+      <div align="center">
+        <Image
+          width={250}
+          height={200}
+          src={order && order.paymentScreenshot && order.paymentScreenshot.url}
+        />
+      </div>
+      {order && order.status === orderStates.PENDING && (
+        <MyOrdersAcceptDeclineForm onSubmit={handleSubmit} />
+      )}
     </StyledUploadDrawer>
   );
 };
 
-export default CheckoutUploadDrawer;
+export default withEditOrder(CheckoutUploadDrawer);

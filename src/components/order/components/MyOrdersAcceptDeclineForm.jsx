@@ -8,12 +8,14 @@ import {
   maxLength,
   email,
 } from "@form";
+import { Divider } from "antd";
 import { withFormik } from "formik";
 import { FaImages, FaPhotoVideo } from "react-icons/fa";
 import { Flex } from "antd-mobile";
 import styled, { withTheme } from "styled-components";
 import { WhiteSpace, Switch } from "@look/mobile";
 import { Input, Form, Alert, InputArea, RenderUpload, Button } from "@look/web";
+import { orderStates } from "../constants";
 
 const PaymentConfirmationUploadFormContainer = styled.div`
   /* color: white;
@@ -132,22 +134,12 @@ const uploadComponentCss = `
   }
 `;
 
-const RenderUploadStylized = styled(RenderUpload)`
-  /* ${uploadComponentCss} */
-
-  .ant-upload-select-text {
-    display: block;
+const DividerStyled = styled(Divider)`
+  :after {
+    border-top: 1px solid white !important;
   }
-  .ant-upload-list {
-    color: white;
-  }
-  .ant-upload-list-text .ant-upload-text-icon .anticon {
-    color: white;
-  }
-  .ant-upload-list-item:hover .ant-upload-list-item-info {
-    background-color: transparent;
-    color: white;
-    border: 1px solid grey;
+  :before {
+    border-top: 1px solid white !important;
   }
 `;
 
@@ -158,7 +150,7 @@ const paymentConfirmationUploadFormSchema = {
 const PaymentConfirmationUploadForm = (props) => {
   const addPaymentConfirmationUploadFormRef = useRef(null);
   const [load, setload] = useState(false);
-  const { values, handleSubmit } = props;
+  const { values, handleSubmit, setFieldValue } = props;
   console.log("blockCategory", props);
   return (
     <PaymentConfirmationUploadFormContainer>
@@ -167,45 +159,41 @@ const PaymentConfirmationUploadForm = (props) => {
         ref={addPaymentConfirmationUploadFormRef}
         onFinish={handleSubmit}
       >
-        <Flex justify="between">
-          <Flex.Item>
-            <Field
-              name="paymentScreenshot"
-              component={RenderUploadStylized}
-              type="media"
-              fileFormat="image/*"
-              aspect={1}
-              setload={setload}
-              listType={"text"}
-              customUploadButton={
-                <Button
-                  ghost
-                  block
-                  size="large"
-                  icon={<FaImages style={{ marginRight: "5px" }} />}
-                >
-                  Upload Screenshot
-                </Button>
-              }
-              // label={
-              //   <React.Fragment>
-              //     {/* <br /> */}
-              //     Upload Avatar
-              //   </React.Fragment>
-              // }
-              value={values.paymentScreenshot}
-            />
-          </Flex.Item>
-        </Flex>
-
+        <WhiteSpace size="xl" />
         <Button
           type="primary"
-          disabled={values.paymentScreenshot === ""}
+          // disabled={values.paymentScreenshot === ""}
           block
           size="large"
           htmlType="submit"
+          onClick={() => {
+            setFieldValue("status", orderStates.COMPLETED);
+          }}
         >
-          Submit
+          Accept Order
+        </Button>
+        <WhiteSpace size="xl" />
+        <DividerStyled style={{ color: "white" }}>Or...</DividerStyled>
+        <Field
+          name="declineReason"
+          component={InputAreaStylized}
+          type="textarea"
+          label={"Reason for decline"}
+          placeholder="Reason for decline"
+          value={values.declineReason}
+        />
+
+        <Button
+          type="danger"
+          disabled={values.declineReason === ""}
+          block
+          size="large"
+          htmlType="submit"
+          onClick={() => {
+            setFieldValue("status", orderStates.DECLINED);
+          }}
+        >
+          Decline Order
         </Button>
       </Form>
     </PaymentConfirmationUploadFormContainer>
@@ -216,7 +204,8 @@ const PaymentConfirmationUploadFormWithFormik = withFormik({
   enableReinitialize: true,
   mapPropsToValues: () => {
     return {
-      paymentScreenshot: "",
+      declineReason: "",
+      status: "",
     };
   },
 
@@ -224,6 +213,7 @@ const PaymentConfirmationUploadFormWithFormik = withFormik({
   // },
   handleSubmit: (values, { props: { onSubmit } }) => {
     // let modifiedValues = values;
+    console.log("handleSubmit", values);
     onSubmit(values);
   },
   // validator:{() => ({})}

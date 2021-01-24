@@ -28,7 +28,7 @@ const MyOrdersProfileComponent = ({ ...props }) => {
         <Meta
           title={order && order.name}
           description={block && block.title}
-          avatar={<Avatar size={46} src={order && order.avatar} />}
+          avatar={<Avatar size={46} src={order && order.avatarUrl} />}
         />
       </Grid>
       <Grid

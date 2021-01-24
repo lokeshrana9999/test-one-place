@@ -149,9 +149,8 @@ const withEditOrder = (Component) => {
       refreshToken,
       setAccessTokene,
       accessToken,
-      match,
+      orderId,
     } = props;
-    const orderId = match && match.params && match.params.orderId;
     const defaultApiUrl = useContext(ApiContext);
     const apiUrl = defaultApiUrl + OrderApiUrls.putOrderById(orderId);
     const { mutate: putOrder, loading: putOrderLoading, error } = useMutate({
