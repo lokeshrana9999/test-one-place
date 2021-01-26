@@ -6,12 +6,13 @@ export default function Home(props) {
   const [placeHolder, setPlaceholder] = useState('')
   const [categoryButtons, setCategoryButtons] = useState(0);
   const [socialTimer, setSocialTimer] = useState(0)
+  const [socialIndex, setSocialIndex] = useState(0)
 
   let timerCount;
   let timerSocialCount;
   let string = "Your name here... "
-  let socialMedia = ['/instagram.png', '/facebook.png', '/linkedin.png', '/twitter.png']
-  let reachCustomers = ['recruiter', 'colleague', 'follower', ' new person you meet']
+  let socialMedia = ['/instagram.png', '/facebook.png', '/linkedin.png', '/twitter.png', '/twitter.png']
+  let reachCustomers = ['recruiter', 'colleague', 'follower', ' new person you meet', ' new person you meet']
 
   useEffect(() => {
     return () => {
@@ -36,12 +37,16 @@ export default function Home(props) {
   );
   useEffect(
     () => {
-      if (socialTimer <= 3) {
+      if (socialTimer <= 6) {
         timerSocialCount = setTimeout(() => {
-          setSocialTimer(socialTimer + 1)
-        }, 1000);
+          if (socialTimer <= 6) {
+            setSocialIndex(socialIndex + 1)
+            setSocialTimer(socialTimer + 2)
+          }
+        }, 2000);
       } else {
         setSocialTimer(0)
+        setSocialIndex(0)
       }
     },
     [socialTimer]
@@ -65,7 +70,7 @@ export default function Home(props) {
           <img className="head-icon" src="/Icon.svg"></img>
           <p className="landing-headName">OnePlace</p>
         </div>
-        <p onClick={() => history.push('/login')} className="landing-signup">Sign Up</p>
+        <p onClick={() => history.push('/login')} className="landing-signup">Sign Up / Login</p>
       </div>
       <div className="landing-part2">
         <div>
@@ -74,7 +79,7 @@ export default function Home(props) {
           <div className="landing-part2-inputDiv">
             <input placeholder={placeHolder} className="landing-part2-input"></input>
             <div className="landing-part2-seperator"></div>
-            <div style={{ display: 'flex',justifyContent:'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <p className="landing-part2-inputWord">.oneplace.me</p>
               <img onClick={() => history.push('/login')} className="landing-part2-check" src="/check.png"></img>
             </div>
@@ -85,11 +90,11 @@ export default function Home(props) {
       </div>
       <div className="landing-part3">
         <h1 className="landing-part-3-head">Use this one link as</h1>
-        <img className="landing-socialIcons" src={socialMedia[socialTimer]}></img>
+        <img className="landing-socialIcons" src={socialMedia[socialIndex]}></img>
         <h1 className="landing-part-3-head"> bio link</h1>
       </div>
       <div className="landing-part3">
-        <h1 className="landing-part-3-head landing-share-head">Share your webpage with a <span style={{ color: '#4643d3' }}>{reachCustomers[socialTimer]}</span></h1>
+        <h1 className="landing-part-3-head landing-share-head">Share your webpage with a <span style={{ color: '#4643d3' }}>{reachCustomers[socialIndex]}</span></h1>
       </div>
       <div className="landing-part4">
         <button onClick={() => setCategoryButtons(0)} className={categoryButtons === 0 ? "landing-part4-button-active" : "landing-part4-button"}>Micro - Entrepreneur</button>
