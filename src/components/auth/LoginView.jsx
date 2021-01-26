@@ -100,7 +100,7 @@ const LoginView = (props) => {
         setAccessTokene(sending.accessToken);
         setRefreshTokene(sending.refreshToken);
         const params = queryString.parse(history.location.search);
-        history.push(params.redirectBack ? params.redirectBack : "/");
+        history.push(params.redirectBack ? params.redirectBack : "/profile");
       } else {
         message.error({
           duration: 2,
