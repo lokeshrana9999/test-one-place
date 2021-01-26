@@ -54,13 +54,13 @@
 	color: #4643d3;
 }
 .landing-part2-desc {
-	height: 25.5px;
 	font-size: 22px;
 	font-weight: normal;
 	font-stretch: normal;
 	font-style: normal;
 	padding-left: 5px;
 	text-align: left;
+	padding-top: 15px;
 	letter-spacing: normal;
 	width: 90%;
 }
@@ -82,7 +82,7 @@
 }
 .landing-part2-inputWord {
 	height: 27.5px;
-	margin: 3px 0 0.3px;
+	margin: auto;
 	padding: 1px 8px 10.5px 8px;
 	font-size: 22px;
 }
@@ -117,7 +117,7 @@
 	justify-content: center;
 }
 .landing-part4-button {
-	width: 142.5px;
+	width: 195px;
 	height: 50px;
 	margin: 2vh 1.5vw 2vh 1.5vw;
 	// padding: 17px 14px 17px 14.5px;
@@ -131,7 +131,7 @@
 }
 .landing-part4-button-active {
 	background-color: #5553fd;
-	width: 142.5px;
+	width: 195px;
 	height: 50px;
 	margin: 2vh 1.5vw 2vh 1.5vw;
 	// padding: 17px 14px 17px 14.5px;
@@ -150,7 +150,7 @@
 .landing-part5-yellow {
 	width: 110%;
 	height: 500px;
-	margin: 180px 0 351.7px -65px;
+	margin: 180px 0 332px -65px;
 	-webkit-filter: blur(15px);
 	filter: blur(15px);
 	transform: rotate(-10deg);
@@ -164,8 +164,8 @@
 }
 .landing-part5-img {
 	position: absolute;
-	height: 70em;
-	width: auto;
+	height: auto;
+	width: 350px;
 	top: 4%;
 	left: 0;
 	right: 0;
@@ -185,7 +185,12 @@
 	margin-left: auto;
 	width: 40%;
 	margin-right: auto;
-	margin-bottom: 40px;
+}
+.landing-home {
+	* {
+		box-sizing: content-box !important;
+	}
+	padding-bottom: 40px;
 }
 @media only screen and (min-device-width: 100px) and (max-device-width: 330px) {
 	.landing-part5-yellow {
@@ -302,7 +307,6 @@
 	.landing-part2-inputWord {
 		font-size: 17px;
 		padding: 0px;
-		padding-top: 4px;
 	}
 	.landing-part2-check {
 		height: 24px;
