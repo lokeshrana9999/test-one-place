@@ -47,6 +47,17 @@ export default function Home(props) {
     [socialTimer]
   );
 
+  const sourceImage = () => {
+    let source = ''
+    if (categoryButtons === 0) {
+      source = '/microEntrepreneur.png'
+    } else if (categoryButtons === 1) {
+      source = '/influencer.png'
+    } else if (categoryButtons === 2) {
+      source = '/freelancer.png'
+    }
+    return source
+  }
   return (
     <div className="landing-home">
       <div className="landing-header">
@@ -63,7 +74,7 @@ export default function Home(props) {
           <div className="landing-part2-inputDiv">
             <input placeholder={placeHolder} className="landing-part2-input"></input>
             <div className="landing-part2-seperator"></div>
-            <div style={{ display: 'flex', paddingLeft: '6px' }}>
+            <div style={{ display: 'flex',justifyContent:'space-between' }}>
               <p className="landing-part2-inputWord">.oneplace.me</p>
               <img onClick={() => history.push('/login')} className="landing-part2-check" src="/check.png"></img>
             </div>
@@ -81,14 +92,13 @@ export default function Home(props) {
         <h1 className="landing-part-3-head landing-share-head">Share your webpage with a <span style={{ color: '#4643d3' }}>{reachCustomers[socialTimer]}</span></h1>
       </div>
       <div className="landing-part4">
-        <button onClick={() => setCategoryButtons(0)} className={categoryButtons === 0 ? "landing-part4-button-active" : "landing-part4-button"}>Creator</button>
-        <button onClick={() => setCategoryButtons(1)} className={categoryButtons === 1 ? "landing-part4-button-active" : "landing-part4-button"}>Dancer</button>
-        <button onClick={() => setCategoryButtons(2)} className={categoryButtons === 2 ? "landing-part4-button-active" : "landing-part4-button"}>Singer</button>
-        <button onClick={() => setCategoryButtons(3)} className={categoryButtons === 3 ? "landing-part4-button-active" : "landing-part4-button"}>Makeup Artist</button>
+        <button onClick={() => setCategoryButtons(0)} className={categoryButtons === 0 ? "landing-part4-button-active" : "landing-part4-button"}>Micro - Entrepreneur</button>
+        <button onClick={() => setCategoryButtons(1)} className={categoryButtons === 1 ? "landing-part4-button-active" : "landing-part4-button"}>Influencer</button>
+        <button onClick={() => setCategoryButtons(2)} className={categoryButtons === 2 ? "landing-part4-button-active" : "landing-part4-button"}>Freelancer</button>
       </div>
       <div className="landing-part5">
         <div className="landing-part5-yellow"></div>
-        <img className="landing-part5-img" src="/singer.png"></img>
+        <img className="landing-part5-img" src={sourceImage()}></img>
       </div>
       <div className="landing-part6">
         <div style={{ display: 'flex', justifyContent: 'space-evenly' }} className="landing-part2-inputDiv">
